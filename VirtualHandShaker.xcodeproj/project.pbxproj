@@ -13,6 +13,9 @@
 		C340D825256D36EE00B85143 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C340D823256D36EE00B85143 /* Main.storyboard */; };
 		C340D827256D36F200B85143 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C340D826256D36F200B85143 /* Assets.xcassets */; };
 		C340D82A256D36F200B85143 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C340D828256D36F200B85143 /* LaunchScreen.storyboard */; };
+		C340D837256D57E900B85143 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C340D836256D57E900B85143 /* InfoViewController.swift */; };
+		C340D83D256D5BB000B85143 /* HandTypeCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C340D83C256D5BB000B85143 /* HandTypeCollectionViewController.swift */; };
+		C340D840256D5BC900B85143 /* ShakeTypeCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C340D83F256D5BC900B85143 /* ShakeTypeCollectionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +27,9 @@
 		C340D826256D36F200B85143 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C340D829256D36F200B85143 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C340D82B256D36F200B85143 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C340D836256D57E900B85143 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		C340D83C256D5BB000B85143 /* HandTypeCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandTypeCollectionViewController.swift; sourceTree = "<group>"; };
+		C340D83F256D5BC900B85143 /* ShakeTypeCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeTypeCollectionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,7 +65,10 @@
 				C340D81D256D36EE00B85143 /* AppDelegate.swift */,
 				C340D81F256D36EE00B85143 /* SceneDelegate.swift */,
 				C340D821256D36EE00B85143 /* ViewController.swift */,
+				C340D83C256D5BB000B85143 /* HandTypeCollectionViewController.swift */,
+				C340D83F256D5BC900B85143 /* ShakeTypeCollectionViewController.swift */,
 				C340D823256D36EE00B85143 /* Main.storyboard */,
+				C340D836256D57E900B85143 /* InfoViewController.swift */,
 				C340D826256D36F200B85143 /* Assets.xcassets */,
 				C340D828256D36F200B85143 /* LaunchScreen.storyboard */,
 				C340D82B256D36F200B85143 /* Info.plist */,
@@ -137,8 +146,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C340D840256D5BC900B85143 /* ShakeTypeCollectionViewController.swift in Sources */,
 				C340D822256D36EE00B85143 /* ViewController.swift in Sources */,
 				C340D81E256D36EE00B85143 /* AppDelegate.swift in Sources */,
+				C340D83D256D5BB000B85143 /* HandTypeCollectionViewController.swift in Sources */,
+				C340D837256D57E900B85143 /* InfoViewController.swift in Sources */,
 				C340D820256D36EE00B85143 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
