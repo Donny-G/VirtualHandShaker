@@ -8,12 +8,31 @@
 import UIKit
 import MultipeerConnectivity
 
+extension UIColor {
+    static let offWhite = UIColor.init(red: 225/255, green: 225/255, blue: 235/255, alpha: 1)
+}
+
 class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControllerDelegate, MCNearbyServiceAdvertiserDelegate, UITextFieldDelegate, HandTypeProtocol, ShakeTypeProtocol {
+    
+    let darkShadowForButton1 = CAShapeLayer()
+    let lightShadowForButton1 = CAShapeLayer()
+    
+    let darkShadowForButton2 = CAShapeLayer()
+    let lightShadowForButton2 = CAShapeLayer()
     
     var peerId: MCPeerID!
     var mcSession: MCSession?
     var mcAdvertiserAssistant: MCNearbyServiceAdvertiser?
     //x var mcAdvertiserAssistant1: MCAdvertiserAssistant?
+    
+    
+    @IBOutlet var customConnectButton: UIImageView!
+    
+    @IBOutlet var connectButton: UIButton!
+    @IBOutlet var infoButton: UIButton!
+    @IBOutlet var handTypeButton: UIButton!
+    @IBOutlet var shakeTypeButton: UIButton!
+    
     
     @IBOutlet var testLabel: UILabel!
     
@@ -43,7 +62,76 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
         
         handImage.image = UIImage(named: "IMG_2982")
         secondHandImage.image = UIImage(named: "IMG_2982")
+        
+        connectButton.setImage(UIImage(named: "connect4_1"), for: .normal)
+        infoButton.setImage(UIImage(named: "info4"), for: .normal)
+        handTypeButton.setImage(UIImage(named: "handType4"), for: .normal)
+        shakeTypeButton.setImage(UIImage(named: "shakeType4"), for: .normal)
+        
+        
+        customConnectButton.image = UIImage(named: "connect4_1")
+        view.backgroundColor = UIColor.offWhite
+        customConnectButton.layer.cornerRadius = customConnectButton.frame.height / 2
+        connectButton.layer.cornerRadius = connectButton.frame.height / 2
+        self.addShadow(view: customConnectButton, darkShadow: darkShadowForButton1, lightShadow: lightShadowForButton1)
+        self.addShadow(view: connectButton, darkShadow: darkShadowForButton2, lightShadow: lightShadowForButton2)
+        addTap1(view: customConnectButton)
     }
+    
+    func addShadow(view: UIView, darkShadow: CAShapeLayer, lightShadow: CAShapeLayer) {
+        //   view.layer.cornerRadius = 50
+        view.backgroundColor = UIColor.offWhite
+        view.layer.masksToBounds = true
+        view.clipsToBounds = true
+        
+        darkShadow.shadowPath = UIBezierPath(roundedRect: view.bounds, cornerRadius: 50).cgPath
+            darkShadow.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: view.frame.size.width, height: view.frame.height)
+            darkShadow.shadowColor = UIColor.black.withAlphaComponent(0.2).cgColor
+            darkShadow.shadowOffset = CGSize(width: 10, height: 10)
+            darkShadow.shadowOpacity = 1
+            darkShadow.shadowRadius = 5
+            darkShadow.shouldRasterize = true
+        
+        lightShadow.shadowPath = UIBezierPath(roundedRect: view.bounds, cornerRadius: 50).cgPath
+            lightShadow.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: view.frame.size.width, height: view.frame.height)
+           lightShadow.cornerRadius = 15
+            lightShadow.shadowColor = UIColor.white.withAlphaComponent(0.9).cgColor
+            lightShadow.shadowOffset = CGSize(width: -5, height: -5)
+            lightShadow.shadowRadius = 5
+            lightShadow.shadowOpacity = 1
+            lightShadow.shouldRasterize = true
+            self.view.layer.insertSublayer(darkShadow, below: view.layer)
+            self.view.layer.insertSublayer(lightShadow, below: view.layer)
+        }
+    
+    func addTap1(view: UIView) {
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(tapped1(gest:)))
+     //   gesture.minimumPressDuration = 0.1
+        
+        view.isUserInteractionEnabled = true
+        view.addGestureRecognizer(gesture)
+    }
+    
+    @objc func tapped1(gest: UITapGestureRecognizer) {
+        
+        if gest.state == .recognized {
+            print("recognised")
+           
+            darkShadowForButton1.shadowOffset = CGSize(width: -5, height: -5)
+            lightShadowForButton1.shadowOffset = CGSize(width: 10, height: 10)
+            
+        }
+        else if gest.state == .cancelled {
+            lightShadowForButton1.shadowOffset = CGSize(width: -5, height: -5)
+            darkShadowForButton1.shadowOffset = CGSize(width: 10, height: 10)
+       }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+           // self.performSegue(withIdentifier: "detail", sender: self)
+            self.lightShadowForButton1.shadowOffset = CGSize(width: -5, height: -5)
+            self.darkShadowForButton1.shadowOffset = CGSize(width: 10, height: 10)
+         }
+        }
+ 
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let name = nameTextField.text {
