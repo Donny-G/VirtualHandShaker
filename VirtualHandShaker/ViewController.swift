@@ -14,25 +14,34 @@ extension UIColor {
 
 class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControllerDelegate, MCNearbyServiceAdvertiserDelegate, UITextFieldDelegate, HandTypeProtocol, ShakeTypeProtocol {
     
-    let darkShadowForButton1 = CAShapeLayer()
-    let lightShadowForButton1 = CAShapeLayer()
+    let darkShadowForConnectButton = CAShapeLayer()
+    let lightShadowForConnectButton = CAShapeLayer()
     
-    let darkShadowForButton2 = CAShapeLayer()
-    let lightShadowForButton2 = CAShapeLayer()
+    let darkShadowForInfoButton = CAShapeLayer()
+    let lightShadowForInfoButton = CAShapeLayer()
+    
+    let darkShadowForHandTypeButton = CAShapeLayer()
+    let lightShadowForHandTypeButton = CAShapeLayer()
+    
+    let darkShadowForShakeTypeButton = CAShapeLayer()
+    let lightShadowForShakeTypeButton = CAShapeLayer()
+    
+    let darkShadowForNameTextfield = CAShapeLayer()
+    let lightShadowForNameTextfield = CAShapeLayer()
+    
     
     var peerId: MCPeerID!
     var mcSession: MCSession?
     var mcAdvertiserAssistant: MCNearbyServiceAdvertiser?
     //x var mcAdvertiserAssistant1: MCAdvertiserAssistant?
     
-    
     @IBOutlet var customConnectButton: UIImageView!
+    @IBOutlet var customInfoButton: UIImageView!
+    @IBOutlet var customHandTypeButton: UIImageView!
+    @IBOutlet var customShakeTypeButton: UIImageView!
     
-    @IBOutlet var connectButton: UIButton!
-    @IBOutlet var infoButton: UIButton!
-    @IBOutlet var handTypeButton: UIButton!
-    @IBOutlet var shakeTypeButton: UIButton!
-    
+  
+   
     
     @IBOutlet var testLabel: UILabel!
     
@@ -59,23 +68,35 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
         }
         nameTextField.placeholder = "Enter your name"
         nameTextField.delegate = self
-        
+        //
         handImage.image = UIImage(named: "IMG_2982")
         secondHandImage.image = UIImage(named: "IMG_2982")
         
-        connectButton.setImage(UIImage(named: "connect4_1"), for: .normal)
-        infoButton.setImage(UIImage(named: "info4"), for: .normal)
-        handTypeButton.setImage(UIImage(named: "handType4"), for: .normal)
-        shakeTypeButton.setImage(UIImage(named: "shakeType4"), for: .normal)
-        
-        
         customConnectButton.image = UIImage(named: "connect4_1")
-        view.backgroundColor = UIColor.offWhite
         customConnectButton.layer.cornerRadius = customConnectButton.frame.height / 2
-        connectButton.layer.cornerRadius = connectButton.frame.height / 2
-        self.addShadow(view: customConnectButton, darkShadow: darkShadowForButton1, lightShadow: lightShadowForButton1)
-        self.addShadow(view: connectButton, darkShadow: darkShadowForButton2, lightShadow: lightShadowForButton2)
-        addTap1(view: customConnectButton)
+        addShadow(view: customConnectButton, darkShadow: darkShadowForConnectButton, lightShadow: lightShadowForConnectButton)
+        addActionForButtons(view: customConnectButton)
+        
+        customInfoButton.image = UIImage(named: "info4")
+        customInfoButton.layer.cornerRadius = customInfoButton.frame.height / 2
+        addShadow(view: customInfoButton, darkShadow: darkShadowForInfoButton, lightShadow: lightShadowForInfoButton)
+        addActionForButtons(view: customInfoButton)
+        
+        customHandTypeButton.image = UIImage(named: "handType4")
+        customHandTypeButton.layer.cornerRadius = customHandTypeButton.frame.height / 2
+        addShadow(view: customHandTypeButton, darkShadow: darkShadowForHandTypeButton, lightShadow: lightShadowForHandTypeButton)
+        addActionForButtons(view: customHandTypeButton)
+        
+        customShakeTypeButton.image = UIImage(named: "shakeType4")
+        customShakeTypeButton.layer.cornerRadius = customShakeTypeButton.frame.height / 2
+        addShadow(view: customShakeTypeButton, darkShadow: darkShadowForShakeTypeButton, lightShadow: lightShadowForShakeTypeButton)
+        addActionForButtons(view: customShakeTypeButton)
+        
+        nameTextField.layer.cornerRadius = nameTextField.frame.height / 2
+        addShadow(view: nameTextField, darkShadow: darkShadowForNameTextfield, lightShadow: lightShadowForNameTextfield)
+        
+        view.backgroundColor = UIColor.offWhite
+        
     }
     
     func addShadow(view: UIView, darkShadow: CAShapeLayer, lightShadow: CAShapeLayer) {
@@ -85,53 +106,45 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
         view.clipsToBounds = true
         
         darkShadow.shadowPath = UIBezierPath(roundedRect: view.bounds, cornerRadius: 50).cgPath
-            darkShadow.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: view.frame.size.width, height: view.frame.height)
-            darkShadow.shadowColor = UIColor.black.withAlphaComponent(0.2).cgColor
-            darkShadow.shadowOffset = CGSize(width: 10, height: 10)
-            darkShadow.shadowOpacity = 1
-            darkShadow.shadowRadius = 5
-            darkShadow.shouldRasterize = true
+        darkShadow.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: view.frame.size.width, height: view.frame.height)
+        darkShadow.shadowColor = UIColor.black.withAlphaComponent(0.2).cgColor
+        darkShadow.shadowOffset = CGSize(width: 10, height: 10)
+        darkShadow.shadowOpacity = 1
+        darkShadow.shadowRadius = 5
+        darkShadow.shouldRasterize = true
         
         lightShadow.shadowPath = UIBezierPath(roundedRect: view.bounds, cornerRadius: 50).cgPath
-            lightShadow.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: view.frame.size.width, height: view.frame.height)
-           lightShadow.cornerRadius = 15
-            lightShadow.shadowColor = UIColor.white.withAlphaComponent(0.9).cgColor
-            lightShadow.shadowOffset = CGSize(width: -5, height: -5)
-            lightShadow.shadowRadius = 5
-            lightShadow.shadowOpacity = 1
-            lightShadow.shouldRasterize = true
-            self.view.layer.insertSublayer(darkShadow, below: view.layer)
-            self.view.layer.insertSublayer(lightShadow, below: view.layer)
+        lightShadow.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: view.frame.size.width, height: view.frame.height)
+        lightShadow.cornerRadius = 15
+        lightShadow.shadowColor = UIColor.white.withAlphaComponent(0.9).cgColor
+        lightShadow.shadowOffset = CGSize(width: -5, height: -5)
+        lightShadow.shadowRadius = 5
+        lightShadow.shadowOpacity = 1
+        lightShadow.shouldRasterize = true
+        
+        self.view.layer.insertSublayer(darkShadow, below: view.layer)
+        self.view.layer.insertSublayer(lightShadow, below: view.layer)
         }
     
-    func addTap1(view: UIView) {
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(tapped1(gest:)))
-     //   gesture.minimumPressDuration = 0.1
-        
+    func addActionForButtons(view: UIView) {
+        let gesture = UILongPressGestureRecognizer()
+        gesture.minimumPressDuration = 0.001
         view.isUserInteractionEnabled = true
         view.addGestureRecognizer(gesture)
-    }
-    
-    @objc func tapped1(gest: UITapGestureRecognizer) {
         
-        if gest.state == .recognized {
-            print("recognised")
-           
-            darkShadowForButton1.shadowOffset = CGSize(width: -5, height: -5)
-            lightShadowForButton1.shadowOffset = CGSize(width: 10, height: 10)
-            
+        switch view {
+        case customConnectButton:
+            gesture.addTarget(self, action: #selector(actionForConnectButton(gest:)))
+        case customInfoButton:
+            gesture.addTarget(self, action: #selector(actionForInfoButton(gest:)))
+        case customHandTypeButton:
+            gesture.addTarget(self, action: #selector(actionForHandTypeButton(gest:)))
+        case customShakeTypeButton:
+            gesture.addTarget(self, action: #selector(actionForShakeTypeButton(gest:)))
+        default:
+            print("unknown view")
         }
-        else if gest.state == .cancelled {
-            lightShadowForButton1.shadowOffset = CGSize(width: -5, height: -5)
-            darkShadowForButton1.shadowOffset = CGSize(width: 10, height: 10)
-       }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-           // self.performSegue(withIdentifier: "detail", sender: self)
-            self.lightShadowForButton1.shadowOffset = CGSize(width: -5, height: -5)
-            self.darkShadowForButton1.shadowOffset = CGSize(width: 10, height: 10)
-         }
-        }
- 
+    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let name = nameTextField.text {
@@ -203,14 +216,23 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
             present(ac, animated: true)
     }
     
-    //Connection
-    @IBAction func connectButtonTapped(_ sender: UIButton) {
-        mcSessionConfig()
-        let ac = UIAlertController(title: "Connect View", message: nil, preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: "Start Hosting", style: .default, handler: startHosting))
-        ac.addAction(UIAlertAction(title: "Join Session", style: .default, handler: joinSession))
-        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        present(ac, animated: true)
+    //Connection button
+    
+    @objc func actionForConnectButton(gest: UILongPressGestureRecognizer) {
+        if gest.state == .began {
+            darkShadowForConnectButton.shadowOffset = CGSize(width: -5, height: -5)
+            lightShadowForConnectButton.shadowOffset = CGSize(width: 10, height: 10)
+        } else if gest.state == .ended {
+            lightShadowForConnectButton.shadowOffset = CGSize(width: -5, height: -5)
+            darkShadowForConnectButton.shadowOffset = CGSize(width: 10, height: 10)
+            
+            mcSessionConfig()
+            let ac = UIAlertController(title: "Connect View", message: nil, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "Start Hosting", style: .default, handler: startHosting))
+            ac.addAction(UIAlertAction(title: "Join Session", style: .default, handler: joinSession))
+            ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            present(ac, animated: true)
+        }
     }
     
     func mcSessionConfig() {
@@ -252,18 +274,36 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
         }
     }
     
-    //Info
-    @IBAction func infoButtonTapped(_ sender: Any) {
-        if let vc = storyboard?.instantiateViewController(withIdentifier: "Info") as? InfoViewController {
-            present(vc, animated: true)
+    //Info button
+    @objc func actionForInfoButton(gest: UILongPressGestureRecognizer) {
+        if gest.state == .began {
+            darkShadowForInfoButton.shadowOffset = CGSize(width: -5, height: -5)
+            lightShadowForInfoButton.shadowOffset = CGSize(width: 10, height: 10)
+        } else if gest.state == .ended {
+            lightShadowForInfoButton.shadowOffset = CGSize(width: -5, height: -5)
+            darkShadowForInfoButton.shadowOffset = CGSize(width: 10, height: 10)
+            
+            if let vc = storyboard?.instantiateViewController(withIdentifier: "Info") as? InfoViewController {
+                present(vc, animated: true)
+            }
         }
     }
     
+    
     //HandTypeCVC
-    @IBAction func handTypeButtonTapped(_ sender: Any) {
-        performSegue(withIdentifier: "handTypeSegue", sender: self)
+    
+    @objc func actionForHandTypeButton(gest: UILongPressGestureRecognizer) {
+        if gest.state == .began {
+            darkShadowForHandTypeButton.shadowOffset = CGSize(width: -5, height: -5)
+            lightShadowForHandTypeButton.shadowOffset = CGSize(width: 10, height: 10)
+        } else if gest.state == .ended {
+            lightShadowForHandTypeButton.shadowOffset = CGSize(width: -5, height: -5)
+            darkShadowForHandTypeButton.shadowOffset = CGSize(width: 10, height: 10)
+            
+            performSegue(withIdentifier: "handTypeSegue", sender: self)
+        }
     }
-  
+   
     func handTypeTransferWithProtocol(data: String) {
         handType = data
     }
@@ -281,8 +321,17 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
     }
     
     //HandShakeCVC
-    @IBAction func shakeTypeButtonTapped(_ sender: Any) {
-        performSegue(withIdentifier: "shakeTypeSegue", sender: self)
+    
+    @objc func actionForShakeTypeButton(gest: UILongPressGestureRecognizer) {
+        if gest.state == .began {
+            darkShadowForShakeTypeButton.shadowOffset = CGSize(width: -5, height: -5)
+            lightShadowForShakeTypeButton.shadowOffset = CGSize(width: 10, height: 10)
+        } else if gest.state == .ended {
+            lightShadowForShakeTypeButton.shadowOffset = CGSize(width: -5, height: -5)
+            darkShadowForShakeTypeButton.shadowOffset = CGSize(width: 10, height: 10)
+            
+            performSegue(withIdentifier: "shakeTypeSegue", sender: self)
+        }
     }
     
     func shakeTypeTransferWithProtocol(data: String) {
