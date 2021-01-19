@@ -47,7 +47,6 @@ class InfoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         titleLabel.text = "Info"
         imageView1.image = UIImage(named: "IMG_2998")
         title1.text = "Some text"

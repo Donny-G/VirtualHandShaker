@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "shakeType3.png",
       "idiom" : "universal",
+      "filename" : "shakeType3~universal@1x.png",
       "scale" : "1x"
     },
     {
+      "scale" : "2x",
       "idiom" : "universal",
-      "scale" : "2x"
+      "filename" : "shakeType3~universal@2x.png"
     },
     {
+      "filename" : "shakeType3~universal@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

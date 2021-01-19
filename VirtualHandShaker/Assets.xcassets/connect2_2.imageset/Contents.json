@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "connect2_2.png",
+      "filename" : "connect2_2~universal@1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "idiom" : "universal",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "connect2_2~universal@2x.png",
+      "idiom" : "universal"
     },
     {
+      "filename" : "connect2_2~universal@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
