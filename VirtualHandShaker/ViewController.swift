@@ -8,46 +8,33 @@
 import UIKit
 import MultipeerConnectivity
 
-extension UIColor {
-    static let offWhite = UIColor.init(red: 225/255, green: 225/255, blue: 235/255, alpha: 1)
-    static let customWhiteBackground = UIColor.init(red: 0.937, green: 0.949, blue: 0.984, alpha: 1)
+class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControllerDelegate, MCNearbyServiceAdvertiserDelegate, UITextFieldDelegate, HandTypeProtocol, ShakeTypeProtocol, NeumorphicShadows {
     
-    static let backgroundLight = UIColor.init(red: 0.686, green: 0.808, blue: 0.827, alpha: 1)
-    static let backgroundDark = UIColor.init(red: 0.616, green: 0.616, blue: 0.714, alpha: 1)
+//shadows
+    let verticalLightShadowForConnectButton = CAShapeLayer()
+    let horizontalLightShadowForConnectButton = CAShapeLayer()
+    let horizontalDarkShadowForConnectButton = CAShapeLayer()
+    let verticalDarkShadowForConnectButton = CAShapeLayer()
     
-    static let buttonLight1 = UIColor.init(red: 0.478, green: 0.737, blue: 0.741, alpha: 1)
-    static let buttonDark1 = UIColor.init(red: 0.471, green: 0.451, blue: 0.584, alpha: 1)
+    let verticalLightShadowForInfoButton = CAShapeLayer()
+    let horizontalLightShadowForInfoButton = CAShapeLayer()
+    let horizontalDarkShadowForInfoButton = CAShapeLayer()
+    let verticalDarkShadowForInfoButton = CAShapeLayer()
     
-    static let buttonLight2 = UIColor.init(red: 0.376, green: 0.686, blue: 0.690, alpha: 1)
-    static let buttonDark2 = UIColor.init(red: 0.353, green: 0.337, blue: 0.463, alpha: 1)
+    let verticalLightShadowForHandTypeButton = CAShapeLayer()
+    let horizontalLightShadowForHandTypeButton = CAShapeLayer()
+    let horizontalDarkShadowForHandTypeButton = CAShapeLayer()
+    let verticalDarkShadowForHandTypeButton = CAShapeLayer()
     
-    static let viewLight1 = UIColor.init(red: 1.0, green: 0.765, blue: 0.424, alpha: 1)
-    static let viewDark1 = UIColor.init(red: 0.435, green: 0.541, blue: 0.733, alpha: 1)
+    let verticalLightShadowForShakeTypeButton = CAShapeLayer()
+    let horizontalLightShadowForShakeTypeButton = CAShapeLayer()
+    let horizontalDarkShadowForShakeTypeButton = CAShapeLayer()
+    let verticalDarkShadowForShakeTypeButton = CAShapeLayer()
     
-    static let viewLight2 = UIColor.init(red: 0.992, green: 0.675, blue: 0.490, alpha: 1)
-}
-
-class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControllerDelegate, MCNearbyServiceAdvertiserDelegate, UITextFieldDelegate, HandTypeProtocol, ShakeTypeProtocol {
-    
-    let darkShadowForConnectButton = CAShapeLayer()
-    let lightShadowForConnectButton = CAShapeLayer()
-    
-    let darkShadowForInfoButton = CAShapeLayer()
-    let lightShadowForInfoButton = CAShapeLayer()
-    
-    let darkShadowForHandTypeButton = CAShapeLayer()
-    let lightShadowForHandTypeButton = CAShapeLayer()
-    
-    let darkShadowForShakeTypeButton = CAShapeLayer()
-    let lightShadowForShakeTypeButton = CAShapeLayer()
-    
-    let darkShadowForNameTextfield = CAShapeLayer()
-    let lightShadowForNameTextfield = CAShapeLayer()
-    
-    let verticalLightShadow = CAShapeLayer()
-    let horizontalLightShadow = CAShapeLayer()
-    let horizontalDarkShadow = CAShapeLayer()
-    let verticalDarkShadow = CAShapeLayer()
+    let verticalLightShadowForActionButton = CAShapeLayer()
+    let horizontalLightShadowForActionButton = CAShapeLayer()
+    let horizontalDarkShadowForActionButton = CAShapeLayer()
+    let verticalDarkShadowForActionButton = CAShapeLayer()
     
     var peerId: MCPeerID!
     var mcSession: MCSession?
@@ -56,14 +43,11 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
     
     @IBOutlet var customConnectButton: UIImageView!
     @IBOutlet var customInfoButton: UIImageView!
-    @IBOutlet var customHandTypeButton: UIImageView!
-    @IBOutlet var customShakeTypeButton: UIImageView!
     
-  
     @IBOutlet var handTypeShowView: UIImageView!
-    
     @IBOutlet var shakeTypeShowView: UIImageView!
     
+    //for greetings ?
     @IBOutlet var testLabel: UILabel!
     
     @IBOutlet var handImage: UIImageView!
@@ -71,228 +55,63 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
     
     @IBOutlet var nameTextField: UITextField!
     
-    
     @IBOutlet var customActionButton: UIImageView!
     
+    //? animation
     var startAnimation = false
-    //тип неясен
-    var handType = "nil"
-    var shakeStyle = "nil"
-    
+
+    var handType = "humanHand"
+    var shakeType = "humanHandShake1"
     var userName: String?
+    //?
     var greeting = "Hello !"
 
     override func viewDidLoad() {
         super.viewDidLoad()
         let defaults = UserDefaults.standard
+        //? add new savings for type
         if let savedName  = defaults.object(forKey: "userName") as? String {
             userName = savedName
             nameTextField.text = savedName
         }
+        //? conflict with autoload
+        autoShakeTypeChooser()
+        
         nameTextField.placeholder = "Enter your name"
         nameTextField.delegate = self
-        //
-        handImage.image = UIImage(named: "IMG_2982")
-        secondHandImage.image = UIImage(named: "IMG_2982")
         
-        customConnectButton.image = UIImage(named: "connect4_1")
-        customConnectButton.layer.cornerRadius = customConnectButton.frame.height / 2
-        addShadow(view: customConnectButton, darkShadow: darkShadowForConnectButton, lightShadow: lightShadowForConnectButton)
+        // ? left and right hands
+        handImage.image = UIImage(named: "humanHandLeft")
+        secondHandImage.image = UIImage(named: "humanHandRight")
+        
+        customConnectButton.image = UIImage(named: "connect5")
+        addShadowForActiveView(yourView: customConnectButton, verticalLightShadow: verticalLightShadowForConnectButton, horizontalLightShadow: horizontalLightShadowForConnectButton, horizontalDarkShadow: horizontalDarkShadowForConnectButton, verticalDarkShadow: verticalDarkShadowForConnectButton, color: UIColor.viewLight1)
         addActionForButtons(view: customConnectButton)
         
-        customInfoButton.image = UIImage(named: "info4")
-        customInfoButton.layer.cornerRadius = customInfoButton.frame.height / 2
-        addShadow(view: customInfoButton, darkShadow: darkShadowForInfoButton, lightShadow: lightShadowForInfoButton)
+        customInfoButton.image = UIImage(named: "info5")
+        addShadowForActiveView(yourView: customInfoButton, verticalLightShadow: verticalLightShadowForInfoButton, horizontalLightShadow: horizontalLightShadowForInfoButton, horizontalDarkShadow: horizontalDarkShadowForInfoButton, verticalDarkShadow: verticalDarkShadowForInfoButton, color: UIColor.viewLight1)
         addActionForButtons(view: customInfoButton)
         
-        customHandTypeButton.image = UIImage(named: "handType4")
-        customHandTypeButton.layer.cornerRadius = customHandTypeButton.frame.height / 2
-        addShadow(view: customHandTypeButton, darkShadow: darkShadowForHandTypeButton, lightShadow: lightShadowForHandTypeButton)
-        addActionForButtons(view: customHandTypeButton)
-        
-        customShakeTypeButton.image = UIImage(named: "shakeType4")
-        customShakeTypeButton.layer.cornerRadius = customShakeTypeButton.frame.height / 2
-        addShadow(view: customShakeTypeButton, darkShadow: darkShadowForShakeTypeButton, lightShadow: lightShadowForShakeTypeButton)
-        addActionForButtons(view: customShakeTypeButton)
-        
-        nameTextField.layer.cornerRadius = nameTextField.frame.height / 2
-        addShadow(view: nameTextField, darkShadow: darkShadowForNameTextfield, lightShadow: lightShadowForNameTextfield)
+        addShadowForStaticView(yourView: nameTextField, color: UIColor.viewLight1)
         nameTextField.backgroundColor = UIColor.viewLight1
         
+        //load types from userDefaults ?
+        handTypeShowView.image = UIImage(named: handType)
+        addShadowForActiveView(yourView: handTypeShowView, verticalLightShadow: verticalLightShadowForHandTypeButton, horizontalLightShadow: horizontalLightShadowForHandTypeButton, horizontalDarkShadow: horizontalDarkShadowForHandTypeButton, verticalDarkShadow: verticalDarkShadowForHandTypeButton, color: UIColor.buttonLight1)
+        addActionForButtons(view: handTypeShowView)
         
-        handTypeShowView.image = UIImage(named: "handType1")
-        addShadowForStaticView(yourView: handTypeShowView)
+        shakeTypeShowView.image = UIImage(named: shakeType)
+        addShadowForActiveView(yourView: shakeTypeShowView, verticalLightShadow: verticalLightShadowForShakeTypeButton, horizontalLightShadow: horizontalLightShadowForShakeTypeButton, horizontalDarkShadow: horizontalDarkShadowForShakeTypeButton, verticalDarkShadow: verticalDarkShadowForShakeTypeButton, color: UIColor.buttonLight1)
+        addActionForButtons(view: shakeTypeShowView)
         
-        shakeTypeShowView.image = UIImage(named: "shakeType1")
-        addShadowForStaticView(yourView: shakeTypeShowView)
         
-        customActionButton.image = UIImage(named: "action1")
-        addShadowForActiveView(yourView: customActionButton, verticalLightShadow: verticalLightShadow, horizontalLightShadow: horizontalLightShadow, horizontalDarkShadow: horizontalDarkShadow, verticalDarkShadow: verticalDarkShadow)
-        addActionForView(view: customActionButton)
+        customActionButton.image = UIImage(named: "action3")
+        addShadowForActiveView(yourView: customActionButton, verticalLightShadow: verticalLightShadowForActionButton, horizontalLightShadow: horizontalLightShadowForActionButton, horizontalDarkShadow: horizontalDarkShadowForActionButton, verticalDarkShadow: verticalDarkShadowForActionButton, color: UIColor.viewLight1)
+        addActionForButtons(view: customActionButton)
         
        // view.backgroundColor = UIColor.offWhite
         view.backgroundColor = UIColor.backgroundLight
-        
     }
-    
-    func addActionForView(view: UIView) {
-        let gesture = UILongPressGestureRecognizer()
-        gesture.minimumPressDuration = 0.001
-        view.isUserInteractionEnabled = true
-        view.addGestureRecognizer(gesture)
-        gesture.addTarget(self, action: #selector(tapped(gest:)))
-    }
-    
-    @objc func tapped(gest: UILongPressGestureRecognizer) {
-        if gest.state == .began {
-            verticalDarkShadow.shadowColor = UIColor.white.withAlphaComponent(0.5).cgColor
-            horizontalDarkShadow.shadowColor = UIColor.white.withAlphaComponent(0.5).cgColor
-            verticalLightShadow.shadowColor = UIColor.black.withAlphaComponent(0.2).cgColor
-            horizontalLightShadow.shadowColor = UIColor.black.withAlphaComponent(0.2).cgColor
-            
-        } else if gest.state == .ended {
-            verticalDarkShadow.shadowColor = UIColor.black.withAlphaComponent(0.2).cgColor
-            horizontalDarkShadow.shadowColor = UIColor.black.withAlphaComponent(0.2).cgColor
-            verticalLightShadow.shadowColor = UIColor.white.withAlphaComponent(0.5).cgColor
-            horizontalLightShadow.shadowColor = UIColor.white.withAlphaComponent(0.5).cgColor
-            
-        }
-    }
-    
-    func addShadow(view: UIView, darkShadow: CAShapeLayer, lightShadow: CAShapeLayer) {
-        //   view.layer.cornerRadius = 50
-        view.backgroundColor = UIColor.buttonLight2
-        view.layer.masksToBounds = true
-        view.clipsToBounds = true
-        
-        darkShadow.shadowPath = UIBezierPath(roundedRect: view.bounds, cornerRadius: 50).cgPath
-        darkShadow.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: view.frame.size.width, height: view.frame.height)
-        darkShadow.shadowColor = UIColor.black.withAlphaComponent(0.2).cgColor
-        darkShadow.shadowOffset = CGSize(width: 10, height: 10)
-        darkShadow.shadowOpacity = 0.7
-        darkShadow.shadowRadius = 4
-        darkShadow.shouldRasterize = true
-        
-        lightShadow.shadowPath = UIBezierPath(roundedRect: view.bounds, cornerRadius: 50).cgPath
-        lightShadow.frame = CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: view.frame.size.width, height: view.frame.height)
-        lightShadow.cornerRadius = 15
-        lightShadow.shadowColor = UIColor.white.withAlphaComponent(0.5).cgColor
-        lightShadow.shadowOffset = CGSize(width: -10, height: -10)
-        lightShadow.shadowRadius = 7
-        lightShadow.shadowOpacity = 0.7
-        lightShadow.shouldRasterize = true
-        
-        self.view.layer.insertSublayer(darkShadow, below: view.layer)
-        self.view.layer.insertSublayer(lightShadow, below: view.layer)
-        }
-    func addShadowForActiveView(yourView: UIView,verticalLightShadow: CAShapeLayer, horizontalLightShadow: CAShapeLayer, horizontalDarkShadow: CAShapeLayer, verticalDarkShadow: CAShapeLayer ) {
-        yourView.layer.cornerRadius = 20
-        yourView.backgroundColor = UIColor.viewLight1
-        yourView.layer.masksToBounds = true
-        yourView.clipsToBounds = true
-        
-        yourView.layer.borderWidth = 0.2
-        yourView.layer.borderColor = UIColor.black.withAlphaComponent(0.1).cgColor
-        
-        horizontalDarkShadow.shadowPath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: yourView.frame.width - 20, height: 10), cornerRadius: 20).cgPath
-        
-        horizontalDarkShadow.frame = CGRect(x: yourView.frame.origin.x + 10, y: yourView.frame.origin.y + 3, width: yourView.frame.size.width, height: yourView.frame.height)
-         
-        horizontalDarkShadow.shadowColor = UIColor.black.withAlphaComponent(0.2).cgColor
-        horizontalDarkShadow.shadowRadius = 4
-        horizontalDarkShadow.shadowOpacity = 0.3
-       // horizontalDarkShadow.cornerRadius = 20
-        horizontalDarkShadow.shouldRasterize = true
-        
-        verticalDarkShadow.shadowPath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: 10, height: yourView.frame.height - 10), cornerRadius: 20).cgPath
-        verticalDarkShadow.frame = CGRect(x: yourView.frame.origin.x, y: yourView.frame.origin.y, width: yourView.frame.size.width, height: yourView.frame.height)
-        verticalDarkShadow.shadowColor = UIColor.black.withAlphaComponent(0.2).cgColor
-        verticalDarkShadow.shadowOffset = CGSize(width: 0, height: 0)
-        verticalDarkShadow.shadowRadius = 4
-        verticalDarkShadow.shadowOpacity = 0.3
-       // verticalDarkShadow.cornerRadius = 20
-        verticalDarkShadow.shouldRasterize = true
-        
-        verticalLightShadow.shadowPath = UIBezierPath(roundedRect: CGRect(x: yourView.frame.width, y: 0, width: 10, height: yourView.frame.height - 10), cornerRadius: 20).cgPath
-        verticalLightShadow.frame = CGRect(x: yourView.frame.origin.x - 5, y: yourView.frame.origin.y + 10, width: yourView.frame.size.width, height: yourView.frame.height)
-        verticalLightShadow.shadowColor = UIColor.white.withAlphaComponent(0.5).cgColor
-        verticalLightShadow.shadowOffset = CGSize(width: -10, height: 0)
-        verticalLightShadow.shadowOpacity = 1
-        verticalLightShadow.shadowRadius = 7
-       // verticalLightShadow.cornerRadius = 20
-        verticalLightShadow.shouldRasterize = true
-        
-        horizontalLightShadow.shadowPath = UIBezierPath(roundedRect: CGRect(x: 0, y: yourView.frame.height, width: yourView.frame.width - 20, height: 10), cornerRadius: 20).cgPath
-        horizontalLightShadow.frame = CGRect(x: yourView.frame.origin.x + 10, y: yourView.frame.origin.y - 5, width: yourView.frame.size.width, height: yourView.frame.height)
-        horizontalLightShadow.shadowColor = UIColor.white.withAlphaComponent(0.5).cgColor
-        horizontalLightShadow.shadowOffset = CGSize(width: 0, height: -10)
-        horizontalLightShadow.shadowOpacity = 1
-        horizontalLightShadow.shadowRadius = 7
-      //  horizontalLightShadow.cornerRadius = 20
-        horizontalLightShadow.shouldRasterize = true
-        
-        self.view.layer.insertSublayer(verticalLightShadow, above: yourView.layer)
-        self.view.layer.insertSublayer(horizontalLightShadow, above: yourView.layer)
-        self.view.layer.insertSublayer(horizontalDarkShadow, above: yourView.layer)
-        self.view.layer.insertSublayer(verticalDarkShadow, above: yourView.layer)
-        }
-    
-    func addShadowForStaticView(yourView: UIView) {
-        let verticalLightShadow = CAShapeLayer()
-        let horizontalLightShadow = CAShapeLayer()
-        let horizontalDarkShadow = CAShapeLayer()
-        let verticalDarkShadow = CAShapeLayer()
-        
-        yourView.layer.cornerRadius = 20
-        yourView.backgroundColor = UIColor.buttonLight1
-        yourView.layer.masksToBounds = true
-        yourView.clipsToBounds = true
-        
-        yourView.layer.borderWidth = 0.2
-        yourView.layer.borderColor = UIColor.black.withAlphaComponent(0.1).cgColor
-        
-        horizontalDarkShadow.shadowPath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: yourView.frame.width - 20, height: 10), cornerRadius: 20).cgPath
-        
-        horizontalDarkShadow.frame = CGRect(x: yourView.frame.origin.x + 10, y: yourView.frame.origin.y + 3, width: yourView.frame.size.width, height: yourView.frame.height)
-         
-        horizontalDarkShadow.shadowColor = UIColor.black.withAlphaComponent(0.2).cgColor
-        horizontalDarkShadow.shadowRadius = 4
-        horizontalDarkShadow.shadowOpacity = 0.3
-       // horizontalDarkShadow.cornerRadius = 20
-        horizontalDarkShadow.shouldRasterize = true
-        
-        verticalDarkShadow.shadowPath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: 10, height: yourView.frame.height - 10), cornerRadius: 20).cgPath
-        verticalDarkShadow.frame = CGRect(x: yourView.frame.origin.x, y: yourView.frame.origin.y, width: yourView.frame.size.width, height: yourView.frame.height)
-        verticalDarkShadow.shadowColor = UIColor.black.withAlphaComponent(0.2).cgColor
-        verticalDarkShadow.shadowOffset = CGSize(width: 0, height: 0)
-        verticalDarkShadow.shadowRadius = 4
-        verticalDarkShadow.shadowOpacity = 0.3
-       // verticalDarkShadow.cornerRadius = 20
-        verticalDarkShadow.shouldRasterize = true
-        
-        verticalLightShadow.shadowPath = UIBezierPath(roundedRect: CGRect(x: yourView.frame.width, y: 0, width: 10, height: yourView.frame.height - 10), cornerRadius: 20).cgPath
-        verticalLightShadow.frame = CGRect(x: yourView.frame.origin.x - 5, y: yourView.frame.origin.y + 10, width: yourView.frame.size.width, height: yourView.frame.height)
-        verticalLightShadow.shadowColor = UIColor.white.withAlphaComponent(0.5).cgColor
-        verticalLightShadow.shadowOffset = CGSize(width: -10, height: 0)
-        verticalLightShadow.shadowOpacity = 1
-        verticalLightShadow.shadowRadius = 7
-       // verticalLightShadow.cornerRadius = 20
-        verticalLightShadow.shouldRasterize = true
-        
-        horizontalLightShadow.shadowPath = UIBezierPath(roundedRect: CGRect(x: 0, y: yourView.frame.height, width: yourView.frame.width - 20, height: 10), cornerRadius: 20).cgPath
-        horizontalLightShadow.frame = CGRect(x: yourView.frame.origin.x + 10, y: yourView.frame.origin.y - 5, width: yourView.frame.size.width, height: yourView.frame.height)
-        horizontalLightShadow.shadowColor = UIColor.white.withAlphaComponent(0.5).cgColor
-        horizontalLightShadow.shadowOffset = CGSize(width: 0, height: -10)
-        horizontalLightShadow.shadowOpacity = 1
-        horizontalLightShadow.shadowRadius = 7
-      //  horizontalLightShadow.cornerRadius = 20
-        horizontalLightShadow.shouldRasterize = true
-        
-        self.view.layer.insertSublayer(verticalLightShadow, above: yourView.layer)
-        self.view.layer.insertSublayer(horizontalLightShadow, above: yourView.layer)
-        self.view.layer.insertSublayer(horizontalDarkShadow, above: yourView.layer)
-        self.view.layer.insertSublayer(verticalDarkShadow, above: yourView.layer)
-        }
     
     func addActionForButtons(view: UIView) {
         let gesture = UILongPressGestureRecognizer()
@@ -305,10 +124,12 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
             gesture.addTarget(self, action: #selector(actionForConnectButton(gest:)))
         case customInfoButton:
             gesture.addTarget(self, action: #selector(actionForInfoButton(gest:)))
-        case customHandTypeButton:
+        case handTypeShowView:
             gesture.addTarget(self, action: #selector(actionForHandTypeButton(gest:)))
-        case customShakeTypeButton:
+        case shakeTypeShowView:
             gesture.addTarget(self, action: #selector(actionForShakeTypeButton(gest:)))
+        case customActionButton:
+            gesture.addTarget(self, action: #selector(actionForActionButton(gest:)))
         default:
             print("unknown view")
         }
@@ -388,17 +209,18 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
     
     @objc func actionForConnectButton(gest: UILongPressGestureRecognizer) {
         if gest.state == .began {
-            darkShadowForConnectButton.shadowOffset = CGSize(width: -5, height: -5)
-            lightShadowForConnectButton.shadowOffset = CGSize(width: 10, height: 10)
+            shadowChangeByBegan(verticalDarkShadow: verticalDarkShadowForConnectButton, horizontalDarkShadow: horizontalDarkShadowForConnectButton, verticalLightShadow: verticalLightShadowForConnectButton, horizontalLightShadow: horizontalLightShadowForConnectButton)
         } else if gest.state == .ended {
-            lightShadowForConnectButton.shadowOffset = CGSize(width: -5, height: -5)
-            darkShadowForConnectButton.shadowOffset = CGSize(width: 10, height: 10)
+            shadowChangeByEnded(verticalDarkShadow: verticalDarkShadowForConnectButton, horizontalDarkShadow: horizontalDarkShadowForConnectButton, verticalLightShadow: verticalLightShadowForConnectButton, horizontalLightShadow: horizontalLightShadowForConnectButton)
             
             mcSessionConfig()
             let ac = UIAlertController(title: "Connect View", message: nil, preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "Start Hosting", style: .default, handler: startHosting))
             ac.addAction(UIAlertAction(title: "Join Session", style: .default, handler: joinSession))
             ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            ac.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor.backgroundLight
+
+            ac.view.tintColor = UIColor.tintColorForAlertController1
             present(ac, animated: true)
         }
     }
@@ -445,11 +267,9 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
     //Info button
     @objc func actionForInfoButton(gest: UILongPressGestureRecognizer) {
         if gest.state == .began {
-            darkShadowForInfoButton.shadowOffset = CGSize(width: -5, height: -5)
-            lightShadowForInfoButton.shadowOffset = CGSize(width: 10, height: 10)
+            shadowChangeByBegan(verticalDarkShadow: verticalDarkShadowForInfoButton, horizontalDarkShadow: horizontalDarkShadowForInfoButton, verticalLightShadow: verticalLightShadowForInfoButton, horizontalLightShadow: horizontalLightShadowForInfoButton)
         } else if gest.state == .ended {
-            lightShadowForInfoButton.shadowOffset = CGSize(width: -5, height: -5)
-            darkShadowForInfoButton.shadowOffset = CGSize(width: 10, height: 10)
+            shadowChangeByEnded(verticalDarkShadow: verticalDarkShadowForInfoButton, horizontalDarkShadow: horizontalDarkShadowForInfoButton, verticalLightShadow: verticalLightShadowForInfoButton, horizontalLightShadow: horizontalLightShadowForInfoButton)
             
             if let vc = storyboard?.instantiateViewController(withIdentifier: "Info") as? InfoViewController {
                 present(vc, animated: true)
@@ -462,18 +282,20 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
     
     @objc func actionForHandTypeButton(gest: UILongPressGestureRecognizer) {
         if gest.state == .began {
-            darkShadowForHandTypeButton.shadowOffset = CGSize(width: -5, height: -5)
-            lightShadowForHandTypeButton.shadowOffset = CGSize(width: 10, height: 10)
+            shadowChangeByBegan(verticalDarkShadow: verticalDarkShadowForHandTypeButton, horizontalDarkShadow: horizontalDarkShadowForHandTypeButton, verticalLightShadow: verticalLightShadowForHandTypeButton, horizontalLightShadow: horizontalLightShadowForHandTypeButton)
         } else if gest.state == .ended {
-            lightShadowForHandTypeButton.shadowOffset = CGSize(width: -5, height: -5)
-            darkShadowForHandTypeButton.shadowOffset = CGSize(width: 10, height: 10)
-            
+            shadowChangeByEnded(verticalDarkShadow: verticalDarkShadowForHandTypeButton, horizontalDarkShadow: horizontalDarkShadowForHandTypeButton, verticalLightShadow: verticalLightShadowForHandTypeButton, horizontalLightShadow: horizontalLightShadowForHandTypeButton)
+           
             performSegue(withIdentifier: "handTypeSegue", sender: self)
         }
     }
+    
+    
    
     func handTypeTransferWithProtocol(data: String) {
         handType = data
+        autoShakeTypeChooser()
+        handTypeShowView.image = UIImage(named: "\(handType)")
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -483,6 +305,7 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
             }
         } else if segue.identifier == "shakeTypeSegue" {
             if let shakeVC = segue.destination as? ShakeTypeCollectionViewController {
+                shakeVC.handType = handType
                 shakeVC.delegate = self
             }
         }
@@ -492,25 +315,37 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
     
     @objc func actionForShakeTypeButton(gest: UILongPressGestureRecognizer) {
         if gest.state == .began {
-            darkShadowForShakeTypeButton.shadowOffset = CGSize(width: -5, height: -5)
-            lightShadowForShakeTypeButton.shadowOffset = CGSize(width: 10, height: 10)
+            shadowChangeByBegan(verticalDarkShadow: verticalDarkShadowForShakeTypeButton, horizontalDarkShadow: horizontalDarkShadowForShakeTypeButton, verticalLightShadow: verticalLightShadowForShakeTypeButton, horizontalLightShadow: horizontalLightShadowForShakeTypeButton)
         } else if gest.state == .ended {
-            lightShadowForShakeTypeButton.shadowOffset = CGSize(width: -5, height: -5)
-            darkShadowForShakeTypeButton.shadowOffset = CGSize(width: 10, height: 10)
+            shadowChangeByEnded(verticalDarkShadow: verticalDarkShadowForShakeTypeButton, horizontalDarkShadow: horizontalDarkShadowForShakeTypeButton, verticalLightShadow: verticalLightShadowForShakeTypeButton, horizontalLightShadow: horizontalLightShadowForShakeTypeButton)
             
             performSegue(withIdentifier: "shakeTypeSegue", sender: self)
+            //sending type of hand ?
         }
     }
     
     func shakeTypeTransferWithProtocol(data: String) {
-        shakeStyle = data
+        shakeType = data
+        print(shakeType)
+        shakeTypeShowView.image = UIImage(named: shakeType)
+    }
+    
+    @objc func actionForActionButton(gest: UILongPressGestureRecognizer) {
+        if gest.state == .began {
+            shadowChangeByBegan(verticalDarkShadow: verticalDarkShadowForActionButton, horizontalDarkShadow: horizontalDarkShadowForActionButton, verticalLightShadow: verticalLightShadowForActionButton, horizontalLightShadow: horizontalLightShadowForActionButton)
+            
+        } else if gest.state == .ended {
+            shadowChangeByEnded(verticalDarkShadow: verticalDarkShadowForActionButton, horizontalDarkShadow: horizontalDarkShadowForActionButton, verticalLightShadow: verticalLightShadowForActionButton, horizontalLightShadow: horizontalLightShadowForActionButton)
+            handShake()
+        }
     }
     
     //ActionCVC
+    //? not used still animation settings
     @IBAction func actionTapped(_ sender: Any) {
        // handShake()
         print(handType)
-        print(shakeStyle)
+        print(shakeType)
     }
     
     //Animation
@@ -526,6 +361,33 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
     @objc func initial() {
         self.handImage.transform = .identity
         self.secondHandImage.transform = .identity
+    }
+    
+    func autoShakeTypeChooser() {
+        print("woof")
+        switch handType {
+        case "humanHand":
+            shakeType = "humanHandShake1"
+            shakeTypeShowView.image = UIImage(named: shakeType)
+        case "womanHand":
+            shakeType = "womanHandShake1"
+            shakeTypeShowView.image = UIImage(named: shakeType)
+        case "zombieHand":
+            shakeType = "zombieHandShake1"
+            shakeTypeShowView.image = UIImage(named: shakeType)
+        case "robotHand":
+            shakeType = "robotHandShake1"
+            shakeTypeShowView.image = UIImage(named: shakeType)
+        case "scullHand":
+            shakeType = "scullHandShake1"
+            shakeTypeShowView.image = UIImage(named: shakeType)
+        case "alienHand":
+            shakeType = "alienHandShake1"
+            shakeTypeShowView.image = UIImage(named: shakeType)
+        default:
+            shakeType = "humanHandShake1"
+            shakeTypeShowView.image = UIImage(named: shakeType)
+        }
     }
     
 }

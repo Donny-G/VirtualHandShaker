@@ -7,63 +7,69 @@
 
 import UIKit
 
-class InfoViewController: UIViewController {
+class InfoViewController: UIViewController, NeumorphicShadows {
+    
+    let verticalLightShadow = CAShapeLayer()
+    let horizontalLightShadow = CAShapeLayer()
+    let horizontalDarkShadow = CAShapeLayer()
+    let verticalDarkShadow = CAShapeLayer()
+
+    
+    @IBOutlet var contentView: UIView!
+    
+    @IBOutlet var scrollView: UIScrollView!
     
     
     @IBOutlet var titleLabel: UILabel!
     
     
-    @IBOutlet var title1: UILabel!
+    @IBOutlet var connectButtonImage: UIImageView!
+    @IBOutlet var connectButtonDescription: UILabel!
     
+    @IBOutlet var connectionViewImage: UIImageView!
+    @IBOutlet var connectionViewDescription: UILabel!
     
-    @IBOutlet var title2: UILabel!
+    @IBOutlet var handTypeButtonImage: UIImageView!
+    @IBOutlet var handTypeButtonDescription: UILabel!
     
+    @IBOutlet var shakeTypeButtonImage: UIImageView!
+    @IBOutlet var shakeTypeButtonDescription: UILabel!
     
-    @IBOutlet var title3: UILabel!
-    
-    
-    @IBOutlet var title4: UILabel!
-    
-    
-    @IBOutlet var title5: UILabel!
-    
-    
-    @IBOutlet var imageView1: UIImageView!
-    
-    
-    @IBOutlet var imageView2: UIImageView!
-    
-    
-    @IBOutlet var imageView3: UIImageView!
-    
-    
-    @IBOutlet var imageView4: UIImageView!
-    
-    
-    @IBOutlet var imageView5: UIImageView!
-    
+    @IBOutlet var actionButtonImage: UIImageView!
+    @IBOutlet var actionButtonDescription: UILabel!
     
     @IBOutlet var backButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         titleLabel.text = "Info"
-        imageView1.image = UIImage(named: "IMG_2998")
-        title1.text = "Some text"
+        connectButtonImage.image = UIImage(named: "connect5")
+        addShadowForActiveView(yourView: connectButtonImage, verticalLightShadow: verticalLightShadow, horizontalLightShadow: horizontalLightShadow, horizontalDarkShadow: horizontalDarkShadow, verticalDarkShadow: verticalDarkShadow, color: UIColor.buttonLight1)
+        connectButtonDescription.text = "Press to start multipeer session with friends"
         
-        imageView2.image = UIImage(named: "IMG_2998")
-        title2.text = "Some text"
+        connectionViewImage.image = UIImage(named: "connectView")
+        addShadowForStaticView(yourView: connectionViewImage, color: UIColor.buttonLight1)
+        connectionViewDescription.text = "Start session or join to session to handshake"
         
-        imageView3.image = UIImage(named: "IMG_2998")
-        title3.text = "Some text"
+        handTypeButtonImage.image = UIImage(named: "handType")
+        addShadowForStaticView(yourView: handTypeButtonImage, color: UIColor.buttonLight1)
+        handTypeButtonDescription.text = "Choose hand type"
         
-        imageView4.image = UIImage(named: "IMG_2998")
-        title4.text = "Some text"
+        shakeTypeButtonImage.image = UIImage(named: "actionType")
+        addShadowForStaticView(yourView: shakeTypeButtonImage, color: UIColor.buttonLight1)
+        shakeTypeButtonDescription.text = "Choose shake type"
         
-        imageView5.image = UIImage(named: "IMG_2998")
-        title5.text = "Some text"
+        actionButtonImage.image = UIImage(named: "action3")
+        addShadowForStaticView(yourView: actionButtonImage, color: UIColor.buttonLight1)
+        actionButtonDescription.text = "Press to start animation"
+        backButton.setImage(UIImage(named: "backButton"), for: .normal)
+        addShadowForStaticView(yourView: backButton, color: UIColor.viewLight1)
+        scrollView.backgroundColor = UIColor.backgroundLight
         
+        contentView.backgroundColor = UIColor.backgroundLight
     }
+    
     
     @IBAction func backButton(_ sender: UIButton) {
         dismiss(animated: true)

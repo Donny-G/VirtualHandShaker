@@ -58,11 +58,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vll-Kf-wxY">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vll-Kf-wxY">
                                 <rect key="frame" x="1" y="130" width="240" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1sH-uS-Kyv">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1sH-uS-Kyv">
                                 <rect key="frame" x="154" y="611" width="240" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -80,14 +80,6 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hDS-cs-wev">
                                 <rect key="frame" x="294" y="22" width="100" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uzV-D6-edD">
-                                <rect key="frame" x="20" y="772" width="100" height="100"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
-                            </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i5V-dg-BpL">
-                                <rect key="frame" x="294" y="772" width="100" height="100"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uf0-Yw-LeN">
                                 <rect key="frame" x="128" y="44" width="158" height="34"/>
@@ -115,9 +107,7 @@
                     <connections>
                         <outlet property="customActionButton" destination="PsH-H8-Rz3" id="DwX-HU-w1D"/>
                         <outlet property="customConnectButton" destination="Udz-9C-u0R" id="Quc-vr-oS1"/>
-                        <outlet property="customHandTypeButton" destination="uzV-D6-edD" id="0bm-js-Hvl"/>
                         <outlet property="customInfoButton" destination="hDS-cs-wev" id="Q8u-cX-UFN"/>
-                        <outlet property="customShakeTypeButton" destination="i5V-dg-BpL" id="oMC-uG-N2w"/>
                         <outlet property="handImage" destination="vll-Kf-wxY" id="XKG-Vd-Lj3"/>
                         <outlet property="handTypeShowView" destination="GK8-tu-aTr" id="3w0-B6-NBR"/>
                         <outlet property="nameTextField" destination="uf0-Yw-LeN" id="MG8-lk-cup"/>
@@ -166,35 +156,35 @@
                                                 <rect key="frame" x="8" y="905" width="240" height="128"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ecX-2m-lRU">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ecX-2m-lRU">
                                                 <rect key="frame" x="306" y="158" width="42" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x8M-Ow-ykU">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x8M-Ow-ykU">
                                                 <rect key="frame" x="320" y="353" width="42" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zAx-SJ-9Rn">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zAx-SJ-9Rn">
                                                 <rect key="frame" x="320" y="546" width="42" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qf4-lh-0Zm">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qf4-lh-0Zm">
                                                 <rect key="frame" x="320" y="751" width="42" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wjx-Qn-oxj">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wjx-Qn-oxj">
                                                 <rect key="frame" x="320" y="959" width="42" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -208,8 +198,8 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GkC-sc-e1v">
-                                                <rect key="frame" x="8" y="22" width="46" height="30"/>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GkC-sc-e1v">
+                                                <rect key="frame" x="4" y="20" width="100" height="86"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" title="Button"/>
                                                 <connections>
@@ -243,17 +233,19 @@
                     </view>
                     <size key="freeformSize" width="414" height="1200"/>
                     <connections>
+                        <outlet property="actionButtonDescription" destination="wjx-Qn-oxj" id="Mtj-l9-i8P"/>
+                        <outlet property="actionButtonImage" destination="JR8-vd-iLv" id="PlS-8q-Sde"/>
                         <outlet property="backButton" destination="GkC-sc-e1v" id="Rtm-44-VCq"/>
-                        <outlet property="imageView1" destination="5fw-xa-AgW" id="utj-Ko-I5D"/>
-                        <outlet property="imageView2" destination="tDN-aF-YWB" id="Wii-cJ-9oe"/>
-                        <outlet property="imageView3" destination="X16-jh-SHh" id="Oex-yW-lfF"/>
-                        <outlet property="imageView4" destination="1FH-CY-vIA" id="85z-Ml-KeR"/>
-                        <outlet property="imageView5" destination="JR8-vd-iLv" id="TTy-gc-ekk"/>
-                        <outlet property="title1" destination="ecX-2m-lRU" id="ozo-Er-Uoc"/>
-                        <outlet property="title2" destination="x8M-Ow-ykU" id="xh7-wk-dAS"/>
-                        <outlet property="title3" destination="zAx-SJ-9Rn" id="obA-yY-RIn"/>
-                        <outlet property="title4" destination="Qf4-lh-0Zm" id="h7P-yg-y3Z"/>
-                        <outlet property="title5" destination="wjx-Qn-oxj" id="SRA-TI-CAE"/>
+                        <outlet property="connectButtonDescription" destination="ecX-2m-lRU" id="YQ8-El-7RE"/>
+                        <outlet property="connectButtonImage" destination="5fw-xa-AgW" id="lWl-rP-CpU"/>
+                        <outlet property="connectionViewDescription" destination="x8M-Ow-ykU" id="F67-jl-Znq"/>
+                        <outlet property="connectionViewImage" destination="tDN-aF-YWB" id="BVs-tm-IkB"/>
+                        <outlet property="contentView" destination="uH5-Da-sh6" id="h2n-Ip-XDJ"/>
+                        <outlet property="handTypeButtonDescription" destination="zAx-SJ-9Rn" id="69a-cl-8Ir"/>
+                        <outlet property="handTypeButtonImage" destination="X16-jh-SHh" id="GmS-2E-fCG"/>
+                        <outlet property="scrollView" destination="XD2-0j-dlV" id="AAQ-Ii-hrz"/>
+                        <outlet property="shakeTypeButtonDescription" destination="Qf4-lh-0Zm" id="hbA-UL-qw3"/>
+                        <outlet property="shakeTypeButtonImage" destination="1FH-CY-vIA" id="1SI-UN-sEA"/>
                         <outlet property="titleLabel" destination="YQz-VS-vA6" id="2LM-4u-kz6"/>
                     </connections>
                 </viewController>

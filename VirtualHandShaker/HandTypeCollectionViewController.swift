@@ -14,14 +14,19 @@ protocol HandTypeProtocol {
     func handTypeTransferWithProtocol(data: String)
 }
 
-class HandTypeCollectionViewController: UICollectionViewController {
+class HandTypeCollectionViewController: UICollectionViewController, NeumorphicShadows {
     
-    var handImages = ["IMG_2982"]
+    let verticalLightShadow = CAShapeLayer()
+    let horizontalLightShadow = CAShapeLayer()
+    let horizontalDarkShadow = CAShapeLayer()
+    let verticalDarkShadow = CAShapeLayer()
+    
+    var handImages = ["humanHand", "zombieHand", "alienHand", "robotHand", "scullHand", "womanHand"]
     var delegate: HandTypeProtocol?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        collectionView.backgroundColor = UIColor.backgroundLight
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
     }
 
@@ -39,13 +44,26 @@ class HandTypeCollectionViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HandType", for: indexPath)
         if let imageView = cell.viewWithTag(1000) as? UIImageView {
             imageView.image = UIImage(named: handImages[indexPath.item])
+            //!
+            addShadowForStaticView(yourView: cell, color: UIColor.buttonLight1)
         }
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HandType", for: indexPath)
+        addShadowForActiveViewVer2(yourView: cell, verticalLightShadow: verticalLightShadow, horizontalLightShadow: horizontalLightShadow, horizontalDarkShadow: horizontalDarkShadow, verticalDarkShadow: verticalDarkShadow, color: UIColor.buttonLight1)
+        
+        shadowChangeByBeganVer2(verticalDarkShadow: verticalDarkShadow, horizontalDarkShadow: horizontalDarkShadow, verticalLightShadow: verticalLightShadow, horizontalLightShadow: horizontalLightShadow)
+        
         let hand = handImages[indexPath.item]
         delegate?.handTypeTransferWithProtocol(data: hand)
+        perform(#selector(backToMain(indexPath:)), with: nil, afterDelay: 0.5)
+    }
+    
+    @objc func backToMain(indexPath: IndexPath) {
+       //x shadowChangeByEndedVer2(verticalDarkShadow: verticalDarkShadow, horizontalDarkShadow: horizontalDarkShadow, verticalLightShadow: verticalLightShadow, horizontalLightShadow: horizontalLightShadow)
+       
         dismiss(animated: true, completion: nil)
     }
 
