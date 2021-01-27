@@ -36,6 +36,11 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
     let horizontalDarkShadowForActionButton = CAShapeLayer()
     let verticalDarkShadowForActionButton = CAShapeLayer()
     
+    let verticalLightShadowForNameTextField = CAShapeLayer()
+    let horizontalLightShadowForNameTextField = CAShapeLayer()
+    let horizontalDarkShadowForNameTextField = CAShapeLayer()
+    let verticalDarkShadowForNameTextField = CAShapeLayer()
+    
     var peerId: MCPeerID!
     var mcSession: MCSession?
     var mcAdvertiserAssistant: MCNearbyServiceAdvertiser?
@@ -56,6 +61,26 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
     @IBOutlet var nameTextField: UITextField!
     
     @IBOutlet var customActionButton: UIImageView!
+    
+    //constraint outlets
+    @IBOutlet var connectButtonLeadingConstraint: NSLayoutConstraint!
+   
+    @IBOutlet var connectButtonTopConstraint: NSLayoutConstraint!
+    @IBOutlet var nameTextfieldTopConstraint: NSLayoutConstraint!
+    
+    @IBOutlet var infoButtonTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet var infoButtonTopConstraint: NSLayoutConstraint!
+    
+    @IBOutlet var handTypeLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet var shakeTypeTrailingConstraint: NSLayoutConstraint!
+    
+    @IBOutlet var actionButtonBottomConstraint: NSLayoutConstraint!
+    
+    @IBOutlet var leftHandTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet var leftHandBottomConstraint: NSLayoutConstraint!
+    
+    @IBOutlet var rightHandLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet var rightHandTopConstraint: NSLayoutConstraint!
     
     //? animation
     var startAnimation = false
@@ -85,33 +110,45 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
         secondHandImage.image = UIImage(named: "humanHandRight")
         
         customConnectButton.image = UIImage(named: "connect5")
-        addShadowForActiveView(yourView: customConnectButton, verticalLightShadow: verticalLightShadowForConnectButton, horizontalLightShadow: horizontalLightShadowForConnectButton, horizontalDarkShadow: horizontalDarkShadowForConnectButton, verticalDarkShadow: verticalDarkShadowForConnectButton, color: UIColor.viewLight1)
         addActionForButtons(view: customConnectButton)
         
         customInfoButton.image = UIImage(named: "info5")
-        addShadowForActiveView(yourView: customInfoButton, verticalLightShadow: verticalLightShadowForInfoButton, horizontalLightShadow: horizontalLightShadowForInfoButton, horizontalDarkShadow: horizontalDarkShadowForInfoButton, verticalDarkShadow: verticalDarkShadowForInfoButton, color: UIColor.viewLight1)
         addActionForButtons(view: customInfoButton)
         
-        addShadowForStaticView(yourView: nameTextField, color: UIColor.viewLight1)
+        
         nameTextField.backgroundColor = UIColor.viewLight1
         
         //load types from userDefaults ?
         handTypeShowView.image = UIImage(named: handType)
-        addShadowForActiveView(yourView: handTypeShowView, verticalLightShadow: verticalLightShadowForHandTypeButton, horizontalLightShadow: horizontalLightShadowForHandTypeButton, horizontalDarkShadow: horizontalDarkShadowForHandTypeButton, verticalDarkShadow: verticalDarkShadowForHandTypeButton, color: UIColor.buttonLight1)
         addActionForButtons(view: handTypeShowView)
         
         shakeTypeShowView.image = UIImage(named: shakeType)
-        addShadowForActiveView(yourView: shakeTypeShowView, verticalLightShadow: verticalLightShadowForShakeTypeButton, horizontalLightShadow: horizontalLightShadowForShakeTypeButton, horizontalDarkShadow: horizontalDarkShadowForShakeTypeButton, verticalDarkShadow: verticalDarkShadowForShakeTypeButton, color: UIColor.buttonLight1)
+        
         addActionForButtons(view: shakeTypeShowView)
         
-        
         customActionButton.image = UIImage(named: "action3")
-        addShadowForActiveView(yourView: customActionButton, verticalLightShadow: verticalLightShadowForActionButton, horizontalLightShadow: horizontalLightShadowForActionButton, horizontalDarkShadow: horizontalDarkShadowForActionButton, verticalDarkShadow: verticalDarkShadowForActionButton, color: UIColor.viewLight1)
         addActionForButtons(view: customActionButton)
         
        // view.backgroundColor = UIColor.offWhite
         view.backgroundColor = UIColor.backgroundLight
     }
+    
+    //solution for problem with shadows and autolayout
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        //Update you're layer based on the new frame
+        addShadowForActiveView(yourView: nameTextField, verticalLightShadow: verticalLightShadowForNameTextField, horizontalLightShadow: horizontalLightShadowForNameTextField, horizontalDarkShadow: horizontalDarkShadowForNameTextField, verticalDarkShadow: verticalDarkShadowForNameTextField, color: UIColor.viewLight1)
+        
+        addShadowForActiveView(yourView: customActionButton, verticalLightShadow: verticalLightShadowForActionButton, horizontalLightShadow: horizontalLightShadowForActionButton, horizontalDarkShadow: horizontalDarkShadowForActionButton, verticalDarkShadow: verticalDarkShadowForActionButton, color: UIColor.viewLight1)
+        
+        addShadowForActiveView(yourView: customConnectButton, verticalLightShadow: verticalLightShadowForConnectButton, horizontalLightShadow: horizontalLightShadowForConnectButton, horizontalDarkShadow: horizontalDarkShadowForConnectButton, verticalDarkShadow: verticalDarkShadowForConnectButton, color: UIColor.viewLight1)
+        
+        addShadowForActiveView(yourView: customInfoButton, verticalLightShadow: verticalLightShadowForInfoButton, horizontalLightShadow: horizontalLightShadowForInfoButton, horizontalDarkShadow: horizontalDarkShadowForInfoButton, verticalDarkShadow: verticalDarkShadowForInfoButton, color: UIColor.viewLight1)
+        
+        addShadowForActiveView(yourView: handTypeShowView, verticalLightShadow: verticalLightShadowForHandTypeButton, horizontalLightShadow: horizontalLightShadowForHandTypeButton, horizontalDarkShadow: horizontalDarkShadowForHandTypeButton, verticalDarkShadow: verticalDarkShadowForHandTypeButton, color: UIColor.buttonLight1)
+        
+        addShadowForActiveView(yourView: shakeTypeShowView, verticalLightShadow: verticalLightShadowForShakeTypeButton, horizontalLightShadow: horizontalLightShadowForShakeTypeButton, horizontalDarkShadow: horizontalDarkShadowForShakeTypeButton, verticalDarkShadow: verticalDarkShadowForShakeTypeButton, color: UIColor.buttonLight1)
+     }
     
     func addActionForButtons(view: UIView) {
         let gesture = UILongPressGestureRecognizer()

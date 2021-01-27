@@ -45,7 +45,7 @@ class InfoViewController: UIViewController, NeumorphicShadows {
         
         titleLabel.text = "Info"
         connectButtonImage.image = UIImage(named: "connect5")
-        addShadowForActiveView(yourView: connectButtonImage, verticalLightShadow: verticalLightShadow, horizontalLightShadow: horizontalLightShadow, horizontalDarkShadow: horizontalDarkShadow, verticalDarkShadow: verticalDarkShadow, color: UIColor.buttonLight1)
+        
         connectButtonDescription.text = "Press to start multipeer session with friends"
         
         connectionViewImage.image = UIImage(named: "connectView")
@@ -61,13 +61,18 @@ class InfoViewController: UIViewController, NeumorphicShadows {
         shakeTypeButtonDescription.text = "Choose shake type"
         
         actionButtonImage.image = UIImage(named: "action3")
-        addShadowForStaticView(yourView: actionButtonImage, color: UIColor.buttonLight1)
+       // addShadowForStaticView(yourView: actionButtonImage, color: UIColor.buttonLight1)
         actionButtonDescription.text = "Press to start animation"
         backButton.setImage(UIImage(named: "backButton"), for: .normal)
         addShadowForStaticView(yourView: backButton, color: UIColor.viewLight1)
         scrollView.backgroundColor = UIColor.backgroundLight
         
         contentView.backgroundColor = UIColor.backgroundLight
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        addShadowForActiveView(yourView: actionButtonImage, verticalLightShadow: verticalLightShadow, horizontalLightShadow: horizontalLightShadow, horizontalDarkShadow: horizontalDarkShadow, verticalDarkShadow: verticalDarkShadow, color: UIColor.buttonLight1)
     }
     
     
