@@ -62,6 +62,8 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
     
     @IBOutlet var customActionButton: UIImageView!
     
+    @IBOutlet var bangImage: UIImageView!
+    
     //constraint outlets
     @IBOutlet var connectButtonLeadingConstraint: NSLayoutConstraint!
    
@@ -76,11 +78,12 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
     
     @IBOutlet var actionButtonBottomConstraint: NSLayoutConstraint!
     
-    @IBOutlet var leftHandTrailingConstraint: NSLayoutConstraint!
-    @IBOutlet var leftHandBottomConstraint: NSLayoutConstraint!
+    @IBOutlet var leftHandLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet var leftHandTopConstraint: NSLayoutConstraint!
     
-    @IBOutlet var rightHandLeadingConstraint: NSLayoutConstraint!
-    @IBOutlet var rightHandTopConstraint: NSLayoutConstraint!
+    @IBOutlet var rightHandTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet var rightHandBottomConstraint: NSLayoutConstraint!
+    
     
     //? animation
     var startAnimation = false
@@ -106,8 +109,10 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
         nameTextField.delegate = self
         
         // ? left and right hands
-        handImage.image = UIImage(named: "humanHandLeft")
-        secondHandImage.image = UIImage(named: "humanHandRight")
+        //@
+        handImage.image = UIImage(named: "humanHandLeft1")
+        //@
+        secondHandImage.image = UIImage(named: "humanHandRight1")
         
         customConnectButton.image = UIImage(named: "connect5")
         addActionForButtons(view: customConnectButton)
@@ -122,7 +127,9 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
         handTypeShowView.image = UIImage(named: handType)
         addActionForButtons(view: handTypeShowView)
         
+        //new image
         shakeTypeShowView.image = UIImage(named: shakeType)
+        bangImage.image = UIImage(named: "bang1")
         
         addActionForButtons(view: shakeTypeShowView)
         
@@ -131,6 +138,9 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
         
        // view.backgroundColor = UIColor.offWhite
         view.backgroundColor = UIColor.backgroundLight
+        
+      //  handImage.backgroundColor = .red
+       // secondHandImage.backgroundColor = .blue
     }
     
     //solution for problem with shadows and autolayout
@@ -333,6 +343,34 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
         handType = data
         autoShakeTypeChooser()
         handTypeShowView.image = UIImage(named: "\(handType)")
+        switch handType {
+        case "humanHand":
+            //@
+            handImage.image = UIImage(named: "humanHandLeft1")
+            //@
+            secondHandImage.image = UIImage(named: "humanHandRight1")
+        case "robotHand":
+            handImage.image = UIImage(named: "robotHandLeft")
+            secondHandImage.image = UIImage(named: "robotHandRight")
+        case "womanHand":
+            handImage.image = UIImage(named: "womanHandLeft")
+            secondHandImage.image = UIImage(named: "womanHandRight")
+        case "scullHand":
+            handImage.image = UIImage(named: "scullHandLeft")
+            secondHandImage.image = UIImage(named: "scullHandRight")
+        case "alienHand":
+            handImage.image = UIImage(named: "alienHandLeft")
+            secondHandImage.image = UIImage(named: "alienHandRight")
+        case "zombieHand":
+            handImage.image = UIImage(named: "zombieHandLeft")
+            secondHandImage.image = UIImage(named: "zombieHandRight")
+        default:
+            //@
+            handImage.image = UIImage(named: "humanHandLeft1")
+            //@
+            secondHandImage.image = UIImage(named: "humanHandRight1")
+        }
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -365,6 +403,77 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
         shakeType = data
         print(shakeType)
         shakeTypeShowView.image = UIImage(named: shakeType)
+        
+        switch handType {
+        case "humanHand" where shakeType == "humanHandShake1":
+            //@
+            handImage.image = UIImage(named: "humanHandLeft1")
+            //@
+            secondHandImage.image = UIImage(named: "humanHandRight1")
+        case "humanHand" where shakeType == "humanHandShake2":
+            //@
+            handImage.image = UIImage(named: "humanFistLeft1_1")
+            //@
+            secondHandImage.image = UIImage(named: "humanFistRight1_1")
+        case "humanHand" where shakeType == "humanHandShake3":
+            //@
+            handImage.image = UIImage(named: "humanFistLeft1_2")
+            //@
+            secondHandImage.image = UIImage(named: "humanFistRight1_2")
+            
+        case "womanHand" where shakeType == "womanHandShake1":
+            handImage.image = UIImage(named: "womanHandLeft")
+            secondHandImage.image = UIImage(named: "womanHandRight")
+        case "womanHand" where shakeType == "womanHandShake2":
+            handImage.image = UIImage(named: "womanFistLeft")
+            secondHandImage.image = UIImage(named: "womanFistRight")
+        case "womanHand" where shakeType == "womanHandShake3":
+            handImage.image = UIImage(named: "womanFistLeft")
+            secondHandImage.image = UIImage(named: "womanFistRight")
+        
+        case "zombieHand" where shakeType == "zombieHandShake1":
+            handImage.image = UIImage(named: "zombieHandLeft")
+            secondHandImage.image = UIImage(named: "zombieHandRight")
+        case "zombieHand" where shakeType == "zombieHandShake2":
+            handImage.image = UIImage(named: "zombieFistLeft")
+            secondHandImage.image = UIImage(named: "zombieFistRight")
+        case "zombieHand" where shakeType == "zombieHandShake3":
+            handImage.image = UIImage(named: "zombieFistLeft2")
+            secondHandImage.image = UIImage(named: "zombieFistRight2")
+            
+        case "robotHand" where shakeType == "robotHandShake1":
+            handImage.image = UIImage(named: "robotHandLeft")
+            secondHandImage.image = UIImage(named: "robotHandRight")
+        case "robotHand" where shakeType == "robotHandShake2":
+            handImage.image = UIImage(named: "robotFistLeft")
+            secondHandImage.image = UIImage(named: "robotFistRight")
+        case "robotHand" where shakeType == "robotHandShake3":
+            handImage.image = UIImage(named: "robotFistLeft")
+            secondHandImage.image = UIImage(named: "robotFistRight")
+            
+        case "alienHand" where shakeType == "alienHandShake1":
+            handImage.image = UIImage(named: "alienHandLeft")
+            secondHandImage.image = UIImage(named: "alienHandRight")
+        case "alienHand" where shakeType == "alienHandShake2":
+            handImage.image = UIImage(named: "alienFistLeft")
+            secondHandImage.image = UIImage(named: "alienFistRight")
+        case "alienHand" where shakeType == "alienHandShake3":
+            handImage.image = UIImage(named: "alienFistLeft")
+            secondHandImage.image = UIImage(named: "alienFistRight")
+            
+        case "scullHand" where shakeType == "scullHandShake1":
+            handImage.image = UIImage(named: "scullHandLeft")
+            secondHandImage.image = UIImage(named: "scullHandRight")
+        case "scullHand" where shakeType == "scullHandShake2":
+            handImage.image = UIImage(named: "scullFistLeft")
+            secondHandImage.image = UIImage(named: "scullFistRight")
+        case "scullHand" where shakeType == "scullHandShake3":
+            handImage.image = UIImage(named: "scullFistLeft")
+            secondHandImage.image = UIImage(named: "scullFistRight")
+        
+        default:
+            print("unknown")
+        }
     }
     
     @objc func actionForActionButton(gest: UILongPressGestureRecognizer) {
@@ -387,17 +496,233 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
     
     //Animation
     func handShake() {
-        UIView.animate(withDuration: 5) {
-            self.handImage.transform = CGAffineTransform(translationX: 100, y: 300)
-            self.secondHandImage.transform = CGAffineTransform(translationX: -100, y: -300)
-          //  self.handImage.transform = CGAffineTransform(rotationAngle: 30)
-           // self.secondHandImage.transform = CGAffineTransform(rotationAngle: 40)
-            self.perform(#selector(self.initial), with: nil, afterDelay: 5)
+        //Step 1. Animate all user interface elements like swiping out from screen
+        UIView.animate(withDuration: 1) {
+            self.customConnectButton.transform = CGAffineTransform(translationX: self.connectButtonLeadingConstraint.constant - 300, y: self.connectButtonTopConstraint.constant - 300)
+
+            self.nameTextField.transform = CGAffineTransform(translationX: 0, y: self.nameTextfieldTopConstraint.constant - 300)
+            
+            self.customInfoButton.transform = CGAffineTransform(translationX: self.infoButtonTrailingConstraint.constant + 300, y: self.infoButtonTopConstraint.constant - 300)
+            
+            self.handTypeShowView.transform = CGAffineTransform(translationX: self.handTypeLeadingConstraint.constant - 500, y: 0)
+            
+            self.shakeTypeShowView.transform = CGAffineTransform(translationX: self.shakeTypeTrailingConstraint.constant + 500, y: 0)
+            
+            self.customActionButton.transform = CGAffineTransform(translationX: self.view.frame.maxX, y: self.view.frame.maxY)
+            //for correct shadow show
+            self.verticalLightShadowForConnectButton.isHidden = true
+            self.horizontalLightShadowForConnectButton.isHidden = true
+            self.horizontalDarkShadowForConnectButton.isHidden = true
+            self.verticalDarkShadowForConnectButton.isHidden = true
+            
+            self.verticalLightShadowForInfoButton.isHidden = true
+            self.horizontalLightShadowForInfoButton.isHidden = true
+            self.horizontalDarkShadowForInfoButton.isHidden = true
+            self.verticalDarkShadowForInfoButton.isHidden = true
+            
+            self.verticalLightShadowForHandTypeButton.isHidden = true
+            self.horizontalLightShadowForHandTypeButton.isHidden = true
+            self.horizontalDarkShadowForHandTypeButton.isHidden = true
+            self.verticalDarkShadowForHandTypeButton.isHidden = true
+            
+            self.verticalLightShadowForShakeTypeButton.isHidden = true
+            self.horizontalLightShadowForShakeTypeButton.isHidden = true
+            self.horizontalDarkShadowForShakeTypeButton.isHidden = true
+            self.verticalDarkShadowForShakeTypeButton.isHidden = true
+            
+            self.verticalLightShadowForActionButton.isHidden = true
+            self.horizontalLightShadowForActionButton.isHidden = true
+            self.horizontalDarkShadowForActionButton.isHidden = true
+            self.verticalDarkShadowForActionButton.isHidden = true
+            
+            self.verticalLightShadowForNameTextField.isHidden = true
+            self.horizontalLightShadowForNameTextField.isHidden = true
+            self.horizontalDarkShadowForNameTextField.isHidden = true
+            self.verticalDarkShadowForNameTextField.isHidden = true
+
+        } completion: { [weak handImage, weak secondHandImage] completed in
+            guard completed, let leftHand = handImage, let rightHand = secondHandImage else { return }
+            
+            //Step 2. Appearance of users hands in corners
+            UIView.animate(withDuration: 1) {
+                leftHand.transform = CGAffineTransform(translationX: self.view.frame.minX - self.leftHandLeadingConstraint.constant, y: self.view.frame.minY - self.leftHandTopConstraint.constant)
+                rightHand.transform = CGAffineTransform(translationX: self.view.frame.minX - self.rightHandTrailingConstraint.constant  , y: self.view.frame.minY - self.rightHandBottomConstraint.constant )
+            } completion: { [weak handImage, weak secondHandImage]completed in
+                guard completed, let leftHand = handImage, let rightHand = secondHandImage else { return }
+                //animation for different type of shakes
+                switch self.shakeType {
+                //Hand Shake 1
+                case "womanHandShake1", "humanHandShake1", "alienHandShake1", "robotHandShake1", "zombieHandShake1", "scullHandShake1":
+                    // Step1. move hands in center [lr]
+                    UIView.animate(withDuration: 1) {
+                        leftHand.transform = CGAffineTransform(translationX: self.view.frame.midX - self.leftHandLeadingConstraint.constant - self.handImage.frame.width / 2, y: self.view.frame.midY - self.leftHandTopConstraint.constant - self.handImage.frame.height / 2)
+                        rightHand.transform = CGAffineTransform(translationX:  -self.view.frame.midX - self.rightHandTrailingConstraint.constant + self.secondHandImage.frame.width / 2, y: -self.view.frame.midY - self.rightHandBottomConstraint.constant + self.secondHandImage.frame.height / 2)
+                    } completion: { completed in
+                        guard completed else { return }
+                        //Step2. move all objects in initial position
+                        UIView.animate(withDuration: 0.8) {
+                            self.customConnectButton.transform = .identity
+                            self.customInfoButton.transform = .identity
+                            self.nameTextField.transform = .identity
+                            self.handImage.transform = .identity
+                            self.secondHandImage.transform = .identity
+                            self.handTypeShowView.transform = .identity
+                            self.shakeTypeShowView.transform = .identity
+                            self.customActionButton.transform = .identity
+                            self.perform(#selector(self.showShadows), with: nil, afterDelay: 0.7)
+                        }
+                    }
+                //Hand Shake 2
+                case "womanHandShake2", "humanHandShake2", "alienHandShake2", "robotHandShake2", "zombieHandShake2", "scullHandShake2":
+                    // Step 1. l@
+                    //          @r
+                    UIView.animate(withDuration: 0.5) {
+                        leftHand.transform = CGAffineTransform(translationX: self.view.frame.midX - self.leftHandLeadingConstraint.constant - self.handImage.frame.width * 0.8, y: self.view.frame.midY - self.leftHandTopConstraint.constant - self.handImage.frame.height * 0.9)
+                        rightHand.transform = CGAffineTransform(translationX:  -self.view.frame.midX - self.rightHandTrailingConstraint.constant + self.secondHandImage.frame.width * 0.8, y: -self.view.frame.midY - self.rightHandBottomConstraint.constant + self.secondHandImage.frame.height * 0.9)
+                    } completion: { completed in
+                        guard completed, let leftHand = handImage, let rightHand = secondHandImage else { return }
+                        // Step2. l@
+                        //             @r
+                        UIView.animate(withDuration: 0.5) {
+                            leftHand.transform = CGAffineTransform(translationX: self.view.frame.midX - self.leftHandLeadingConstraint.constant - self.handImage.frame.width * 1.25, y: self.view.frame.midY - self.leftHandTopConstraint.constant - self.handImage.frame.height * 0.9)
+                            rightHand.transform = CGAffineTransform(translationX:  -self.view.frame.midX - self.rightHandTrailingConstraint.constant + self.secondHandImage.frame.width * 1.25, y: -self.view.frame.midY - self.rightHandBottomConstraint.constant + self.secondHandImage.frame.height * 0.9)
+                        } completion: { completed in
+                            guard completed, let leftHand = handImage, let rightHand = secondHandImage else { return }
+                            //Step3.      @r
+                            //       l@
+                            UIView.animate(withDuration: 0.5) {
+                                leftHand.transform = CGAffineTransform(translationX: self.view.frame.midX - self.leftHandLeadingConstraint.constant - self.handImage.frame.width * 1.25, y: self.view.frame.midY - self.leftHandTopConstraint.constant - self.handImage.frame.height / 2)
+                                rightHand.transform = CGAffineTransform(translationX:  -self.view.frame.midX - self.rightHandTrailingConstraint.constant + self.secondHandImage.frame.width * 1.25, y: -self.view.frame.midY - self.rightHandBottomConstraint.constant + self.secondHandImage.frame.height / 2)
+                            } completion: { completed in
+                                guard completed, let leftHand = handImage, let rightHand = secondHandImage else { return }
+                                //Step4.  @r
+                                
+                                
+                                //       l@
+                                UIView.animate(withDuration: 0.5) {
+                                    leftHand.transform = CGAffineTransform(translationX: self.view.frame.midX - self.leftHandLeadingConstraint.constant - self.handImage.frame.width * 0.8, y: self.view.frame.maxY - self.leftHandTopConstraint.constant - self.handImage.frame.height * 2)
+                                    rightHand.transform = CGAffineTransform(translationX:  -self.view.frame.midX - self.rightHandTrailingConstraint.constant + self.secondHandImage.frame.width * 0.8, y: -self.view.frame.maxY - self.rightHandBottomConstraint.constant + self.secondHandImage.frame.height * 2)
+                                } completion: { completed in
+                                    guard completed, let leftHand = handImage, let rightHand = secondHandImage else { return }
+                                    //Step 5. @r
+                                    //       l@
+                                    UIView.animate(withDuration: 0.5) {
+                                        leftHand.transform = CGAffineTransform(translationX: self.view.frame.midX - self.leftHandLeadingConstraint.constant - self.handImage.frame.width * 0.8, y: self.view.frame.midY - self.leftHandTopConstraint.constant - self.handImage.frame.height * 0.6)
+                                        rightHand.transform = CGAffineTransform(translationX:  -self.view.frame.midX - self.rightHandTrailingConstraint.constant + self.secondHandImage.frame.width * 0.8, y: -self.view.frame.midY - self.rightHandBottomConstraint.constant + self.secondHandImage.frame.height * 0.6)
+                                    } completion: { completed in
+                                        guard completed, let leftHand = handImage, let rightHand = secondHandImage else { return }
+                                        //Step 6.   @r
+                                        //      l@
+                                        UIView.animate(withDuration: 0.5) {
+                                            leftHand.transform = CGAffineTransform(translationX: self.view.frame.midX - self.leftHandLeadingConstraint.constant - self.handImage.frame.width * 1.25, y: self.view.frame.midY - self.leftHandTopConstraint.constant - self.handImage.frame.height * 0.6)
+                                            rightHand.transform = CGAffineTransform(translationX:  -self.view.frame.midX - self.rightHandTrailingConstraint.constant + self.secondHandImage.frame.width * 1.25, y: -self.view.frame.midY - self.rightHandBottomConstraint.constant + self.secondHandImage.frame.height * 0.6)
+                                        } completion: { completed in
+                                            guard completed, let leftHand = handImage, let rightHand = secondHandImage else { return }
+                                            //Step 7. l@  @r
+                                            UIView.animate(withDuration: 0.5) {
+                                                leftHand.transform = CGAffineTransform(translationX: self.view.frame.midX - self.leftHandLeadingConstraint.constant - self.handImage.frame.width * 1.25, y: self.view.frame.midY - self.leftHandTopConstraint.constant - self.handImage.frame.height)
+                                                rightHand.transform = CGAffineTransform(translationX:  -self.view.frame.midX - self.rightHandTrailingConstraint.constant + self.secondHandImage.frame.width * 1.25, y: -self.view.frame.midY - self.rightHandBottomConstraint.constant + self.secondHandImage.frame.height / 2)
+                                            } completion: { completed in
+                                                guard completed, let leftHand = handImage, let rightHand = secondHandImage else { return }
+                                                //Step 8. r@@l
+                                                UIView.animate(withDuration: 0.5) {
+                                                    leftHand.transform = CGAffineTransform(translationX: self.view.frame.midX - self.leftHandLeadingConstraint.constant - self.handImage.frame.width * 0.95, y: self.view.frame.midY - self.leftHandTopConstraint.constant - self.handImage.frame.height)
+                                                    rightHand.transform = CGAffineTransform(translationX:  -self.view.frame.midX - self.rightHandTrailingConstraint.constant + self.secondHandImage.frame.width * 0.95, y: -self.view.frame.midY - self.rightHandBottomConstraint.constant + self.secondHandImage.frame.height / 2)
+                                                } completion: { completed in
+                                                    guard completed else { return }
+                                                    //Step 9. Initial stage
+                                                    UIView.animate(withDuration: 0.8) {
+                                                        self.customConnectButton.transform = .identity
+                                                        self.customInfoButton.transform = .identity
+                                                        self.nameTextField.transform = .identity
+                                                        self.handImage.transform = .identity
+                                                        self.secondHandImage.transform = .identity
+                                                        self.handTypeShowView.transform = .identity
+                                                        self.shakeTypeShowView.transform = .identity
+                                                        self.customActionButton.transform = .identity
+                                                        self.perform(#selector(self.showShadows), with: nil, afterDelay: 0.7)
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                //Hand Shake 3
+                case "womanHandShake3", "humanHandShake3", "alienHandShake3", "robotHandShake3", "zombieHandShake3", "scullHandShake3":
+                    //Step 1. l@  @r
+                    UIView.animate(withDuration: 1) {
+                        leftHand.transform = CGAffineTransform(translationX: self.view.frame.midX - self.leftHandLeadingConstraint.constant - self.handImage.frame.width * 1.2, y: self.view.frame.midY - self.leftHandTopConstraint.constant - self.handImage.frame.height / 2)
+                        rightHand.transform = CGAffineTransform(translationX:  -self.view.frame.midX - self.rightHandTrailingConstraint.constant + self.secondHandImage.frame.width * 1.2, y: -self.view.frame.midY - self.rightHandBottomConstraint.constant + self.secondHandImage.frame.height / 2)
+                    } completion: { completed in
+                        guard completed, let leftHand = handImage, let rightHand = secondHandImage else { return }
+                        //Step2. l@@r
+                        UIView.animate(withDuration: 0.3) {
+                            leftHand.transform = CGAffineTransform(translationX: self.view.frame.midX - self.leftHandLeadingConstraint.constant - self.handImage.frame.width, y: self.view.frame.midY - self.leftHandTopConstraint.constant - self.handImage.frame.height / 2)
+                            rightHand.transform = CGAffineTransform(translationX:  -self.view.frame.midX - self.rightHandTrailingConstraint.constant + self.secondHandImage.frame.width, y: -self.view.frame.midY - self.rightHandBottomConstraint.constant + self.secondHandImage.frame.height / 2)
+                        } completion: { completed in
+                            guard completed, let bang = self.bangImage else { return }
+                            //Step3. Bang animation
+                            UIView.animate(withDuration: 1) {
+                                bang.isHidden = false
+                                bang.transform = CGAffineTransform(scaleX: 3, y: 3)
+                            } completion: { completed in
+                                guard completed else { return }
+                                //Step4. initial stage
+                                UIView.animate(withDuration: 1) {
+                                    self.customConnectButton.transform = .identity
+                                    self.customInfoButton.transform = .identity
+                                    self.nameTextField.transform = .identity
+                                    self.handImage.transform = .identity
+                                    self.secondHandImage.transform = .identity
+                                    self.handTypeShowView.transform = .identity
+                                    self.shakeTypeShowView.transform = .identity
+                                    self.customActionButton.transform = .identity
+                                    self.bangImage.isHidden = true
+                                    self.perform(#selector(self.showShadows), with: nil, afterDelay: 0.7)
+                                }
+                            }
+                        }
+                    }
+                default:
+                    print("Unknown type")
+                }
+            }
         }
     }
-    @objc func initial() {
-        self.handImage.transform = .identity
-        self.secondHandImage.transform = .identity
+    
+    @objc func showShadows() {
+        self.verticalLightShadowForConnectButton.isHidden = false
+        self.horizontalLightShadowForConnectButton.isHidden = false
+        self.horizontalDarkShadowForConnectButton.isHidden = false
+        self.verticalDarkShadowForConnectButton.isHidden = false
+        
+        self.verticalLightShadowForInfoButton.isHidden = false
+        self.horizontalLightShadowForInfoButton.isHidden = false
+        self.horizontalDarkShadowForInfoButton.isHidden = false
+        self.verticalDarkShadowForInfoButton.isHidden = false
+        
+        self.verticalLightShadowForHandTypeButton.isHidden = false
+        self.horizontalLightShadowForHandTypeButton.isHidden = false
+        self.horizontalDarkShadowForHandTypeButton.isHidden = false
+        self.verticalDarkShadowForHandTypeButton.isHidden = false
+        
+        self.verticalLightShadowForShakeTypeButton.isHidden = false
+        self.horizontalLightShadowForShakeTypeButton.isHidden = false
+        self.horizontalDarkShadowForShakeTypeButton.isHidden = false
+        self.verticalDarkShadowForShakeTypeButton.isHidden = false
+        
+        self.verticalLightShadowForActionButton.isHidden = false
+        self.horizontalLightShadowForActionButton.isHidden = false
+        self.horizontalDarkShadowForActionButton.isHidden = false
+        self.verticalDarkShadowForActionButton.isHidden = false
+        
+        self.verticalLightShadowForNameTextField.isHidden = false
+        self.horizontalLightShadowForNameTextField.isHidden = false
+        self.horizontalDarkShadowForNameTextField.isHidden = false
+        self.verticalDarkShadowForNameTextField.isHidden = false
     }
     
     func autoShakeTypeChooser() {
