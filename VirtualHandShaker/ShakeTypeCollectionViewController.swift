@@ -9,9 +9,15 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 
+public enum HandShakeTypes: String {
+    case handShake1 = "handShake1"
+    case handShake2 = "handShake2"
+    case handShake3 = "handShake3"
+}
+
 protocol ShakeTypeProtocol {
     //?
-    func shakeTypeTransferWithProtocol(data: String)
+    func shakeTypeTransferWithProtocol(type: String, imageName: String)
 }
 
 class ShakeTypeCollectionViewController: UICollectionViewController, NeumorphicShadows {
@@ -23,7 +29,8 @@ class ShakeTypeCollectionViewController: UICollectionViewController, NeumorphicS
     
     var shakeTypes = [String]()
     var handType = "humanHand"
-    
+    var shakeType = HandShakeTypes.handShake1.rawValue
+    var shakeTypeImageName = "humanHandShake1"
     var humanShakeTypes = ["humanHandShake1", "humanHandShake2", "humanHandShake3"]
     var womanShakeTypes = ["womanHandShake1", "womanHandShake2", "womanHandShake3"]
     var zombieShakeTypes = ["zombieHandShake1", "zombieHandShake2", "zombieHandShake3"]
@@ -66,8 +73,18 @@ class ShakeTypeCollectionViewController: UICollectionViewController, NeumorphicS
         
         shadowChangeByBeganVer2(verticalDarkShadow: verticalDarkShadow, horizontalDarkShadow: horizontalDarkShadow, verticalLightShadow: verticalLightShadow, horizontalLightShadow: horizontalLightShadow)
         
-        let shake = shakeTypes[indexPath.item]
-        delegate?.shakeTypeTransferWithProtocol(data: shake)
+        let shakeTypeImageName = shakeTypes[indexPath.item]
+        switch shakeTypeImageName {
+        case "humanHandShake1", "scullHandShake1", "womanHandShake1", "alienHandShake1", "robotHandShake1", "zombieHandShake1":
+            shakeType = HandShakeTypes.handShake1.rawValue
+        case "humanHandShake2", "scullHandShake2", "womanHandShake2", "alienHandShake2", "robotHandShake2", "zombieHandShake2":
+            shakeType = HandShakeTypes.handShake2.rawValue
+        case "humanHandShake3","scullHandShake3", "alienHandShake3", "womanHandShake3", "robotHandShake3", "zombieHandShake3":
+            shakeType = HandShakeTypes.handShake3.rawValue
+        default:
+            print("Unknown type")
+        }
+        delegate?.shakeTypeTransferWithProtocol(type: shakeType, imageName: shakeTypeImageName)
         
         perform(#selector(backToMain(indexPath:)), with: nil, afterDelay: 0.5)
     }

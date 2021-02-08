@@ -10,17 +10,17 @@ import MultipeerConnectivity
 
 class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControllerDelegate, MCNearbyServiceAdvertiserDelegate, UITextFieldDelegate, HandTypeProtocol, ShakeTypeProtocol, NeumorphicShadows {
     
+    
+    
 //shadows
     let verticalLightShadowForConnectButton = CAShapeLayer()
     let horizontalLightShadowForConnectButton = CAShapeLayer()
     let horizontalDarkShadowForConnectButton = CAShapeLayer()
     let verticalDarkShadowForConnectButton = CAShapeLayer()
-    
     let verticalLightShadowForInfoButton = CAShapeLayer()
     let horizontalLightShadowForInfoButton = CAShapeLayer()
     let horizontalDarkShadowForInfoButton = CAShapeLayer()
     let verticalDarkShadowForInfoButton = CAShapeLayer()
-    
     let verticalLightShadowForHandTypeButton = CAShapeLayer()
     let horizontalLightShadowForHandTypeButton = CAShapeLayer()
     let horizontalDarkShadowForHandTypeButton = CAShapeLayer()
@@ -89,13 +89,15 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
     var startAnimation = false
 
     var handType = "humanHand"
-    var shakeType = "humanHandShake1"
+    var shakeType = HandShakeTypes.handShake1.rawValue
+    var shakeTypeImage = "humanHandShake1"
     var userName: String?
     //?
     var greeting = "Hello !"
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(shakeType)
         let defaults = UserDefaults.standard
         //? add new savings for type
         if let savedName  = defaults.object(forKey: "userName") as? String {
@@ -128,7 +130,7 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
         addActionForButtons(view: handTypeShowView)
         
         //new image
-        shakeTypeShowView.image = UIImage(named: shakeType)
+        shakeTypeShowView.image = UIImage(named: shakeTypeImage)
         bangImage.image = UIImage(named: "bang1")
         
         addActionForButtons(view: shakeTypeShowView)
@@ -229,15 +231,81 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
         DispatchQueue.main.async {
             [weak self] in
     //? received data
-            if let receivedData = String(data: data, encoding: .utf8) {
-                self?.startAnimation = NSString(string:receivedData).boolValue
-            }
-            print(self?.startAnimation)
+         //   if let receivedData = String(data: data, encoding: .utf8) {
+          //      self?.startAnimation = NSString(string:receivedData).boolValue
+         //   }
+          //  print(self?.startAnimation)
             
-            if let data = String(data: data, encoding: .utf8) {
-            self?.testLabel.text = data
+           // if let data = String(data: data, encoding: .utf8) {
+           // self?.testLabel.text = data
+         //   }
+            do {
+                let inputData = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as! [String]
+             
+              //  self?.testLabel.text = "\(inputData[0]) \(inputData[1]) \(inputData[2]) \(inputData[3])"
+                print(inputData[0])
+                print(inputData[1])
+                print(inputData[2])
+                print(inputData[3])
+                self?.leftOrRightHandSettings(hand: self?.handType ?? "humanHand", shake: inputData[3], leftHand: false)
+                self?.leftOrRightHandSettings(hand: inputData[2], shake: inputData[3], leftHand: true)
+                
+                self?.shakeType = inputData[3]
+                self?.handShake()
+            } catch let error as NSError {
+                print(error)
             }
         }
+    }
+    
+    func leftOrRightHandSettings(hand: String, shake: String, leftHand: Bool) {
+        switch hand {
+        case "humanHand" where shake == HandShakeTypes.handShake1.rawValue:
+            //@
+            leftHand ? (handImage.image = UIImage(named: "humanHandLeft1")) : (secondHandImage.image = UIImage(named: "humanHandRight1"))
+        case "humanHand" where shake == HandShakeTypes.handShake2.rawValue:
+            //@
+            leftHand ? (handImage.image = UIImage(named: "humanFistLeft1_1")) : (secondHandImage.image = UIImage(named: "humanFistRight1_1"))
+        case "humanHand" where shake == HandShakeTypes.handShake3.rawValue:
+            //@
+            leftHand ? (handImage.image = UIImage(named: "humanFistLeft1_2")) : (secondHandImage.image = UIImage(named: "humanFistRight1_2"))
+        case "womanHand" where shake == HandShakeTypes.handShake1.rawValue:
+            leftHand ? (handImage.image = UIImage(named: "womanHandLeft")) : (secondHandImage.image = UIImage(named: "womanHandRight"))
+        case "womanHand" where shake == HandShakeTypes.handShake2.rawValue:
+            leftHand ? (handImage.image = UIImage(named: "womanFistLeft")) : (secondHandImage.image = UIImage(named: "womanFistRight"))
+        case "womanHand" where shake == HandShakeTypes.handShake3.rawValue:
+            leftHand ? (handImage.image = UIImage(named: "womanFistLeft")) : (secondHandImage.image = UIImage(named: "womanFistRight"))
+        case "zombieHand" where shake == HandShakeTypes.handShake1.rawValue:
+            leftHand ? (handImage.image = UIImage(named: "zombieHandLeft")) : (secondHandImage.image = UIImage(named: "zombieHandRight"))
+        case "zombieHand" where shake == HandShakeTypes.handShake2.rawValue:
+            leftHand ? (handImage.image = UIImage(named: "zombieFistLeft")) : (secondHandImage.image = UIImage(named: "zombieFistRight"))
+        case "zombieHand" where shake == HandShakeTypes.handShake3.rawValue:
+            leftHand ? (handImage.image = UIImage(named: "zombieFistLeft2")) : (secondHandImage.image = UIImage(named: "zombieFistRight2"))
+        case "robotHand" where shake == HandShakeTypes.handShake1.rawValue:
+            leftHand ? (handImage.image = UIImage(named: "robotHandLeft")) : (secondHandImage.image = UIImage(named: "robotHandRight"))
+        case "robotHand" where shake == HandShakeTypes.handShake2.rawValue:
+            leftHand ?  (handImage.image = UIImage(named: "robotFistLeft")) : (secondHandImage.image = UIImage(named: "robotFistRight"))
+        case "robotHand" where shake == HandShakeTypes.handShake3.rawValue:
+            leftHand ? (handImage.image = UIImage(named: "robotFistLeft")) : (secondHandImage.image = UIImage(named: "robotFistRight"))
+        case "alienHand" where shake == HandShakeTypes.handShake1.rawValue:
+            leftHand ? (handImage.image = UIImage(named: "alienHandLeft")) : (secondHandImage.image = UIImage(named: "alienHandRight"))
+        case "alienHand" where shake == HandShakeTypes.handShake2.rawValue:
+            leftHand ? (handImage.image = UIImage(named: "alienFistLeft")) : (secondHandImage.image = UIImage(named: "alienFistRight"))
+        case "alienHand" where shake  == HandShakeTypes.handShake3.rawValue:
+            leftHand ? (handImage.image = UIImage(named: "alienFistLeft")) : (secondHandImage.image = UIImage(named: "alienFistRight"))
+        case "scullHand" where shake == HandShakeTypes.handShake1.rawValue:
+            leftHand ? (handImage.image = UIImage(named: "scullHandLeft")) : (secondHandImage.image = UIImage(named: "scullHandRight"))
+        case "scullHand" where shake == HandShakeTypes.handShake2.rawValue:
+            leftHand ? (handImage.image = UIImage(named: "scullFistLeft")) : (secondHandImage.image = UIImage(named: "scullFistRight"))
+        case "scullHand" where shake == HandShakeTypes.handShake3.rawValue:
+            leftHand ? (handImage.image = UIImage(named: "scullFistLeft")) : (secondHandImage.image = UIImage(named: "scullFistRight"))
+        default:
+            print("unknown type in func left or right hand \(hand) \(shake) \(leftHand)")
+        }
+        
+       
+        
+        
     }
     
     //incoming request
@@ -293,21 +361,22 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
     
     func sendData() {
         //?
-        let stringVar = "true"
-        
         guard let mcSession = mcSession else { return }
         if mcSession.connectedPeers.count > 0 {
             //?
-            if let dataToSend = stringVar.data(using: .utf8){
-                print(dataToSend)
+        //    if let dataToSend = stringVar.data(using: .utf8){
+             //   print(dataToSend)
+            let stringVar = [userName, greeting, handType, shakeType]
             do {
+                let dataToSend = try NSKeyedArchiver.archivedData(withRootObject: stringVar, requiringSecureCoding: false)
+                
                 try mcSession.send(dataToSend, toPeers: mcSession.connectedPeers, with: .reliable)
             } catch {
                 let ac = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "Ok", style: .cancel))
                 present(ac, animated: true)
             }
-            }
+           // }
         }
     }
     
@@ -399,75 +468,75 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
         }
     }
     
-    func shakeTypeTransferWithProtocol(data: String) {
-        shakeType = data
-        print(shakeType)
-        shakeTypeShowView.image = UIImage(named: shakeType)
+    func shakeTypeTransferWithProtocol(type: String, imageName: String)  {
+        shakeType = type
+        
+        shakeTypeShowView.image = UIImage(named: imageName)
         
         switch handType {
-        case "humanHand" where shakeType == "humanHandShake1":
+        case "humanHand" where shakeType == HandShakeTypes.handShake1.rawValue:
             //@
             handImage.image = UIImage(named: "humanHandLeft1")
             //@
             secondHandImage.image = UIImage(named: "humanHandRight1")
-        case "humanHand" where shakeType == "humanHandShake2":
+        case "humanHand" where shakeType == HandShakeTypes.handShake2.rawValue:
             //@
             handImage.image = UIImage(named: "humanFistLeft1_1")
             //@
             secondHandImage.image = UIImage(named: "humanFistRight1_1")
-        case "humanHand" where shakeType == "humanHandShake3":
+        case "humanHand" where shakeType == HandShakeTypes.handShake3.rawValue:
             //@
             handImage.image = UIImage(named: "humanFistLeft1_2")
             //@
             secondHandImage.image = UIImage(named: "humanFistRight1_2")
             
-        case "womanHand" where shakeType == "womanHandShake1":
+        case "womanHand" where shakeType == HandShakeTypes.handShake1.rawValue:
             handImage.image = UIImage(named: "womanHandLeft")
             secondHandImage.image = UIImage(named: "womanHandRight")
-        case "womanHand" where shakeType == "womanHandShake2":
+        case "womanHand" where shakeType == HandShakeTypes.handShake2.rawValue:
             handImage.image = UIImage(named: "womanFistLeft")
             secondHandImage.image = UIImage(named: "womanFistRight")
-        case "womanHand" where shakeType == "womanHandShake3":
+        case "womanHand" where shakeType == HandShakeTypes.handShake3.rawValue:
             handImage.image = UIImage(named: "womanFistLeft")
             secondHandImage.image = UIImage(named: "womanFistRight")
         
-        case "zombieHand" where shakeType == "zombieHandShake1":
+        case "zombieHand" where shakeType == HandShakeTypes.handShake1.rawValue:
             handImage.image = UIImage(named: "zombieHandLeft")
             secondHandImage.image = UIImage(named: "zombieHandRight")
-        case "zombieHand" where shakeType == "zombieHandShake2":
+        case "zombieHand" where shakeType == HandShakeTypes.handShake2.rawValue:
             handImage.image = UIImage(named: "zombieFistLeft")
             secondHandImage.image = UIImage(named: "zombieFistRight")
-        case "zombieHand" where shakeType == "zombieHandShake3":
+        case "zombieHand" where shakeType == HandShakeTypes.handShake3.rawValue:
             handImage.image = UIImage(named: "zombieFistLeft2")
             secondHandImage.image = UIImage(named: "zombieFistRight2")
             
-        case "robotHand" where shakeType == "robotHandShake1":
+        case "robotHand" where shakeType == HandShakeTypes.handShake1.rawValue:
             handImage.image = UIImage(named: "robotHandLeft")
             secondHandImage.image = UIImage(named: "robotHandRight")
-        case "robotHand" where shakeType == "robotHandShake2":
+        case "robotHand" where shakeType == HandShakeTypes.handShake2.rawValue:
             handImage.image = UIImage(named: "robotFistLeft")
             secondHandImage.image = UIImage(named: "robotFistRight")
-        case "robotHand" where shakeType == "robotHandShake3":
+        case "robotHand" where shakeType == HandShakeTypes.handShake3.rawValue:
             handImage.image = UIImage(named: "robotFistLeft")
             secondHandImage.image = UIImage(named: "robotFistRight")
             
-        case "alienHand" where shakeType == "alienHandShake1":
+        case "alienHand" where shakeType == HandShakeTypes.handShake1.rawValue:
             handImage.image = UIImage(named: "alienHandLeft")
             secondHandImage.image = UIImage(named: "alienHandRight")
-        case "alienHand" where shakeType == "alienHandShake2":
+        case "alienHand" where shakeType == HandShakeTypes.handShake2.rawValue:
             handImage.image = UIImage(named: "alienFistLeft")
             secondHandImage.image = UIImage(named: "alienFistRight")
-        case "alienHand" where shakeType == "alienHandShake3":
+        case "alienHand" where shakeType == HandShakeTypes.handShake3.rawValue:
             handImage.image = UIImage(named: "alienFistLeft")
             secondHandImage.image = UIImage(named: "alienFistRight")
             
-        case "scullHand" where shakeType == "scullHandShake1":
+        case "scullHand" where shakeType == HandShakeTypes.handShake1.rawValue:
             handImage.image = UIImage(named: "scullHandLeft")
             secondHandImage.image = UIImage(named: "scullHandRight")
-        case "scullHand" where shakeType == "scullHandShake2":
+        case "scullHand" where shakeType == HandShakeTypes.handShake2.rawValue:
             handImage.image = UIImage(named: "scullFistLeft")
             secondHandImage.image = UIImage(named: "scullFistRight")
-        case "scullHand" where shakeType == "scullHandShake3":
+        case "scullHand" where shakeType == HandShakeTypes.handShake3.rawValue:
             handImage.image = UIImage(named: "scullFistLeft")
             secondHandImage.image = UIImage(named: "scullFistRight")
         
@@ -482,6 +551,8 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
             
         } else if gest.state == .ended {
             shadowChangeByEnded(verticalDarkShadow: verticalDarkShadowForActionButton, horizontalDarkShadow: horizontalDarkShadowForActionButton, verticalLightShadow: verticalLightShadowForActionButton, horizontalLightShadow: horizontalLightShadowForActionButton)
+            
+            sendData()
             handShake()
         }
     }
@@ -552,7 +623,7 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
                 //animation for different type of shakes
                 switch self.shakeType {
                 //Hand Shake 1
-                case "womanHandShake1", "humanHandShake1", "alienHandShake1", "robotHandShake1", "zombieHandShake1", "scullHandShake1":
+                case HandShakeTypes.handShake1.rawValue:
                     // Step1. move hands in center [lr]
                     UIView.animate(withDuration: 1) {
                         leftHand.transform = CGAffineTransform(translationX: self.view.frame.midX - self.leftHandLeadingConstraint.constant - self.handImage.frame.width / 2, y: self.view.frame.midY - self.leftHandTopConstraint.constant - self.handImage.frame.height / 2)
@@ -573,7 +644,7 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
                         }
                     }
                 //Hand Shake 2
-                case "womanHandShake2", "humanHandShake2", "alienHandShake2", "robotHandShake2", "zombieHandShake2", "scullHandShake2":
+                case HandShakeTypes.handShake2.rawValue:
                     // Step 1. l@
                     //          @r
                     UIView.animate(withDuration: 0.5) {
@@ -651,7 +722,7 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
                         }
                     }
                 //Hand Shake 3
-                case "womanHandShake3", "humanHandShake3", "alienHandShake3", "robotHandShake3", "zombieHandShake3", "scullHandShake3":
+                case HandShakeTypes.handShake3.rawValue:
                     //Step 1. l@  @r
                     UIView.animate(withDuration: 1) {
                         leftHand.transform = CGAffineTransform(translationX: self.view.frame.midX - self.leftHandLeadingConstraint.constant - self.handImage.frame.width * 1.2, y: self.view.frame.midY - self.leftHandTopConstraint.constant - self.handImage.frame.height / 2)
@@ -681,13 +752,14 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
                                     self.shakeTypeShowView.transform = .identity
                                     self.customActionButton.transform = .identity
                                     self.bangImage.isHidden = true
+                                    self.bangImage.transform = .identity
                                     self.perform(#selector(self.showShadows), with: nil, afterDelay: 0.7)
                                 }
                             }
                         }
                     }
                 default:
-                    print("Unknown type")
+                    print("Unknown type \(self.shakeType)")
                 }
             }
         }
@@ -726,29 +798,29 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
     }
     
     func autoShakeTypeChooser() {
-        print("woof")
+        
         switch handType {
         case "humanHand":
-            shakeType = "humanHandShake1"
-            shakeTypeShowView.image = UIImage(named: shakeType)
+            shakeTypeImage = "humanHandShake1"
+            shakeTypeShowView.image = UIImage(named: shakeTypeImage)
         case "womanHand":
-            shakeType = "womanHandShake1"
-            shakeTypeShowView.image = UIImage(named: shakeType)
+            shakeTypeImage = "womanHandShake1"
+            shakeTypeShowView.image = UIImage(named: shakeTypeImage)
         case "zombieHand":
-            shakeType = "zombieHandShake1"
-            shakeTypeShowView.image = UIImage(named: shakeType)
+            shakeTypeImage = "zombieHandShake1"
+            shakeTypeShowView.image = UIImage(named: shakeTypeImage)
         case "robotHand":
-            shakeType = "robotHandShake1"
-            shakeTypeShowView.image = UIImage(named: shakeType)
+            shakeTypeImage = "robotHandShake1"
+            shakeTypeShowView.image = UIImage(named: shakeTypeImage)
         case "scullHand":
-            shakeType = "scullHandShake1"
-            shakeTypeShowView.image = UIImage(named: shakeType)
+            shakeTypeImage = "scullHandShake1"
+            shakeTypeShowView.image = UIImage(named: shakeTypeImage)
         case "alienHand":
-            shakeType = "alienHandShake1"
-            shakeTypeShowView.image = UIImage(named: shakeType)
+            shakeTypeImage = "alienHandShake1"
+            shakeTypeShowView.image = UIImage(named: shakeTypeImage)
         default:
-            shakeType = "humanHandShake1"
-            shakeTypeShowView.image = UIImage(named: shakeType)
+            shakeTypeImage = "humanHandShake1"
+            shakeTypeShowView.image = UIImage(named: shakeTypeImage)
         }
     }
     
