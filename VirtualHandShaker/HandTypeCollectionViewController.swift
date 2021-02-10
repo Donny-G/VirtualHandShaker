@@ -21,7 +21,7 @@ class HandTypeCollectionViewController: UICollectionViewController, NeumorphicSh
     let horizontalDarkShadow = CAShapeLayer()
     let verticalDarkShadow = CAShapeLayer()
     
-    var handImages = ["humanHand", "zombieHand", "alienHand", "robotHand", "scullHand", "womanHand"]
+    var handImages = [HandTypes.humanHand.rawValue, HandTypes.womanHand.rawValue, HandTypes.zombieHand.rawValue, HandTypes.robotHand.rawValue, HandTypes.alienHand.rawValue, HandTypes.scullHand.rawValue]
     var delegate: HandTypeProtocol?
 
     override func viewDidLoad() {

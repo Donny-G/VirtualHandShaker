@@ -9,12 +9,6 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 
-public enum HandShakeTypes: String {
-    case handShake1 = "handShake1"
-    case handShake2 = "handShake2"
-    case handShake3 = "handShake3"
-}
-
 protocol ShakeTypeProtocol {
     //?
     func shakeTypeTransferWithProtocol(type: String, imageName: String)
@@ -28,15 +22,15 @@ class ShakeTypeCollectionViewController: UICollectionViewController, NeumorphicS
     let verticalDarkShadow = CAShapeLayer()
     
     var shakeTypes = [String]()
-    var handType = "humanHand"
+    var handType = HandTypes.humanHand.rawValue
     var shakeType = HandShakeTypes.handShake1.rawValue
-    var shakeTypeImageName = "humanHandShake1"
-    var humanShakeTypes = ["humanHandShake1", "humanHandShake2", "humanHandShake3"]
-    var womanShakeTypes = ["womanHandShake1", "womanHandShake2", "womanHandShake3"]
-    var zombieShakeTypes = ["zombieHandShake1", "zombieHandShake2", "zombieHandShake3"]
-    var robotShakeTypes = ["robotHandShake1", "robotHandShake2", "robotHandShake3"]
-    var scullShakeTypes = ["scullHandShake1", "scullHandShake2", "scullHandShake3"]
-    var alienShakeTypes = ["alienHandShake1", "alienHandShake2", "alienHandShake3"]
+    var shakeTypeImageName = HandShakeTypeImages.humanHandShake1.rawValue
+    var humanShakeTypes = [HandShakeTypeImages.humanHandShake1.rawValue, HandShakeTypeImages.humanHandShake2.rawValue, HandShakeTypeImages.humanHandShake3.rawValue]
+    var womanShakeTypes = [HandShakeTypeImages.womanHandShake1.rawValue, HandShakeTypeImages.womanHandShake2.rawValue, HandShakeTypeImages.womanHandShake3.rawValue]
+    var zombieShakeTypes = [HandShakeTypeImages.zombieHandShake1.rawValue, HandShakeTypeImages.zombieHandShake2.rawValue, HandShakeTypeImages.zombieHandShake3.rawValue]
+    var robotShakeTypes = [HandShakeTypeImages.robotHandShake1.rawValue, HandShakeTypeImages.robotHandShake2.rawValue, HandShakeTypeImages.robotHandShake3.rawValue]
+    var scullShakeTypes = [HandShakeTypeImages.scullHandShake1.rawValue, HandShakeTypeImages.scullHandShake2.rawValue, HandShakeTypeImages.scullHandShake3.rawValue]
+    var alienShakeTypes = [HandShakeTypeImages.alienHandShake1.rawValue, HandShakeTypeImages.alienHandShake2.rawValue, HandShakeTypeImages.alienHandShake3.rawValue]
     
     var delegate: ShakeTypeProtocol?
 
@@ -75,11 +69,11 @@ class ShakeTypeCollectionViewController: UICollectionViewController, NeumorphicS
         
         let shakeTypeImageName = shakeTypes[indexPath.item]
         switch shakeTypeImageName {
-        case "humanHandShake1", "scullHandShake1", "womanHandShake1", "alienHandShake1", "robotHandShake1", "zombieHandShake1":
+        case HandShakeTypeImages.humanHandShake1.rawValue, HandShakeTypeImages.scullHandShake1.rawValue, HandShakeTypeImages.womanHandShake1.rawValue, HandShakeTypeImages.alienHandShake1.rawValue, HandShakeTypeImages.robotHandShake1.rawValue, HandShakeTypeImages.zombieHandShake1.rawValue:
             shakeType = HandShakeTypes.handShake1.rawValue
-        case "humanHandShake2", "scullHandShake2", "womanHandShake2", "alienHandShake2", "robotHandShake2", "zombieHandShake2":
+        case HandShakeTypeImages.humanHandShake2.rawValue, HandShakeTypeImages.scullHandShake2.rawValue, HandShakeTypeImages.womanHandShake2.rawValue, HandShakeTypeImages.alienHandShake2.rawValue, HandShakeTypeImages.robotHandShake2.rawValue, HandShakeTypeImages.zombieHandShake2.rawValue:
             shakeType = HandShakeTypes.handShake2.rawValue
-        case "humanHandShake3","scullHandShake3", "alienHandShake3", "womanHandShake3", "robotHandShake3", "zombieHandShake3":
+        case HandShakeTypeImages.humanHandShake3.rawValue, HandShakeTypeImages.scullHandShake3.rawValue, HandShakeTypeImages.alienHandShake3.rawValue, HandShakeTypeImages.womanHandShake3.rawValue, HandShakeTypeImages.robotHandShake3.rawValue, HandShakeTypeImages.zombieHandShake3.rawValue:
             shakeType = HandShakeTypes.handShake3.rawValue
         default:
             print("Unknown type")
@@ -97,17 +91,17 @@ class ShakeTypeCollectionViewController: UICollectionViewController, NeumorphicS
     
     func handShakeChooser(){
         switch handType {
-        case "humanHand":
+        case HandTypes.humanHand.rawValue:
             shakeTypes = humanShakeTypes
-        case "womanHand":
+        case HandTypes.womanHand.rawValue:
             shakeTypes = womanShakeTypes
-        case "zombieHand":
+        case HandTypes.zombieHand.rawValue:
             shakeTypes = zombieShakeTypes
-        case "scullHand":
+        case HandTypes.scullHand.rawValue:
             shakeTypes = scullShakeTypes
-        case "robotHand":
+        case HandTypes.robotHand.rawValue:
             shakeTypes = robotShakeTypes
-        case "alienHand":
+        case HandTypes.alienHand.rawValue:
             shakeTypes = alienShakeTypes
         default:
             shakeTypes = humanShakeTypes

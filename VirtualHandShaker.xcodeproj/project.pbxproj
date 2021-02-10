@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C322081125D2EA0E00CE6480 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = C322081025D2EA0E00CE6480 /* Enums.swift */; };
 		C340D81E256D36EE00B85143 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C340D81D256D36EE00B85143 /* AppDelegate.swift */; };
 		C340D820256D36EE00B85143 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C340D81F256D36EE00B85143 /* SceneDelegate.swift */; };
 		C340D822256D36EE00B85143 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C340D821256D36EE00B85143 /* ViewController.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C322081025D2EA0E00CE6480 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		C340D81A256D36EE00B85143 /* VirtualHandShaker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VirtualHandShaker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C340D81D256D36EE00B85143 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C340D81F256D36EE00B85143 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 				C340D81F256D36EE00B85143 /* SceneDelegate.swift */,
 				C340D821256D36EE00B85143 /* ViewController.swift */,
 				C3A7952C25B731ED002B716F /* ShadowProtocol.swift */,
+				C322081025D2EA0E00CE6480 /* Enums.swift */,
 				C340D83C256D5BB000B85143 /* HandTypeCollectionViewController.swift */,
 				C340D83F256D5BC900B85143 /* ShakeTypeCollectionViewController.swift */,
 				C340D823256D36EE00B85143 /* Main.storyboard */,
@@ -155,6 +158,7 @@
 				C340D81E256D36EE00B85143 /* AppDelegate.swift in Sources */,
 				C340D83D256D5BB000B85143 /* HandTypeCollectionViewController.swift in Sources */,
 				C340D837256D57E900B85143 /* InfoViewController.swift in Sources */,
+				C322081125D2EA0E00CE6480 /* Enums.swift in Sources */,
 				C340D820256D36EE00B85143 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
