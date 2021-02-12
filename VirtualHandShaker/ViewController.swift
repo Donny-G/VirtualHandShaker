@@ -123,8 +123,8 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
     var shakeTypeImage = HandShakeTypeImages.humanHandShake1.rawValue
     //multi
     var online = false
-    var friendShakeType = HandShakeTypes.handShake1.rawValue
-    var friendHandType = HandTypes.humanHand.rawValue
+    var friendShakeType: String?
+    var friendHandType: String?
     var userName: String?
     var friendName: String?
     var greeting: String?
@@ -138,8 +138,24 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
         let defaults = UserDefaults.standard
         //? add new savings for type
         if let savedName  = defaults.object(forKey: "userName") as? String {
+            print(savedName)
             userName = savedName
             nameTextField.text = savedName
+        }
+        if let savedHandType = defaults.object(forKey: "handType") as? String {
+            print(savedHandType)
+            handType = savedHandType
+        }
+        if let savedShakeType = defaults.object(forKey: "shakeType") as? String {
+            print(savedShakeType)
+            shakeType = savedShakeType
+        }
+        if let savedGreeting = defaults.object(forKey: "greeting") as? String {
+            print(savedGreeting)
+            greeting = savedGreeting
+            greetingsTextField.text = greeting
+        } else {
+            greeting = defaultGreeting
         }
         //? conflict with autoload
         autoShakeTypeChooser(fromHandTypeCollectionView: true)
@@ -152,9 +168,9 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
         
         // ? left and right hands
         //@
-        handImage.image = UIImage(named: LeftHandImages.leftHumanHand.rawValue)
+       // handImage.image = UIImage(named: LeftHandImages.leftHumanHand.rawValue)
         //@
-        secondHandImage.image = UIImage(named: RightHandImages.rightHumanHand.rawValue)
+       // secondHandImage.image = UIImage(named: RightHandImages.rightHumanHand.rawValue)
         
         customConnectButton.image = UIImage(named: "connect5")
         addActionForButtons(view: customConnectButton)
@@ -170,7 +186,7 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
         addActionForButtons(view: handTypeShowView)
         
         //new image
-        shakeTypeShowView.image = UIImage(named: shakeTypeImage)
+       // shakeTypeShowView.image = UIImage(named: shakeTypeImage)
         bangImage.image = UIImage(named: "bang1")
         
         addActionForButtons(view: shakeTypeShowView)
@@ -182,11 +198,8 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
         view.backgroundColor = UIColor.backgroundLight
         userNameLabel.text = userName
         friendNameLabel.text = "Friend"
-        greeting = defaultGreeting
+        
         greetingsLabel.alpha = 0
-        greetingsLabel.backgroundColor = .yellow
-        greetingsLabel.shadowColor = .red
-        greetingsLabel.shadowOffset =  CGSize(width: 5, height: 5)
         verticalLightShadowForGreetingsTextLabel.opacity = 0
         horizontalLightShadowForGreetingsTextLabel.opacity = 0
         horizontalDarkShadowForGreetingsTextLabel.opacity = 0
@@ -201,12 +214,10 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         self.activeTextField = textField
-        print("begin \(activeTextField)")
     }
 
     func textFieldDidEndEditing(_ textField: UITextField) {
         self.activeTextField = nil
-        print(activeTextField)
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
@@ -241,7 +252,7 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
         //Update you're layer based on the new frame
         addShadowForActiveView(yourView: nameTextField, verticalLightShadow: verticalLightShadowForNameTextField, horizontalLightShadow: horizontalLightShadowForNameTextField, horizontalDarkShadow: horizontalDarkShadowForNameTextField, verticalDarkShadow: verticalDarkShadowForNameTextField, color: UIColor.viewLight1)
         
-      //  addShadowForActiveView(yourView: greetingsLabel, verticalLightShadow: verticalLightShadowForGreetingsTextLabel, horizontalLightShadow: horizontalLightShadowForGreetingsTextLabel, horizontalDarkShadow: horizontalDarkShadowForGreetingsTextLabel, verticalDarkShadow: verticalDarkShadowForGreetingsTextLabel, color: UIColor.viewLight1)
+        addShadowForActiveView(yourView: greetingsLabel, verticalLightShadow: verticalLightShadowForGreetingsTextLabel, horizontalLightShadow: horizontalLightShadowForGreetingsTextLabel, horizontalDarkShadow: horizontalDarkShadowForGreetingsTextLabel, verticalDarkShadow: verticalDarkShadowForGreetingsTextLabel, color: UIColor.viewLight1)
         
         addShadowForActiveView(yourView: greetingsTextField, verticalLightShadow: verticalLightShadowForGreetingsTextField, horizontalLightShadow: horizontalLightShadowForGreetingsTextField, horizontalDarkShadow: horizontalDarkShadowForGreetingsTextField, verticalDarkShadow: verticalDarkShadowForGreetingsTextField, color: UIColor.viewLight1)
         
@@ -279,17 +290,24 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        let defaults = UserDefaults.standard
+        
         if let name = nameTextField.text {
+            if !name.isEmpty {
             userName = name
-            let defaults = UserDefaults.standard
             defaults.set(userName, forKey: "userName")
+            } else {
+                userName = nil
+            }
             print(name)
         }
         if let greetingsFromTextField = greetingsTextField.text {
             if !greetingsFromTextField.isEmpty {
             greeting = greetingsFromTextField
+                defaults.set(greeting, forKey: "greeting")
             } else {
                 greeting = defaultGreeting
+                defaults.set(greeting, forKey: "greeting")
             }
         }
         textField.resignFirstResponder()
@@ -435,17 +453,34 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
             shadowChangeByBegan(verticalDarkShadow: verticalDarkShadowForConnectButton, horizontalDarkShadow: horizontalDarkShadowForConnectButton, verticalLightShadow: verticalLightShadowForConnectButton, horizontalLightShadow: horizontalLightShadowForConnectButton)
         } else if gest.state == .ended {
             shadowChangeByEnded(verticalDarkShadow: verticalDarkShadowForConnectButton, horizontalDarkShadow: horizontalDarkShadowForConnectButton, verticalLightShadow: verticalLightShadowForConnectButton, horizontalLightShadow: horizontalLightShadowForConnectButton)
-            
-            mcSessionConfig()
-            let ac = UIAlertController(title: "Connect View", message: nil, preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "Start Hosting", style: .default, handler: startHosting))
-            ac.addAction(UIAlertAction(title: "Join Session", style: .default, handler: joinSession))
-            ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-            ac.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor.backgroundLight
+            if userName != nil {
+                mcSessionConfig()
+                let ac = UIAlertController(title: "Connect View", message: nil, preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "Start Hosting", style: .default, handler: startHosting))
+                ac.addAction(UIAlertAction(title: "Join Session", style: .default, handler: joinSession))
+                ac.addAction(UIAlertAction(title: "Stop Session", style: .default, handler: stopNetwork))
+                ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+                ac.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor.backgroundLight
 
-            ac.view.tintColor = UIColor.tintColorForAlertController1
-            present(ac, animated: true)
+                ac.view.tintColor = UIColor.tintColorForAlertController1
+                present(ac, animated: true)
+            } else {
+                let ac = UIAlertController(title: "Warning", message: "Please enter your name to enter online mode", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "Ok", style: .cancel))
+                ac.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor.backgroundLight
+                ac.view.tintColor = UIColor.tintColorForAlertController1
+                present(ac, animated: true)
+            }
         }
+    }
+    
+    func stopNetwork(action: UIAlertAction) {
+        mcAdvertiserAssistant?.stopAdvertisingPeer()
+        online = false
+        friendShakeType = nil
+        friendHandType =  nil
+        friendName = nil
+        
     }
     
     func mcSessionConfig() {
@@ -528,6 +563,8 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
         handType = data
         autoShakeTypeChooser(fromHandTypeCollectionView: true)
         handTypeShowView.image = UIImage(named: "\(handType)")
+        let defaults = UserDefaults.standard
+        defaults.set(handType, forKey: "handType")
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -561,6 +598,8 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
         shakeTypeImage = imageName
         shakeTypeShowView.image = UIImage(named: shakeTypeImage)
         autoShakeTypeChooser(fromHandTypeCollectionView: false)
+        let defaults = UserDefaults.standard
+        defaults.set(shakeType, forKey: "shakeType")
     }
     
     @objc func actionForActionButton(gest: UILongPressGestureRecognizer) {
@@ -573,7 +612,7 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
             if online {
                 guard let mcSession = mcSession else { return }
                     if mcSession.connectedPeers.count > 0 {
-                    leftOrRightHandSettings(hand: friendHandType, shake: shakeType, leftHand: true)
+                        leftOrRightHandSettings(hand: friendHandType ?? HandTypes.humanHand.rawValue, shake: shakeType, leftHand: true)
                     leftOrRightHandSettings(hand: handType, shake: shakeType, leftHand: false)
                     }
                 }
@@ -678,6 +717,10 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
                             self.userNameLabel.alpha = 0
                             self.friendNameLabel.alpha = 0
                             self.greetingsLabel.alpha = 0
+                            self.verticalLightShadowForGreetingsTextLabel.opacity = 0
+                            self.horizontalLightShadowForGreetingsTextLabel.opacity = 0
+                            self.horizontalDarkShadowForGreetingsTextLabel.opacity = 0
+                            self.verticalDarkShadowForGreetingsTextLabel.opacity = 0
                         }
                         leftHand.transform = CGAffineTransform(translationX: self.view.frame.midX - self.leftHandLeadingConstraint.constant - self.handImage.frame.width / 2, y: self.view.frame.midY - self.leftHandTopConstraint.constant - self.handImage.frame.height / 2)
                         rightHand.transform = CGAffineTransform(translationX:  -self.view.frame.midX - self.rightHandTrailingConstraint.constant + self.secondHandImage.frame.width / 2, y: -self.view.frame.midY - self.rightHandBottomConstraint.constant + self.secondHandImage.frame.height / 2)
@@ -690,14 +733,6 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
                                 self.friendNameLabel.transform = .identity
                                 self.userNameLabel.alpha = 1
                                 self.friendNameLabel.alpha = 1
-                                if self.friendName != nil {
-                                    self.greetingsLabel.alpha = 0
-                                    self.verticalLightShadowForGreetingsTextLabel.opacity = 0
-                                    self.horizontalLightShadowForGreetingsTextLabel.opacity = 0
-                                    self.horizontalDarkShadowForGreetingsTextLabel.opacity = 0
-                                    self.verticalDarkShadowForGreetingsTextLabel.opacity = 0
-                                }
-                                
                             }
                             self.greetingsTextField.transform = .identity
                             self.customConnectButton.transform = .identity
@@ -719,6 +754,11 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
                         if self.online {
                             self.userNameLabel.alpha = 0
                             self.friendNameLabel.alpha = 0
+                            self.greetingsLabel.alpha = 0
+                            self.verticalLightShadowForGreetingsTextLabel.opacity = 0
+                            self.horizontalLightShadowForGreetingsTextLabel.opacity = 0
+                            self.horizontalDarkShadowForGreetingsTextLabel.opacity = 0
+                            self.verticalDarkShadowForGreetingsTextLabel.opacity = 0
                         }
                         leftHand.transform = CGAffineTransform(translationX: self.view.frame.midX - self.leftHandLeadingConstraint.constant - self.handImage.frame.width * 0.8, y: self.view.frame.midY - self.leftHandTopConstraint.constant - self.handImage.frame.height * 0.9)
                         rightHand.transform = CGAffineTransform(translationX:  -self.view.frame.midX - self.rightHandTrailingConstraint.constant + self.secondHandImage.frame.width * 0.8, y: -self.view.frame.midY - self.rightHandBottomConstraint.constant + self.secondHandImage.frame.height * 0.9)
@@ -780,13 +820,6 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
                                                             self.friendNameLabel.transform = .identity
                                                             self.userNameLabel.alpha = 1
                                                             self.friendNameLabel.alpha = 1
-                                                            if self.friendName != nil {
-                                                                self.greetingsLabel.alpha = 0
-                                                                self.verticalLightShadowForGreetingsTextLabel.opacity = 0
-                                                                self.horizontalLightShadowForGreetingsTextLabel.opacity = 0
-                                                                self.horizontalDarkShadowForGreetingsTextLabel.opacity = 0
-                                                                self.verticalDarkShadowForGreetingsTextLabel.opacity = 0
-                                                            }
                                                         }
                                                         self.greetingsTextField.transform = .identity
                                                         self.customConnectButton.transform = .identity
@@ -814,6 +847,11 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
                         if self.online {
                             self.userNameLabel.alpha = 0
                             self.friendNameLabel.alpha = 0
+                            self.greetingsLabel.alpha = 0
+                            self.verticalLightShadowForGreetingsTextLabel.opacity = 0
+                            self.horizontalLightShadowForGreetingsTextLabel.opacity = 0
+                            self.horizontalDarkShadowForGreetingsTextLabel.opacity = 0
+                            self.verticalDarkShadowForGreetingsTextLabel.opacity = 0
                         }
                         leftHand.transform = CGAffineTransform(translationX: self.view.frame.midX - self.leftHandLeadingConstraint.constant - self.handImage.frame.width * 1.2, y: self.view.frame.midY - self.leftHandTopConstraint.constant - self.handImage.frame.height / 2)
                         rightHand.transform = CGAffineTransform(translationX:  -self.view.frame.midX - self.rightHandTrailingConstraint.constant + self.secondHandImage.frame.width * 1.2, y: -self.view.frame.midY - self.rightHandBottomConstraint.constant + self.secondHandImage.frame.height / 2)
@@ -838,13 +876,6 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
                                         self.friendNameLabel.transform = .identity
                                         self.userNameLabel.alpha = 1
                                         self.friendNameLabel.alpha = 1
-                                        if self.friendName != nil {
-                                            self.greetingsLabel.alpha = 0
-                                            self.verticalLightShadowForGreetingsTextLabel.opacity = 0
-                                            self.horizontalLightShadowForGreetingsTextLabel.opacity = 0
-                                            self.horizontalDarkShadowForGreetingsTextLabel.opacity = 0
-                                            self.verticalDarkShadowForGreetingsTextLabel.opacity = 0
-                                        }
                                     }
                                     self.greetingsTextField.transform = .identity
                                     self.customConnectButton.transform = .identity
