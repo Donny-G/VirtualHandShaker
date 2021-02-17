@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C321A51125DD193E00418141 /* AttributedStringProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C321A51025DD193E00418141 /* AttributedStringProtocol.swift */; };
+		C321D4B525DC4B7C00434D95 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C321D4B425DC4B7C00434D95 /* Colors.swift */; };
 		C322081125D2EA0E00CE6480 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = C322081025D2EA0E00CE6480 /* Enums.swift */; };
 		C340D81E256D36EE00B85143 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C340D81D256D36EE00B85143 /* AppDelegate.swift */; };
 		C340D820256D36EE00B85143 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C340D81F256D36EE00B85143 /* SceneDelegate.swift */; };
@@ -21,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C321A51025DD193E00418141 /* AttributedStringProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedStringProtocol.swift; sourceTree = "<group>"; };
+		C321D4B425DC4B7C00434D95 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		C322081025D2EA0E00CE6480 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		C340D81A256D36EE00B85143 /* VirtualHandShaker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VirtualHandShaker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C340D81D256D36EE00B85143 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -69,7 +73,9 @@
 				C340D81D256D36EE00B85143 /* AppDelegate.swift */,
 				C340D81F256D36EE00B85143 /* SceneDelegate.swift */,
 				C340D821256D36EE00B85143 /* ViewController.swift */,
+				C321D4B425DC4B7C00434D95 /* Colors.swift */,
 				C3A7952C25B731ED002B716F /* ShadowProtocol.swift */,
+				C321A51025DD193E00418141 /* AttributedStringProtocol.swift */,
 				C322081025D2EA0E00CE6480 /* Enums.swift */,
 				C340D83C256D5BB000B85143 /* HandTypeCollectionViewController.swift */,
 				C340D83F256D5BC900B85143 /* ShakeTypeCollectionViewController.swift */,
@@ -153,8 +159,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C340D840256D5BC900B85143 /* ShakeTypeCollectionViewController.swift in Sources */,
+				C321D4B525DC4B7C00434D95 /* Colors.swift in Sources */,
 				C340D822256D36EE00B85143 /* ViewController.swift in Sources */,
 				C3A7952D25B731ED002B716F /* ShadowProtocol.swift in Sources */,
+				C321A51125DD193E00418141 /* AttributedStringProtocol.swift in Sources */,
 				C340D81E256D36EE00B85143 /* AppDelegate.swift in Sources */,
 				C340D83D256D5BB000B85143 /* HandTypeCollectionViewController.swift in Sources */,
 				C340D837256D57E900B85143 /* InfoViewController.swift in Sources */,

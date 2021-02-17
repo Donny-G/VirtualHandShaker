@@ -8,28 +8,6 @@
 import Foundation
 import UIKit
 
-extension UIColor {
-    static let offWhite = UIColor.init(red: 225/255, green: 225/255, blue: 235/255, alpha: 1)
-    static let customWhiteBackground = UIColor.init(red: 0.937, green: 0.949, blue: 0.984, alpha: 1)
-    
-    static let backgroundLight = UIColor.init(red: 0.686, green: 0.808, blue: 0.827, alpha: 1)
-    static let backgroundDark = UIColor.init(red: 0.616, green: 0.616, blue: 0.714, alpha: 1)
-    
-    static let buttonLight1 = UIColor.init(red: 0.478, green: 0.737, blue: 0.741, alpha: 1)
-    static let buttonDark1 = UIColor.init(red: 0.471, green: 0.451, blue: 0.584, alpha: 1)
-    
-    static let buttonLight2 = UIColor.init(red: 0.376, green: 0.686, blue: 0.690, alpha: 1)
-    static let buttonDark2 = UIColor.init(red: 0.353, green: 0.337, blue: 0.463, alpha: 1)
-    
-    static let viewLight1 = UIColor.init(red: 1.0, green: 0.765, blue: 0.424, alpha: 1)
-    static let viewDark1 = UIColor.init(red: 0.435, green: 0.541, blue: 0.733, alpha: 1)
-    
-    static let viewLight2 = UIColor.init(red: 0.992, green: 0.675, blue: 0.490, alpha: 1)
-    
-    static let tintColorForAlertController = UIColor.init(red: 0.227, green: 0.565, blue: 0.498, alpha: 1)
-    static let tintColorForAlertController1 = UIColor.init(red: 0.118, green: 0.310, blue: 0.271, alpha: 1)
-}
-
 protocol NeumorphicShadows {
 }
 

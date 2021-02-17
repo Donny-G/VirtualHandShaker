@@ -8,7 +8,7 @@
 import UIKit
 import MultipeerConnectivity
 
-class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControllerDelegate, MCNearbyServiceAdvertiserDelegate, UITextFieldDelegate, HandTypeProtocol, ShakeTypeProtocol, NeumorphicShadows {
+class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControllerDelegate, MCNearbyServiceAdvertiserDelegate, UITextFieldDelegate, HandTypeProtocol, ShakeTypeProtocol, NeumorphicShadows, AttributedString {
     
     
     
@@ -160,6 +160,11 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
         //? conflict with autoload
         autoShakeTypeChooser(fromHandTypeCollectionView: true)
         
+        greetingsTextField.font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight(5))
+        greetingsTextField.textColor = UIColor.textFieldTextColorSet()
+        nameTextField.font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight(5))
+        nameTextField.textColor = UIColor.textFieldTextColorSet()
+        
         nameTextField.placeholder = "Enter your name"
         nameTextField.delegate = self
         
@@ -178,8 +183,8 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
         customInfoButton.image = UIImage(named: "info5")
         addActionForButtons(view: customInfoButton)
         
-        nameTextField.backgroundColor = UIColor.viewLight1
-        greetingsTextField.backgroundColor = UIColor.viewLight1
+        nameTextField.backgroundColor = UIColor.textFieldColorSet()
+        greetingsTextField.backgroundColor = UIColor.textFieldColorSet()
         
         //load types from userDefaults ?
         handTypeShowView.image = UIImage(named: handType)
@@ -195,9 +200,11 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
         addActionForButtons(view: customActionButton)
         
        // view.backgroundColor = UIColor.offWhite
-        view.backgroundColor = UIColor.backgroundLight
-        userNameLabel.text = userName
-        friendNameLabel.text = "Friend"
+        view.backgroundColor = UIColor.backgroundColorSet()
+        userNameLabel.attributedText = addAttributesToNameLabel(string: userName ?? "User", color: UIColor.userLabelColorSet())
+        userNameLabel.numberOfLines = 0
+        friendNameLabel.numberOfLines = 0
+        friendNameLabel.attributedText = addAttributesToNameLabel(string: "Friend", color: UIColor.friendLabelColorSet())
         
         greetingsLabel.alpha = 0
         verticalLightShadowForGreetingsTextLabel.opacity = 0
@@ -250,21 +257,22 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         //Update you're layer based on the new frame
-        addShadowForActiveView(yourView: nameTextField, verticalLightShadow: verticalLightShadowForNameTextField, horizontalLightShadow: horizontalLightShadowForNameTextField, horizontalDarkShadow: horizontalDarkShadowForNameTextField, verticalDarkShadow: verticalDarkShadowForNameTextField, color: UIColor.viewLight1)
+        addShadowForActiveView(yourView: nameTextField, verticalLightShadow: verticalLightShadowForNameTextField, horizontalLightShadow: horizontalLightShadowForNameTextField, horizontalDarkShadow: horizontalDarkShadowForNameTextField, verticalDarkShadow: verticalDarkShadowForNameTextField, color: UIColor.textFieldColorSet())
         
-        addShadowForActiveView(yourView: greetingsLabel, verticalLightShadow: verticalLightShadowForGreetingsTextLabel, horizontalLightShadow: horizontalLightShadowForGreetingsTextLabel, horizontalDarkShadow: horizontalDarkShadowForGreetingsTextLabel, verticalDarkShadow: verticalDarkShadowForGreetingsTextLabel, color: UIColor.viewLight1)
+        //? color
+        addShadowForActiveView(yourView: greetingsLabel, verticalLightShadow: verticalLightShadowForGreetingsTextLabel, horizontalLightShadow: horizontalLightShadowForGreetingsTextLabel, horizontalDarkShadow: horizontalDarkShadowForGreetingsTextLabel, verticalDarkShadow: verticalDarkShadowForGreetingsTextLabel, color: UIColor.textFieldColorSet())
         
-        addShadowForActiveView(yourView: greetingsTextField, verticalLightShadow: verticalLightShadowForGreetingsTextField, horizontalLightShadow: horizontalLightShadowForGreetingsTextField, horizontalDarkShadow: horizontalDarkShadowForGreetingsTextField, verticalDarkShadow: verticalDarkShadowForGreetingsTextField, color: UIColor.viewLight1)
+        addShadowForActiveView(yourView: greetingsTextField, verticalLightShadow: verticalLightShadowForGreetingsTextField, horizontalLightShadow: horizontalLightShadowForGreetingsTextField, horizontalDarkShadow: horizontalDarkShadowForGreetingsTextField, verticalDarkShadow: verticalDarkShadowForGreetingsTextField, color: UIColor.textFieldColorSet())
         
-        addShadowForActiveView(yourView: customActionButton, verticalLightShadow: verticalLightShadowForActionButton, horizontalLightShadow: horizontalLightShadowForActionButton, horizontalDarkShadow: horizontalDarkShadowForActionButton, verticalDarkShadow: verticalDarkShadowForActionButton, color: UIColor.viewLight1)
+        addShadowForActiveView(yourView: customActionButton, verticalLightShadow: verticalLightShadowForActionButton, horizontalLightShadow: horizontalLightShadowForActionButton, horizontalDarkShadow: horizontalDarkShadowForActionButton, verticalDarkShadow: verticalDarkShadowForActionButton, color: UIColor.buttonColorSet())
         
-        addShadowForActiveView(yourView: customConnectButton, verticalLightShadow: verticalLightShadowForConnectButton, horizontalLightShadow: horizontalLightShadowForConnectButton, horizontalDarkShadow: horizontalDarkShadowForConnectButton, verticalDarkShadow: verticalDarkShadowForConnectButton, color: UIColor.viewLight1)
+        addShadowForActiveView(yourView: customConnectButton, verticalLightShadow: verticalLightShadowForConnectButton, horizontalLightShadow: horizontalLightShadowForConnectButton, horizontalDarkShadow: horizontalDarkShadowForConnectButton, verticalDarkShadow: verticalDarkShadowForConnectButton, color: UIColor.buttonColorSet())
         
-        addShadowForActiveView(yourView: customInfoButton, verticalLightShadow: verticalLightShadowForInfoButton, horizontalLightShadow: horizontalLightShadowForInfoButton, horizontalDarkShadow: horizontalDarkShadowForInfoButton, verticalDarkShadow: verticalDarkShadowForInfoButton, color: UIColor.viewLight1)
+        addShadowForActiveView(yourView: customInfoButton, verticalLightShadow: verticalLightShadowForInfoButton, horizontalLightShadow: horizontalLightShadowForInfoButton, horizontalDarkShadow: horizontalDarkShadowForInfoButton, verticalDarkShadow: verticalDarkShadowForInfoButton, color: UIColor.buttonColorSet())
         
-        addShadowForActiveView(yourView: handTypeShowView, verticalLightShadow: verticalLightShadowForHandTypeButton, horizontalLightShadow: horizontalLightShadowForHandTypeButton, horizontalDarkShadow: horizontalDarkShadowForHandTypeButton, verticalDarkShadow: verticalDarkShadowForHandTypeButton, color: UIColor.buttonLight1)
+        addShadowForActiveView(yourView: handTypeShowView, verticalLightShadow: verticalLightShadowForHandTypeButton, horizontalLightShadow: horizontalLightShadowForHandTypeButton, horizontalDarkShadow: horizontalDarkShadowForHandTypeButton, verticalDarkShadow: verticalDarkShadowForHandTypeButton, color: UIColor.showViewColorSet())
         
-        addShadowForActiveView(yourView: shakeTypeShowView, verticalLightShadow: verticalLightShadowForShakeTypeButton, horizontalLightShadow: horizontalLightShadowForShakeTypeButton, horizontalDarkShadow: horizontalDarkShadowForShakeTypeButton, verticalDarkShadow: verticalDarkShadowForShakeTypeButton, color: UIColor.buttonLight1)
+        addShadowForActiveView(yourView: shakeTypeShowView, verticalLightShadow: verticalLightShadowForShakeTypeButton, horizontalLightShadow: horizontalLightShadowForShakeTypeButton, horizontalDarkShadow: horizontalDarkShadowForShakeTypeButton, verticalDarkShadow: verticalDarkShadowForShakeTypeButton, color: UIColor.showViewColorSet())
      }
     
     func addActionForButtons(view: UIView) {
@@ -372,7 +380,7 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
                 self?.friendHandType = inputData?["handType"] ?? HandTypes.humanHand.rawValue
                 self?.friendShakeType = inputData?["shakeType"] ?? HandShakeTypes.handShake1.rawValue
                 self?.handShake(shakeType: inputData?["shakeType"] ?? HandShakeTypes.handShake1.rawValue)
-                self?.greetingsLabel.text = inputData?["greeting"]
+                self?.greetingsLabel.attributedText = self?.addAttributesToMessageLabel(string: inputData?["greeting"] ?? "Hello", color: UIColor.messageColorSet())
             } catch let error as NSError {
                 print(error)
             }
@@ -442,6 +450,9 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
             ac.addAction(UIAlertAction(title: "Deny", style: .cancel) {[weak self] action in
                 invitationHandler(false, self?.mcSession)
                 })
+        ac.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor.backgroundColorSet()
+
+        ac.view.tintColor = UIColor.friendLabelColorSet()
             present(ac, animated: true)
     }
     
@@ -460,15 +471,15 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
                 ac.addAction(UIAlertAction(title: "Join Session", style: .default, handler: joinSession))
                 ac.addAction(UIAlertAction(title: "Stop Session", style: .default, handler: stopNetwork))
                 ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-                ac.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor.backgroundLight
+                ac.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor.backgroundColorSet()
 
-                ac.view.tintColor = UIColor.tintColorForAlertController1
+                ac.view.tintColor = UIColor.friendLabelColorSet()
                 present(ac, animated: true)
             } else {
                 let ac = UIAlertController(title: "Warning", message: "Please enter your name to enter online mode", preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "Ok", style: .cancel))
-                ac.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor.backgroundLight
-                ac.view.tintColor = UIColor.tintColorForAlertController1
+                ac.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor.backgroundColorSet()
+                ac.view.tintColor = UIColor.friendLabelColorSet()
                 present(ac, animated: true)
             }
         }
@@ -522,6 +533,9 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
             } catch {
                 let ac = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "Ok", style: .cancel))
+                ac.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor.backgroundColorSet()
+
+                ac.view.tintColor = UIColor.friendLabelColorSet()
                 present(ac, animated: true)
             }
            // }

@@ -61,7 +61,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aC1-9t-Nl0">
                                 <rect key="frame" x="-200" y="-40" width="100" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="Qjk-bD-FNU"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="Qjk-bD-FNU"/>
                                     <constraint firstAttribute="height" constant="50" id="Xyh-wb-Lkd"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -98,7 +98,7 @@
                                 <rect key="frame" x="514" y="906" width="100" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="2rT-FI-zzg"/>
-                                    <constraint firstAttribute="width" constant="100" id="b7B-vZ-hxu"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="b7B-vZ-hxu"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
