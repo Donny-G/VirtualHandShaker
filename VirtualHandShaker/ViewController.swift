@@ -249,7 +249,6 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
         self.view.frame.origin.y = 0
     }
     
@@ -404,7 +403,7 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
             leftHand ? (handImage.image = UIImage(named: LeftHandImages.leftWomanFistV1.rawValue)) : (secondHandImage.image = UIImage(named: RightHandImages.rightWomanFistV1.rawValue))
             //v2
         case HandTypes.womanHand.rawValue where shake == HandShakeTypes.handShake3.rawValue:
-            leftHand ? (handImage.image = UIImage(named: LeftHandImages.leftWomanFistV1.rawValue)) : (secondHandImage.image = UIImage(named: RightHandImages.rightWomanFistV1.rawValue))
+            leftHand ? (handImage.image = UIImage(named: LeftHandImages.leftWomanFistV2.rawValue)) : (secondHandImage.image = UIImage(named: RightHandImages.rightWomanFistV2.rawValue))
         case HandTypes.zombieHand.rawValue where shake == HandShakeTypes.handShake1.rawValue:
             leftHand ? (handImage.image = UIImage(named: LeftHandImages.leftZombieHand.rawValue)) : (secondHandImage.image = UIImage(named: RightHandImages.rightZombieHand.rawValue))
         case HandTypes.zombieHand.rawValue where shake == HandShakeTypes.handShake2.rawValue:
@@ -417,21 +416,21 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
             leftHand ?  (handImage.image = UIImage(named: LeftHandImages.leftRobotFistV1.rawValue)) : (secondHandImage.image = UIImage(named: RightHandImages.rightRobotFistV1.rawValue))
             //v2
         case HandTypes.robotHand.rawValue where shake == HandShakeTypes.handShake3.rawValue:
-            leftHand ? (handImage.image = UIImage(named: LeftHandImages.leftRobotFistV1.rawValue)) : (secondHandImage.image = UIImage(named: RightHandImages.rightRobotFistV1.rawValue))
+            leftHand ? (handImage.image = UIImage(named: LeftHandImages.leftRobotFistV2.rawValue)) : (secondHandImage.image = UIImage(named: RightHandImages.rightRobotFistV2.rawValue))
         case HandTypes.alienHand.rawValue where shake == HandShakeTypes.handShake1.rawValue:
             leftHand ? (handImage.image = UIImage(named: LeftHandImages.leftAlienHand.rawValue)) : (secondHandImage.image = UIImage(named: RightHandImages.rightAlienHand.rawValue))
         case HandTypes.alienHand.rawValue where shake == HandShakeTypes.handShake2.rawValue:
             leftHand ? (handImage.image = UIImage(named: LeftHandImages.leftAlienFistV1.rawValue)) : (secondHandImage.image = UIImage(named: RightHandImages.rightAlienFistV1.rawValue))
             //v2
         case HandTypes.alienHand.rawValue where shake  == HandShakeTypes.handShake3.rawValue:
-            leftHand ? (handImage.image = UIImage(named: LeftHandImages.leftAlienFistV1.rawValue)) : (secondHandImage.image = UIImage(named: RightHandImages.rightAlienFistV1.rawValue))
+            leftHand ? (handImage.image = UIImage(named: LeftHandImages.leftAlienFistV2.rawValue)) : (secondHandImage.image = UIImage(named: RightHandImages.rightAlienFistV2.rawValue))
         case HandTypes.scullHand.rawValue where shake == HandShakeTypes.handShake1.rawValue:
             leftHand ? (handImage.image = UIImage(named: LeftHandImages.leftScullHand.rawValue)) : (secondHandImage.image = UIImage(named: RightHandImages.rightScullHand.rawValue))
         case HandTypes.scullHand.rawValue where shake == HandShakeTypes.handShake2.rawValue:
             leftHand ? (handImage.image = UIImage(named: LeftHandImages.leftScullFistV1.rawValue)) : (secondHandImage.image = UIImage(named: RightHandImages.rightScullFistV1.rawValue))
             //v2
         case HandTypes.scullHand.rawValue where shake == HandShakeTypes.handShake3.rawValue:
-            leftHand ? (handImage.image = UIImage(named: LeftHandImages.leftScullFistV1.rawValue)) : (secondHandImage.image = UIImage(named: RightHandImages.rightScullFistV1.rawValue))
+            leftHand ? (handImage.image = UIImage(named: LeftHandImages.leftScullFistV2.rawValue)) : (secondHandImage.image = UIImage(named: RightHandImages.rightScullFistV2.rawValue))
         default:
             print("unknown type in func left or right hand \(hand) \(shake) \(leftHand)")
         }
@@ -992,8 +991,8 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
             }
             //v2
         case HandTypes.womanHand.rawValue where shakeType == HandShakeTypes.handShake3.rawValue:
-            handImage.image = UIImage(named: LeftHandImages.leftWomanFistV1.rawValue)
-            secondHandImage.image = UIImage(named: RightHandImages.rightWomanFistV1.rawValue)
+            handImage.image = UIImage(named: LeftHandImages.leftWomanFistV2.rawValue)
+            secondHandImage.image = UIImage(named: RightHandImages.rightWomanFistV2.rawValue)
             if fromHandTypeCollectionView {
                 shakeTypeShowView.image = UIImage(named: HandShakeTypeImages.womanHandShake3.rawValue)
             }
@@ -1029,8 +1028,8 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
             }
             //v2
         case HandTypes.robotHand.rawValue where shakeType == HandShakeTypes.handShake3.rawValue:
-            handImage.image = UIImage(named: LeftHandImages.leftRobotFistV1.rawValue)
-            secondHandImage.image = UIImage(named: RightHandImages.rightRobotFistV1.rawValue)
+            handImage.image = UIImage(named: LeftHandImages.leftRobotFistV2.rawValue)
+            secondHandImage.image = UIImage(named: RightHandImages.rightRobotFistV2.rawValue)
             if fromHandTypeCollectionView {
                 shakeTypeShowView.image = UIImage(named: HandShakeTypeImages.robotHandShake3.rawValue)
             }
@@ -1048,8 +1047,8 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
             }
             //v2
         case HandTypes.alienHand.rawValue where shakeType == HandShakeTypes.handShake3.rawValue:
-            handImage.image = UIImage(named: LeftHandImages.leftAlienFistV1.rawValue)
-            secondHandImage.image = UIImage(named: RightHandImages.rightAlienFistV1.rawValue)
+            handImage.image = UIImage(named: LeftHandImages.leftAlienFistV2.rawValue)
+            secondHandImage.image = UIImage(named: RightHandImages.rightAlienFistV2.rawValue)
             if fromHandTypeCollectionView {
                 shakeTypeShowView.image = UIImage(named: HandShakeTypeImages.alienHandShake3.rawValue)
             }
@@ -1067,8 +1066,8 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
             }
             //v2
         case HandTypes.scullHand.rawValue where shakeType == HandShakeTypes.handShake3.rawValue:
-            handImage.image = UIImage(named: LeftHandImages.leftScullFistV1.rawValue)
-            secondHandImage.image = UIImage(named: RightHandImages.rightScullFistV1.rawValue)
+            handImage.image = UIImage(named: LeftHandImages.leftScullFistV2.rawValue)
+            secondHandImage.image = UIImage(named: RightHandImages.rightScullFistV2.rawValue)
             if fromHandTypeCollectionView {
                 shakeTypeShowView.image = UIImage(named: HandShakeTypeImages.scullHandShake3.rawValue)
             }

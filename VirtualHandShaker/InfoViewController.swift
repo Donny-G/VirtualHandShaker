@@ -7,7 +7,7 @@
 
 import UIKit
 
-class InfoViewController: UIViewController, NeumorphicShadows {
+class InfoViewController: UIViewController, AttributedString {
     
     let verticalLightShadow = CAShapeLayer()
     let horizontalLightShadow = CAShapeLayer()
@@ -43,37 +43,34 @@ class InfoViewController: UIViewController, NeumorphicShadows {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        titleLabel.text = "Info"
-        connectButtonImage.image = UIImage(named: "connect5")
+        titleLabel.attributedText = addAttributesToDescription(string: "Info", color: .infoColor2Set())
+        connectButtonImage.image = UIImage(named: "forInfoCBLight")
         
-        connectButtonDescription.text = "Press to start multipeer session with friends"
+        connectButtonDescription.attributedText = addAttributesToDescription(string: "Press to start multipeer session with friends", color: UIColor.infoColor1Set())
         
         connectionViewImage.image = UIImage(named: "connectView")
-        addShadowForStaticView(yourView: connectionViewImage, color: UIColor.showViewColorSet())
-        connectionViewDescription.text = "Start session or join to session to handshake"
         
-        handTypeButtonImage.image = UIImage(named: "handType")
-        addShadowForStaticView(yourView: handTypeButtonImage, color: UIColor.showViewColorSet())
-        handTypeButtonDescription.text = "Choose hand type"
+        connectionViewDescription.attributedText = addAttributesToDescription(string: "Start session or join to session to handshake", color: UIColor.infoColor2Set())
         
-        shakeTypeButtonImage.image = UIImage(named: "actionType")
-        addShadowForStaticView(yourView: shakeTypeButtonImage, color: UIColor.showViewColorSet())
-        shakeTypeButtonDescription.text = "Choose shake type"
+        handTypeButtonImage.image = UIImage(named: "forInfoHTBLight")
         
-        actionButtonImage.image = UIImage(named: "action3")
+        handTypeButtonDescription.attributedText = addAttributesToDescription(string: "Choose hand type", color: UIColor.infoColor1Set())
+        
+        shakeTypeButtonImage.image = UIImage(named: "forInfoSTBLight")
+        
+        shakeTypeButtonDescription.attributedText = addAttributesToDescription(string: "Choose shake type", color: UIColor.infoColor2Set())
+        
+        actionButtonImage.image = UIImage(named: "forInfoABLight")
        // addShadowForStaticView(yourView: actionButtonImage, color: UIColor.buttonLight1)
-        actionButtonDescription.text = "Press to start animation"
-        backButton.setImage(UIImage(named: "backButton"), for: .normal)
-        addShadowForStaticView(yourView: backButton, color: UIColor.buttonColorSet())
+        actionButtonDescription.attributedText = addAttributesToDescription(string: "Press to start animation", color: UIColor.infoColor1Set())
+        backButton.setImage(UIImage(named: "backButtonLight"), for: .normal)
+        
         scrollView.backgroundColor = UIColor.backgroundColorSet()
         
         contentView.backgroundColor = UIColor.backgroundColorSet()
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        addShadowForActiveView(yourView: actionButtonImage, verticalLightShadow: verticalLightShadow, horizontalLightShadow: horizontalLightShadow, horizontalDarkShadow: horizontalDarkShadow, verticalDarkShadow: verticalDarkShadow, color: UIColor.buttonColorSet())
-    }
+    
     
     
     @IBAction func backButton(_ sender: UIButton) {

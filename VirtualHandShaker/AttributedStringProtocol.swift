@@ -33,12 +33,12 @@ extension AttributedString where Self: UIViewController {
     }
     
     func addAttributesToDescription(string: String, color: UIColor)-> NSAttributedString {
-        let font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight(rawValue: 5))
+        let font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight(rawValue: 5))
         let shadow = NSShadow()
         shadow.shadowColor = UIColor.shadowColorSet()
         shadow.shadowOffset = CGSize(width: 2, height: 2)
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = .right
+        paragraphStyle.alignment = .left
         paragraphStyle.firstLineHeadIndent = 5.0
         let attributes: [NSAttributedString.Key: Any] = [.font: font, .foregroundColor: color, .paragraphStyle: paragraphStyle, .shadow: shadow]
         return NSAttributedString(string: string, attributes: attributes)

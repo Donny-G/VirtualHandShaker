@@ -2,8 +2,8 @@
   "images" : [
     {
       "scale" : "1x",
-      "filename" : "humanHand~universal@1x.png",
-      "idiom" : "universal"
+      "idiom" : "universal",
+      "filename" : "humanHand~universal@1x.png"
     },
     {
       "filename" : "humanHand~universal@2x.png",
@@ -11,13 +11,13 @@
       "idiom" : "universal"
     },
     {
+      "scale" : "3x",
       "filename" : "humanHand~universal@3x.png",
-      "idiom" : "universal",
-      "scale" : "3x"
+      "idiom" : "universal"
     }
   ],
   "info" : {
-    "author" : "xcode",
-    "version" : 1
+    "version" : 1,
+    "author" : "xcode"
   }
 }

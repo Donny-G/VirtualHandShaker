@@ -49,13 +49,13 @@ public enum HandTypes: String {
 }
 
 public enum LeftHandImages: String {
-    case leftHumanHand = "humanHandLeft1"
-    case leftHumanFistV1 = "humanFistLeft1_1"
-    case leftHumanFistV2 = "humanFistLeft1_2"
+    case leftHumanHand = "humanHandLeft"
+    case leftHumanFistV1 = "humanFistLeft"
+    case leftHumanFistV2 = "humanFistLeft2"
     
     case leftWomanHand = "womanHandLeft"
     case leftWomanFistV1 = "womanFistLeft"
-   // case leftWomanFistV2 = "womanFistLeft"
+    case leftWomanFistV2 = "womanFistLeft2"
     
     case leftZombieHand = "zombieHandLeft"
     case leftZombieFistV1 = "zombieFistLeft"
@@ -63,25 +63,25 @@ public enum LeftHandImages: String {
     
     case leftRobotHand = "robotHandLeft"
     case leftRobotFistV1 = "robotFistLeft"
-   // case leftRobotFistV2 = "robotFistLeft"
+    case leftRobotFistV2 = "robotFistLeft2"
     
     case leftAlienHand = "alienHandLeft"
     case leftAlienFistV1 = "alienFistLeft"
-    // case leftAlienFistV2 = "alienFistLeft"
+    case leftAlienFistV2 = "alienFistLeft2"
     
     case leftScullHand = "scullHandLeft"
     case leftScullFistV1 = "scullFistLeft"
-   // case leftScullFistV2 = "scullFistLeft"
+    case leftScullFistV2 = "scullFistLeft2"
 }
 
 public enum RightHandImages: String {
-    case rightHumanHand = "humanHandRight1"
-    case rightHumanFistV1 = "humanFistRight1_1"
-    case rightHumanFistV2 = "humanFistRight1_2"
+    case rightHumanHand = "humanHandRight"
+    case rightHumanFistV1 = "humanFistRight"
+    case rightHumanFistV2 = "humanFistRight2"
     
     case rightWomanHand = "womanHandRight"
     case rightWomanFistV1 = "womanFistRight"
-    //case rightWomanFistV2 = "womanFistRight"
+    case rightWomanFistV2 = "womanFistRight2"
     
     case rightZombieHand = "zombieHandRight"
     case rightZombieFistV1 = "zombieFistRight"
@@ -89,13 +89,13 @@ public enum RightHandImages: String {
     
     case rightRobotHand = "robotHandRight"
     case rightRobotFistV1 = "robotFistRight"
-   // case rightRobotFistV2 = "robotFistRight"
+    case rightRobotFistV2 = "robotFistRight2"
     
     case rightAlienHand = "alienHandRight"
     case rightAlienFistV1 = "alienFistRight"
-   // case rightAlienFistV2 = "alienFistRight"
+    case rightAlienFistV2 = "alienFistRight2"
     
     case rightScullHand = "scullHandRight"
     case rightScullFistV1 = "scullFistRight"
-   // case rightScullFistV2 = "scullFistRight"
+    case rightScullFistV2 = "scullFistRight2"
 }

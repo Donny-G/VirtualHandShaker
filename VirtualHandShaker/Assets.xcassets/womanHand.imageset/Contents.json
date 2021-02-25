@@ -1,23 +1,23 @@
 {
   "images" : [
     {
-      "scale" : "1x",
       "idiom" : "universal",
-      "filename" : "womanHand~universal@1x.png"
+      "filename" : "womanHand~universal@1x.png",
+      "scale" : "1x"
     },
     {
+      "filename" : "womanHand~universal@2x.png",
       "scale" : "2x",
-      "idiom" : "universal",
-      "filename" : "womanHand~universal@2x.png"
+      "idiom" : "universal"
     },
     {
-      "idiom" : "universal",
       "scale" : "3x",
+      "idiom" : "universal",
       "filename" : "womanHand~universal@3x.png"
     }
   ],
   "info" : {
-    "author" : "xcode",
-    "version" : 1
+    "version" : 1,
+    "author" : "xcode"
   }
 }

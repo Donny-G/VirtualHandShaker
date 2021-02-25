@@ -14,8 +14,9 @@ protocol ShakeTypeProtocol {
     func shakeTypeTransferWithProtocol(type: String, imageName: String)
 }
 
-class ShakeTypeCollectionViewController: UICollectionViewController, NeumorphicShadows {
+class ShakeTypeCollectionViewController: UICollectionViewController, NeumorphicShadows, UICollectionViewDelegateFlowLayout {
     
+    private let spacing:CGFloat = 90
     let verticalLightShadow = CAShapeLayer()
     let horizontalLightShadow = CAShapeLayer()
     let horizontalDarkShadow = CAShapeLayer()
@@ -83,6 +84,19 @@ class ShakeTypeCollectionViewController: UICollectionViewController, NeumorphicS
         perform(#selector(backToMain(indexPath:)), with: nil, afterDelay: 0.5)
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let numberOfItemsPerRow:CGFloat = 1
+                let spacingBetweenCells:CGFloat = 16
+                
+                let totalSpacing = (2 * self.spacing) + ((numberOfItemsPerRow - 1) * spacingBetweenCells) //Amount of total spacing in a row
+                
+                if let collection = self.collectionView{
+                    let width = (collection.bounds.width - totalSpacing)/numberOfItemsPerRow
+                    return CGSize(width: width, height: width)
+                }else{
+                    return CGSize(width: 0, height: 0)
+                }
+    }
     @objc func backToMain(indexPath: IndexPath) {
        //x shadowChangeByEndedVer2(verticalDarkShadow: verticalDarkShadow, horizontalDarkShadow: horizontalDarkShadow, verticalLightShadow: verticalLightShadow, horizontalLightShadow: horizontalLightShadow)
        

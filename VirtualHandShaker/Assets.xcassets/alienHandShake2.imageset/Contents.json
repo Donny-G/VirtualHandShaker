@@ -1,23 +1,23 @@
 {
   "images" : [
     {
-      "filename" : "alienHandShake2~universal@1x.png",
-      "scale" : "1x",
-      "idiom" : "universal"
-    },
-    {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "alienHandShake2~universal@2x.png"
+      "filename" : "alienHandShake2~universal@1x.png",
+      "scale" : "1x"
     },
     {
-      "scale" : "3x",
-      "filename" : "alienHandShake2~universal@3x.png",
+      "scale" : "2x",
+      "filename" : "alienHandShake2~universal@2x.png",
       "idiom" : "universal"
+    },
+    {
+      "filename" : "alienHandShake2~universal@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {
-    "author" : "xcode",
-    "version" : 1
+    "version" : 1,
+    "author" : "xcode"
   }
 }

@@ -1,14 +1,14 @@
 {
   "images" : [
     {
-      "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "zombieHandLeft~universal@1x.png"
+      "filename" : "zombieHandLeft~universal@1x.png",
+      "idiom" : "universal"
     },
     {
-      "idiom" : "universal",
       "filename" : "zombieHandLeft~universal@2x.png",
-      "scale" : "2x"
+      "scale" : "2x",
+      "idiom" : "universal"
     },
     {
       "scale" : "3x",
@@ -17,7 +17,7 @@
     }
   ],
   "info" : {
-    "author" : "xcode",
-    "version" : 1
+    "version" : 1,
+    "author" : "xcode"
   }
 }

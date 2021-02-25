@@ -104,10 +104,10 @@ extension UIColor {
         if #available(iOS 13, *) {
             return UIColor.init { (trait) -> UIColor in
                 // the color can be from your own color config struct as well.
-                return trait.userInterfaceStyle == .dark ? UIColor.black : UIColor.shadowLightColor
+                return trait.userInterfaceStyle == .dark ? UIColor.black : UIColor.white
             }
         }
-        else { return UIColor.shadowLightColor }
+        else { return UIColor.white }
     }
     
     static func messageColorSet() -> UIColor {
