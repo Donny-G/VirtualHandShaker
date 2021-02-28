@@ -1,0 +1,40 @@
+/* 
+  Localizable.strings
+  VirtualHandShaker
+
+  Created by DeNNiO   G on 26.02.2021.
+  
+*/
+"DefaultGreetingMVC" = "Hello, have a nice day !";
+"NamePlaceHolderMVC" = "Name";
+"GreetingsPlaceHolderMVC" = "Your greeting / default greeting";
+"FriendMVC" = "Friend";
+"ConnectionRequestMVC" = "Incoming Connection Request";
+"UserMVC" = "User: ";
+"ActionFromUserMVC" = "is requesting to join the app network.";
+"AllowMVC" = "Allow";
+"DenyMVC" = "Deny";
+"ConnectViewMVC" = "HiStance network options";
+"StartSessionMVC" = "Start Session";
+"JoinSessionMVC" = "Join Session";
+"StopSessionMVC" = "Stop Session";
+"CancelMVC" = "Cancel";
+"WarningMVC" = "Warning";
+"WarningMessageAboutNameMVC" = "Please enter your name to access online mode";
+"ErrorMVC" = "Error, something get wrong";
+"ConnectButtonDescriptionIVC" = "Press this button to get access to HiStance network options for online mode";
+"NetworkOptionsIVC" = "Start a session on one device. Join the session on another device, by clicking the name";
+"HandTypeDescriptionIVC" = "Press this button to change type of hand";
+"ShakeTypeDEscriptionIVC" = "Press this button to change type of handshake";
+"ActionButtonDescription" = "Press the button to shake hands and send a greeting";
+"TaglineIVC" = "Be social, stay safe";
+"MailMeIVC" = "Questions, suggestions, offers";
+"GuessZLabelIVC" = "Try my game";
+"HabientLabelIVC" = "Try my habit tracker";
+"ConnectionViewImageIVC" = "connectionViewEngLight";
+
+
+
+
+
+

@@ -10,13 +10,12 @@ import UIKit
 private let reuseIdentifier = "Cell"
 
 protocol ShakeTypeProtocol {
-    //?
     func shakeTypeTransferWithProtocol(type: String, imageName: String)
 }
 
 class ShakeTypeCollectionViewController: UICollectionViewController, NeumorphicShadows, UICollectionViewDelegateFlowLayout {
     
-    private let spacing:CGFloat = 90
+    private let spacing: CGFloat = 90
     let verticalLightShadow = CAShapeLayer()
     let horizontalLightShadow = CAShapeLayer()
     let horizontalDarkShadow = CAShapeLayer()
@@ -43,12 +42,6 @@ class ShakeTypeCollectionViewController: UICollectionViewController, NeumorphicS
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
     }
 
-    //?
-    //override func numberOfSections(in collectionView: UICollectionView) -> Int {
-    //return 0
-    //}
-
-
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 3
     }
@@ -56,7 +49,7 @@ class ShakeTypeCollectionViewController: UICollectionViewController, NeumorphicS
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ShakeType", for: indexPath)
         if let imageView = cell.viewWithTag(1001) as? UIImageView {
-                imageView.image = UIImage(named: shakeTypes[indexPath.item])
+            imageView.image = UIImage(named: shakeTypes[indexPath.item])
             addShadowForStaticView(yourView: cell, color: UIColor.showViewColorSet())
         }
         return cell
@@ -69,13 +62,17 @@ class ShakeTypeCollectionViewController: UICollectionViewController, NeumorphicS
         shadowChangeByBeganVer2(verticalDarkShadow: verticalDarkShadow, horizontalDarkShadow: horizontalDarkShadow, verticalLightShadow: verticalLightShadow, horizontalLightShadow: horizontalLightShadow)
         
         let shakeTypeImageName = shakeTypes[indexPath.item]
+        
         switch shakeTypeImageName {
         case HandShakeTypeImages.humanHandShake1.rawValue, HandShakeTypeImages.scullHandShake1.rawValue, HandShakeTypeImages.womanHandShake1.rawValue, HandShakeTypeImages.alienHandShake1.rawValue, HandShakeTypeImages.robotHandShake1.rawValue, HandShakeTypeImages.zombieHandShake1.rawValue:
-            shakeType = HandShakeTypes.handShake1.rawValue
+                shakeType = HandShakeTypes.handShake1.rawValue
+            
         case HandShakeTypeImages.humanHandShake2.rawValue, HandShakeTypeImages.scullHandShake2.rawValue, HandShakeTypeImages.womanHandShake2.rawValue, HandShakeTypeImages.alienHandShake2.rawValue, HandShakeTypeImages.robotHandShake2.rawValue, HandShakeTypeImages.zombieHandShake2.rawValue:
-            shakeType = HandShakeTypes.handShake2.rawValue
+                shakeType = HandShakeTypes.handShake2.rawValue
+            
         case HandShakeTypeImages.humanHandShake3.rawValue, HandShakeTypeImages.scullHandShake3.rawValue, HandShakeTypeImages.alienHandShake3.rawValue, HandShakeTypeImages.womanHandShake3.rawValue, HandShakeTypeImages.robotHandShake3.rawValue, HandShakeTypeImages.zombieHandShake3.rawValue:
-            shakeType = HandShakeTypes.handShake3.rawValue
+                shakeType = HandShakeTypes.handShake3.rawValue
+            
         default:
             print("Unknown type")
         }
@@ -86,20 +83,17 @@ class ShakeTypeCollectionViewController: UICollectionViewController, NeumorphicS
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let numberOfItemsPerRow:CGFloat = 1
-                let spacingBetweenCells:CGFloat = 16
-                
-                let totalSpacing = (2 * self.spacing) + ((numberOfItemsPerRow - 1) * spacingBetweenCells) //Amount of total spacing in a row
-                
-                if let collection = self.collectionView{
-                    let width = (collection.bounds.width - totalSpacing)/numberOfItemsPerRow
-                    return CGSize(width: width, height: width)
-                }else{
-                    return CGSize(width: 0, height: 0)
-                }
+        let spacingBetweenCells:CGFloat = 16
+        let totalSpacing = (2 * self.spacing) + ((numberOfItemsPerRow - 1) * spacingBetweenCells)
+        if let collection = self.collectionView{
+            let width = (collection.bounds.width - totalSpacing)/numberOfItemsPerRow
+                return CGSize(width: width, height: width)
+            }else{
+                return CGSize(width: 0, height: 0)
+            }
     }
+    
     @objc func backToMain(indexPath: IndexPath) {
-       //x shadowChangeByEndedVer2(verticalDarkShadow: verticalDarkShadow, horizontalDarkShadow: horizontalDarkShadow, verticalLightShadow: verticalLightShadow, horizontalLightShadow: horizontalLightShadow)
-       
         dismiss(animated: true, completion: nil)
     }
     

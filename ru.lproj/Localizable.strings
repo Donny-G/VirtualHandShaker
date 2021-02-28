@@ -1,0 +1,39 @@
+/* 
+  Localizable.strings
+  VirtualHandShaker
+
+  Created by DeNNiO   G on 26.02.2021.
+  
+*/
+"DefaultGreetingMVC" = "Привет, хорошего дня !";
+"NamePlaceHolderMVC" = "Имя";
+"GreetingsPlaceHolderMVC" = "Приветствие / приветствие по-умолчанию";
+"FriendMVC" = "Друг";
+"ConnectionRequestMVC" = "Входящий запрос на соединение";
+"UserMVC" = "Пользователь: ";
+"ActionFromUserMVC" = "просит разрешение на подключение к сети HiStance";
+"AllowMVC" = "Разрешить";
+"DenyMVC" = "Отклонить";
+"ConnectViewMVC" = "HiStance сетевые параметры";
+"StartSessionMVC" = "Запустить сетевой сеанс";
+"JoinSessionMVC" = "Присоединиться к сетевому сеансу";
+"StopSessionMVC" = "Остановить текущий сетевой сеанс";
+"CancelMVC" = "Отмена";
+"WarningMVC" = "Внимание";
+"WarningMessageAboutNameMVC" = "Пожалуйста, укажите имя для включения сетевого режима";
+"ErrorMVC" = "Ошибка, что-то пошло не так";
+"ConnectButtonDescriptionIVC" = "Нажмите эту кнопку для доступа к сетевым параметрам HiStance для включения сетевого режима";
+"NetworkOptionsIVC" = "Запустите сетевой сеанс на одном устройстве. Присоединитесь к этому сетевому сеансу на другом устройстве, выбрав его имя в списке.";
+"HandTypeDescriptionIVC" = "Нажмите эту кнопку для выбора вида руки";
+"ShakeTypeDEscriptionIVC" = "Нажмите эту кнопку для выбора вида рукопожатия.";
+"ActionButtonDescription" = "Нажмите эту кнопку для рукопожатия и отправки приветствия.";
+"TaglineIVC" = "Be social, stay safe";
+"MailMeIVC" = "Вопросы, предложения, рекомендации";
+"GuessZLabelIVC" = "Попробуйте мою игру";
+"HabientLabelIVC" = "Попробуйте мой трекер привычек";
+"ConnectionViewImageIVC" = "connectionViewRusLight";
+
+
+
+
+

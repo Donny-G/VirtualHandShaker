@@ -13,10 +13,6 @@ protocol NeumorphicShadows {
 
 extension NeumorphicShadows where Self: UIViewController {
     
-    
-    //UIColor.viewLight1 - orange like color
-    //UIColor.buttonLight1 - blue like color
-    
     func addShadowForActiveView(yourView: UIView,verticalLightShadow: CAShapeLayer, horizontalLightShadow: CAShapeLayer, horizontalDarkShadow: CAShapeLayer, verticalDarkShadow: CAShapeLayer, color: UIColor ) {
         yourView.layer.cornerRadius = 20
         yourView.backgroundColor = color
@@ -33,7 +29,6 @@ extension NeumorphicShadows where Self: UIViewController {
         horizontalDarkShadow.shadowColor = UIColor.black.withAlphaComponent(0.2).cgColor
         horizontalDarkShadow.shadowRadius = 4
         horizontalDarkShadow.shadowOpacity = 0.3
-       // horizontalDarkShadow.cornerRadius = 20
         horizontalDarkShadow.shouldRasterize = true
         
         verticalDarkShadow.shadowPath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: 10, height: yourView.frame.height - 10), cornerRadius: 20).cgPath
@@ -42,7 +37,6 @@ extension NeumorphicShadows where Self: UIViewController {
         verticalDarkShadow.shadowOffset = CGSize(width: 0, height: 0)
         verticalDarkShadow.shadowRadius = 4
         verticalDarkShadow.shadowOpacity = 0.3
-       // verticalDarkShadow.cornerRadius = 20
         verticalDarkShadow.shouldRasterize = true
         
         verticalLightShadow.shadowPath = UIBezierPath(roundedRect: CGRect(x: yourView.frame.width, y: 0, width: 10, height: yourView.frame.height - 10), cornerRadius: 20).cgPath
@@ -51,7 +45,6 @@ extension NeumorphicShadows where Self: UIViewController {
         verticalLightShadow.shadowOffset = CGSize(width: -10, height: 0)
         verticalLightShadow.shadowOpacity = 1
         verticalLightShadow.shadowRadius = 7
-       // verticalLightShadow.cornerRadius = 20
         verticalLightShadow.shouldRasterize = true
         
         horizontalLightShadow.shadowPath = UIBezierPath(roundedRect: CGRect(x: 0, y: yourView.frame.height, width: yourView.frame.width - 20, height: 10), cornerRadius: 20).cgPath
@@ -60,7 +53,6 @@ extension NeumorphicShadows where Self: UIViewController {
         horizontalLightShadow.shadowOffset = CGSize(width: 0, height: -10)
         horizontalLightShadow.shadowOpacity = 1
         horizontalLightShadow.shadowRadius = 7
-      //  horizontalLightShadow.cornerRadius = 20
         horizontalLightShadow.shouldRasterize = true
         
         self.view.layer.insertSublayer(verticalLightShadow, above: yourView.layer)
@@ -90,7 +82,6 @@ extension NeumorphicShadows where Self: UIViewController {
         horizontalDarkShadow.shadowColor = UIColor.black.withAlphaComponent(0.2).cgColor
         horizontalDarkShadow.shadowRadius = 4
         horizontalDarkShadow.shadowOpacity = 0.3
-       // horizontalDarkShadow.cornerRadius = 20
         horizontalDarkShadow.shouldRasterize = true
         
         verticalDarkShadow.shadowPath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: 10, height: yourView.frame.height - 10), cornerRadius: 20).cgPath
@@ -99,7 +90,6 @@ extension NeumorphicShadows where Self: UIViewController {
         verticalDarkShadow.shadowOffset = CGSize(width: 0, height: 0)
         verticalDarkShadow.shadowRadius = 4
         verticalDarkShadow.shadowOpacity = 0.3
-       // verticalDarkShadow.cornerRadius = 20
         verticalDarkShadow.shouldRasterize = true
         
         verticalLightShadow.shadowPath = UIBezierPath(roundedRect: CGRect(x: yourView.frame.width, y: 0, width: 10, height: yourView.frame.height - 10), cornerRadius: 20).cgPath
@@ -108,7 +98,6 @@ extension NeumorphicShadows where Self: UIViewController {
         verticalLightShadow.shadowOffset = CGSize(width: -10, height: 0)
         verticalLightShadow.shadowOpacity = 1
         verticalLightShadow.shadowRadius = 7
-       // verticalLightShadow.cornerRadius = 20
         verticalLightShadow.shouldRasterize = true
         
         horizontalLightShadow.shadowPath = UIBezierPath(roundedRect: CGRect(x: 0, y: yourView.frame.height, width: yourView.frame.width - 20, height: 10), cornerRadius: 20).cgPath
@@ -117,7 +106,6 @@ extension NeumorphicShadows where Self: UIViewController {
         horizontalLightShadow.shadowOffset = CGSize(width: 0, height: -10)
         horizontalLightShadow.shadowOpacity = 1
         horizontalLightShadow.shadowRadius = 7
-      //  horizontalLightShadow.cornerRadius = 20
         horizontalLightShadow.shouldRasterize = true
         
         self.view.layer.insertSublayer(verticalLightShadow, above: yourView.layer)
@@ -126,7 +114,7 @@ extension NeumorphicShadows where Self: UIViewController {
         self.view.layer.insertSublayer(verticalDarkShadow, above: yourView.layer)
         }
     
-    func shadowChangeByBegan(verticalDarkShadow: CAShapeLayer, horizontalDarkShadow: CAShapeLayer, verticalLightShadow: CAShapeLayer, horizontalLightShadow: CAShapeLayer  ) {
+    func shadowChangeByBegan(verticalDarkShadow: CAShapeLayer, horizontalDarkShadow: CAShapeLayer, verticalLightShadow: CAShapeLayer, horizontalLightShadow: CAShapeLayer) {
         verticalDarkShadow.shadowColor = UIColor.white.withAlphaComponent(0.5).cgColor
         horizontalDarkShadow.shadowColor = UIColor.white.withAlphaComponent(0.5).cgColor
         verticalLightShadow.shadowColor = UIColor.black.withAlphaComponent(0.2).cgColor
@@ -141,21 +129,12 @@ extension NeumorphicShadows where Self: UIViewController {
     }
     
     //for collection view
-    func shadowChangeByBeganVer2(verticalDarkShadow: CAShapeLayer, horizontalDarkShadow: CAShapeLayer, verticalLightShadow: CAShapeLayer, horizontalLightShadow: CAShapeLayer  ) {
+    func shadowChangeByBeganVer2(verticalDarkShadow: CAShapeLayer, horizontalDarkShadow: CAShapeLayer, verticalLightShadow: CAShapeLayer, horizontalLightShadow: CAShapeLayer) {
         verticalDarkShadow.shadowColor = UIColor.white.withAlphaComponent(1).cgColor
         horizontalDarkShadow.shadowColor = UIColor.white.withAlphaComponent(1).cgColor
         verticalLightShadow.shadowColor = UIColor.black.withAlphaComponent(0.5).cgColor
         horizontalLightShadow.shadowColor = UIColor.black.withAlphaComponent(0.5).cgColor
     }
-    
-    //x
-    func shadowChangeByEndedVer2(verticalDarkShadow: CAShapeLayer, horizontalDarkShadow: CAShapeLayer, verticalLightShadow: CAShapeLayer, horizontalLightShadow: CAShapeLayer) {
-        verticalDarkShadow.shadowColor = UIColor.black.withAlphaComponent(0.0).cgColor
-        horizontalDarkShadow.shadowColor = UIColor.black.withAlphaComponent(0.0).cgColor
-        verticalLightShadow.shadowColor = UIColor.white.withAlphaComponent(0.0).cgColor
-        horizontalLightShadow.shadowColor = UIColor.white.withAlphaComponent(0.0).cgColor
-    }
-    //x
     
     func addShadowForActiveViewVer2(yourView: UIView,verticalLightShadow: CAShapeLayer, horizontalLightShadow: CAShapeLayer, horizontalDarkShadow: CAShapeLayer, verticalDarkShadow: CAShapeLayer, color: UIColor ) {
         yourView.layer.cornerRadius = 20
@@ -173,7 +152,6 @@ extension NeumorphicShadows where Self: UIViewController {
         horizontalDarkShadow.shadowColor = UIColor.black.withAlphaComponent(0.0).cgColor
         horizontalDarkShadow.shadowRadius = 4
         horizontalDarkShadow.shadowOpacity = 0.3
-       // horizontalDarkShadow.cornerRadius = 20
         horizontalDarkShadow.shouldRasterize = true
         
         verticalDarkShadow.shadowPath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: 10, height: yourView.frame.height - 10), cornerRadius: 20).cgPath
@@ -182,7 +160,6 @@ extension NeumorphicShadows where Self: UIViewController {
         verticalDarkShadow.shadowOffset = CGSize(width: 0, height: 0)
         verticalDarkShadow.shadowRadius = 4
         verticalDarkShadow.shadowOpacity = 0.3
-       // verticalDarkShadow.cornerRadius = 20
         verticalDarkShadow.shouldRasterize = true
         
         verticalLightShadow.shadowPath = UIBezierPath(roundedRect: CGRect(x: yourView.frame.width, y: 0, width: 10, height: yourView.frame.height - 10), cornerRadius: 20).cgPath
@@ -191,7 +168,6 @@ extension NeumorphicShadows where Self: UIViewController {
         verticalLightShadow.shadowOffset = CGSize(width: -10, height: 0)
         verticalLightShadow.shadowOpacity = 0.7
         verticalLightShadow.shadowRadius = 7
-       // verticalLightShadow.cornerRadius = 20
         verticalLightShadow.shouldRasterize = true
         
         horizontalLightShadow.shadowPath = UIBezierPath(roundedRect: CGRect(x: 0, y: yourView.frame.height, width: yourView.frame.width - 20, height: 10), cornerRadius: 20).cgPath
@@ -200,7 +176,6 @@ extension NeumorphicShadows where Self: UIViewController {
         horizontalLightShadow.shadowOffset = CGSize(width: 0, height: -10)
         horizontalLightShadow.shadowOpacity = 0.7
         horizontalLightShadow.shadowRadius = 7
-      //  horizontalLightShadow.cornerRadius = 20
         horizontalLightShadow.shouldRasterize = true
         
         self.view.layer.insertSublayer(verticalLightShadow, above: yourView.layer)
@@ -208,6 +183,7 @@ extension NeumorphicShadows where Self: UIViewController {
         self.view.layer.insertSublayer(horizontalDarkShadow, above: yourView.layer)
         self.view.layer.insertSublayer(verticalDarkShadow, above: yourView.layer)
         }
+    
 }
 
 

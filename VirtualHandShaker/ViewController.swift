@@ -10,17 +10,17 @@ import MultipeerConnectivity
 
 class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControllerDelegate, MCNearbyServiceAdvertiserDelegate, UITextFieldDelegate, HandTypeProtocol, ShakeTypeProtocol, NeumorphicShadows, AttributedString {
     
-    
-    
 //shadows
     let verticalLightShadowForConnectButton = CAShapeLayer()
     let horizontalLightShadowForConnectButton = CAShapeLayer()
     let horizontalDarkShadowForConnectButton = CAShapeLayer()
     let verticalDarkShadowForConnectButton = CAShapeLayer()
+    
     let verticalLightShadowForInfoButton = CAShapeLayer()
     let horizontalLightShadowForInfoButton = CAShapeLayer()
     let horizontalDarkShadowForInfoButton = CAShapeLayer()
     let verticalDarkShadowForInfoButton = CAShapeLayer()
+    
     let verticalLightShadowForHandTypeButton = CAShapeLayer()
     let horizontalLightShadowForHandTypeButton = CAShapeLayer()
     let horizontalDarkShadowForHandTypeButton = CAShapeLayer()
@@ -54,38 +54,25 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
     var peerId: MCPeerID!
     var mcSession: MCSession?
     var mcAdvertiserAssistant: MCNearbyServiceAdvertiser?
-    //x var mcAdvertiserAssistant1: MCAdvertiserAssistant?
     
     @IBOutlet var customConnectButton: UIImageView!
     @IBOutlet var customInfoButton: UIImageView!
-    
     @IBOutlet var handTypeShowView: UIImageView!
     @IBOutlet var shakeTypeShowView: UIImageView!
-    
-    //for greetings ?
-    
     @IBOutlet var greetingsLabel: UILabel!
-    
     @IBOutlet var greetingsTextField: UITextField!
-    
     @IBOutlet var handImage: UIImageView!
     @IBOutlet var secondHandImage: UIImageView!
-    
     @IBOutlet var nameTextField: UITextField!
-    
     @IBOutlet var customActionButton: UIImageView!
-    
     @IBOutlet var bangImage: UIImageView!
-    
-    
     @IBOutlet var friendNameLabel: UILabel!
-    
     @IBOutlet var userNameLabel: UILabel!
     
     //constraint outlets
     @IBOutlet var connectButtonLeadingConstraint: NSLayoutConstraint!
-   
     @IBOutlet var connectButtonTopConstraint: NSLayoutConstraint!
+    
     @IBOutlet var nameTextfieldTopConstraint: NSLayoutConstraint!
     
     @IBOutlet var infoButtonTrailingConstraint: NSLayoutConstraint!
@@ -102,7 +89,6 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
     @IBOutlet var rightHandTrailingConstraint: NSLayoutConstraint!
     @IBOutlet var rightHandBottomConstraint: NSLayoutConstraint!
     
-    
     @IBOutlet var friendNameLabelTopConstraint: NSLayoutConstraint!
     @IBOutlet var friendNameLabelXConstraint: NSLayoutConstraint!
     
@@ -110,13 +96,10 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
     
     @IBOutlet var userNameLabelXConstraint: NSLayoutConstraint!
     
-    
     @IBOutlet var handImageHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet var greetingsTextFieldTopConstraint: NSLayoutConstraint!
     
-    //? animation
-    var startAnimation = false
     //solo
     var handType = HandTypes.humanHand.rawValue
     var shakeType = HandShakeTypes.handShake1.rawValue
@@ -128,36 +111,34 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
     var userName: String?
     var friendName: String?
     var greeting: String?
-    var defaultGreeting = "Hello, have a nice day !"
+    var defaultGreeting = NSLocalizedString("DefaultGreetingMVC", comment: "greeting for default")
     
     var activeTextField : UITextField? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(shakeType)
         let defaults = UserDefaults.standard
-        //? add new savings for type
+    
         if let savedName  = defaults.object(forKey: "userName") as? String {
-            print(savedName)
             userName = savedName
             nameTextField.text = savedName
         }
+        
         if let savedHandType = defaults.object(forKey: "handType") as? String {
-            print(savedHandType)
             handType = savedHandType
         }
+        
         if let savedShakeType = defaults.object(forKey: "shakeType") as? String {
-            print(savedShakeType)
             shakeType = savedShakeType
         }
+        
         if let savedGreeting = defaults.object(forKey: "greeting") as? String {
-            print(savedGreeting)
             greeting = savedGreeting
             greetingsTextField.text = greeting
         } else {
             greeting = defaultGreeting
         }
-        //? conflict with autoload
+        
         autoShakeTypeChooser(fromHandTypeCollectionView: true)
         
         greetingsTextField.font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight(5))
@@ -165,17 +146,11 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
         nameTextField.font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight(5))
         nameTextField.textColor = UIColor.textFieldTextColorSet()
         
-        nameTextField.placeholder = "Enter your name"
+        nameTextField.placeholder = NSLocalizedString("NamePlaceHolderMVC", comment: "text for nameTextField placeholder")
         nameTextField.delegate = self
         
-        greetingsTextField.placeholder = "Enter your message or use default message"
+        greetingsTextField.placeholder = NSLocalizedString("GreetingsPlaceHolderMVC", comment: "text for greetingsTextfield placeholder")
         greetingsTextField.delegate = self
-        
-        // ? left and right hands
-        //@
-       // handImage.image = UIImage(named: LeftHandImages.leftHumanHand.rawValue)
-        //@
-       // secondHandImage.image = UIImage(named: RightHandImages.rightHumanHand.rawValue)
         
         customConnectButton.image = UIImage(named: "connect5")
         addActionForButtons(view: customConnectButton)
@@ -186,25 +161,23 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
         nameTextField.backgroundColor = UIColor.textFieldColorSet()
         greetingsTextField.backgroundColor = UIColor.textFieldColorSet()
         
-        //load types from userDefaults ?
         handTypeShowView.image = UIImage(named: handType)
+        
         addActionForButtons(view: handTypeShowView)
-        
-        //new image
-       // shakeTypeShowView.image = UIImage(named: shakeTypeImage)
-        bangImage.image = UIImage(named: "bang1")
-        
         addActionForButtons(view: shakeTypeShowView)
+        
+        bangImage.image = UIImage(named: "bang1")
         
         customActionButton.image = UIImage(named: "action3")
         addActionForButtons(view: customActionButton)
         
-       // view.backgroundColor = UIColor.offWhite
         view.backgroundColor = UIColor.backgroundColorSet()
+        
         userNameLabel.attributedText = addAttributesToNameLabel(string: userName ?? "User", color: UIColor.userLabelColorSet())
         userNameLabel.numberOfLines = 0
+        
         friendNameLabel.numberOfLines = 0
-        friendNameLabel.attributedText = addAttributesToNameLabel(string: "Friend", color: UIColor.friendLabelColorSet())
+        friendNameLabel.attributedText = addAttributesToNameLabel(string: NSLocalizedString("FriendMVC", comment: "default name for second user labelname"), color: UIColor.friendLabelColorSet())
         
         greetingsLabel.alpha = 0
         verticalLightShadowForGreetingsTextLabel.opacity = 0
@@ -212,10 +185,8 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
         horizontalDarkShadowForGreetingsTextLabel.opacity = 0
         verticalDarkShadowForGreetingsTextLabel.opacity = 0
         
-        //  handImage.backgroundColor = .red
-       // secondHandImage.backgroundColor = .blue
-        
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
@@ -230,22 +201,18 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
     @objc func keyboardWillShow(notification: NSNotification) {
         guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
         var shouldMoveViewUp = false
-
           // if active text field is not nil
-          if let activeTextField = activeTextField {
+        if let activeTextField = activeTextField {
             let bottomOfTextField = activeTextField.convert(activeTextField.bounds, to: self.view).maxY
             let topOfKeyboard = self.view.frame.height - keyboardSize.height
             // if the bottom of Textfield is below the top of keyboard, move up
             if bottomOfTextField > topOfKeyboard {
                 shouldMoveViewUp = true
             }
-          }
-
-          if(shouldMoveViewUp) {
+        }
+        if(shouldMoveViewUp) {
             self.view.frame.origin.y = 0 - keyboardSize.height
-          }
-        
-       // in case of one textfield self.view.frame.origin.y = 0 - keyboardSize.height
+        }
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
@@ -258,7 +225,6 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
         //Update you're layer based on the new frame
         addShadowForActiveView(yourView: nameTextField, verticalLightShadow: verticalLightShadowForNameTextField, horizontalLightShadow: horizontalLightShadowForNameTextField, horizontalDarkShadow: horizontalDarkShadowForNameTextField, verticalDarkShadow: verticalDarkShadowForNameTextField, color: UIColor.textFieldColorSet())
         
-        //? color
         addShadowForActiveView(yourView: greetingsLabel, verticalLightShadow: verticalLightShadowForGreetingsTextLabel, horizontalLightShadow: horizontalLightShadowForGreetingsTextLabel, horizontalDarkShadow: horizontalDarkShadowForGreetingsTextLabel, verticalDarkShadow: verticalDarkShadowForGreetingsTextLabel, color: UIColor.textFieldColorSet())
         
         addShadowForActiveView(yourView: greetingsTextField, verticalLightShadow: verticalLightShadowForGreetingsTextField, horizontalLightShadow: horizontalLightShadowForGreetingsTextField, horizontalDarkShadow: horizontalDarkShadowForGreetingsTextField, verticalDarkShadow: verticalDarkShadowForGreetingsTextField, color: UIColor.textFieldColorSet())
@@ -279,7 +245,6 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
         gesture.minimumPressDuration = 0.001
         view.isUserInteractionEnabled = true
         view.addGestureRecognizer(gesture)
-        
         switch view {
         case customConnectButton:
             gesture.addTarget(self, action: #selector(actionForConnectButton(gest:)))
@@ -306,8 +271,8 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
             } else {
                 userName = nil
             }
-            print(name)
         }
+        
         if let greetingsFromTextField = greetingsTextField.text {
             if !greetingsFromTextField.isEmpty {
             greeting = greetingsFromTextField
@@ -317,10 +282,10 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
                 defaults.set(greeting, forKey: "greeting")
             }
         }
+        
         textField.resignFirstResponder()
         return true
     }
-    
     
     override var prefersStatusBarHidden: Bool {
         return true
@@ -358,24 +323,12 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         DispatchQueue.main.async {
             [weak self] in
-    //? received data
-         //   if let receivedData = String(data: data, encoding: .utf8) {
-          //      self?.startAnimation = NSString(string:receivedData).boolValue
-         //   }
-          //  print(self?.startAnimation)
-            
-           // if let data = String(data: data, encoding: .utf8) {
-           // self?.testLabel.text = data
-         //   }
             do {
                 let inputData = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [String: String]
-             
-              //  self?.testLabel.text = "\(inputData[0]) \(inputData[1]) \(inputData[2]) \(inputData[3])"
                 self?.friendNameLabel.text = inputData?["name"]
                 self?.leftOrRightHandSettings(hand: self?.handType ?? HandTypes.humanHand.rawValue, shake: inputData?["shakeType"] ?? HandShakeTypes.handShake1.rawValue, leftHand: false)
                 self?.leftOrRightHandSettings(hand: inputData?["handType"] ?? HandTypes.humanHand.rawValue, shake: inputData?["shakeType"] ?? HandShakeTypes.handShake1.rawValue, leftHand: true)
                 self?.friendName = inputData?["name"]
-              //  self?.shakeType = inputData[3]
                 self?.friendHandType = inputData?["handType"] ?? HandTypes.humanHand.rawValue
                 self?.friendShakeType = inputData?["shakeType"] ?? HandShakeTypes.handShake1.rawValue
                 self?.handShake(shakeType: inputData?["shakeType"] ?? HandShakeTypes.handShake1.rawValue)
@@ -389,19 +342,15 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
     func leftOrRightHandSettings(hand: String, shake: String, leftHand: Bool) {
         switch hand {
         case HandTypes.humanHand.rawValue where shake == HandShakeTypes.handShake1.rawValue:
-            //@
             leftHand ? (handImage.image = UIImage(named: LeftHandImages.leftHumanHand.rawValue)) : (secondHandImage.image = UIImage(named: RightHandImages.rightHumanHand.rawValue))
         case HandTypes.humanHand.rawValue where shake == HandShakeTypes.handShake2.rawValue:
-            //@
             leftHand ? (handImage.image = UIImage(named: LeftHandImages.leftHumanFistV1.rawValue)) : (secondHandImage.image = UIImage(named: RightHandImages.rightHumanFistV1.rawValue))
         case HandTypes.humanHand.rawValue where shake == HandShakeTypes.handShake3.rawValue:
-            //@
             leftHand ? (handImage.image = UIImage(named: LeftHandImages.leftHumanFistV2.rawValue)) : (secondHandImage.image = UIImage(named: RightHandImages.rightHumanFistV2.rawValue))
         case HandTypes.womanHand.rawValue where shake == HandShakeTypes.handShake1.rawValue:
             leftHand ? (handImage.image = UIImage(named: LeftHandImages.leftWomanHand.rawValue)) : (secondHandImage.image = UIImage(named: RightHandImages.rightWomanHand.rawValue))
         case HandTypes.womanHand.rawValue where shake == HandShakeTypes.handShake2.rawValue:
             leftHand ? (handImage.image = UIImage(named: LeftHandImages.leftWomanFistV1.rawValue)) : (secondHandImage.image = UIImage(named: RightHandImages.rightWomanFistV1.rawValue))
-            //v2
         case HandTypes.womanHand.rawValue where shake == HandShakeTypes.handShake3.rawValue:
             leftHand ? (handImage.image = UIImage(named: LeftHandImages.leftWomanFistV2.rawValue)) : (secondHandImage.image = UIImage(named: RightHandImages.rightWomanFistV2.rawValue))
         case HandTypes.zombieHand.rawValue where shake == HandShakeTypes.handShake1.rawValue:
@@ -414,49 +363,38 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
             leftHand ? (handImage.image = UIImage(named: LeftHandImages.leftRobotHand.rawValue)) : (secondHandImage.image = UIImage(named: RightHandImages.rightRobotHand.rawValue))
         case HandTypes.robotHand.rawValue where shake == HandShakeTypes.handShake2.rawValue:
             leftHand ?  (handImage.image = UIImage(named: LeftHandImages.leftRobotFistV1.rawValue)) : (secondHandImage.image = UIImage(named: RightHandImages.rightRobotFistV1.rawValue))
-            //v2
         case HandTypes.robotHand.rawValue where shake == HandShakeTypes.handShake3.rawValue:
             leftHand ? (handImage.image = UIImage(named: LeftHandImages.leftRobotFistV2.rawValue)) : (secondHandImage.image = UIImage(named: RightHandImages.rightRobotFistV2.rawValue))
         case HandTypes.alienHand.rawValue where shake == HandShakeTypes.handShake1.rawValue:
             leftHand ? (handImage.image = UIImage(named: LeftHandImages.leftAlienHand.rawValue)) : (secondHandImage.image = UIImage(named: RightHandImages.rightAlienHand.rawValue))
         case HandTypes.alienHand.rawValue where shake == HandShakeTypes.handShake2.rawValue:
             leftHand ? (handImage.image = UIImage(named: LeftHandImages.leftAlienFistV1.rawValue)) : (secondHandImage.image = UIImage(named: RightHandImages.rightAlienFistV1.rawValue))
-            //v2
         case HandTypes.alienHand.rawValue where shake  == HandShakeTypes.handShake3.rawValue:
             leftHand ? (handImage.image = UIImage(named: LeftHandImages.leftAlienFistV2.rawValue)) : (secondHandImage.image = UIImage(named: RightHandImages.rightAlienFistV2.rawValue))
         case HandTypes.scullHand.rawValue where shake == HandShakeTypes.handShake1.rawValue:
             leftHand ? (handImage.image = UIImage(named: LeftHandImages.leftScullHand.rawValue)) : (secondHandImage.image = UIImage(named: RightHandImages.rightScullHand.rawValue))
         case HandTypes.scullHand.rawValue where shake == HandShakeTypes.handShake2.rawValue:
             leftHand ? (handImage.image = UIImage(named: LeftHandImages.leftScullFistV1.rawValue)) : (secondHandImage.image = UIImage(named: RightHandImages.rightScullFistV1.rawValue))
-            //v2
         case HandTypes.scullHand.rawValue where shake == HandShakeTypes.handShake3.rawValue:
             leftHand ? (handImage.image = UIImage(named: LeftHandImages.leftScullFistV2.rawValue)) : (secondHandImage.image = UIImage(named: RightHandImages.rightScullFistV2.rawValue))
         default:
             print("unknown type in func left or right hand \(hand) \(shake) \(leftHand)")
         }
-        
-       
-        
-        
     }
     
     //incoming request
     func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
-        let ac = UIAlertController(title: "Connection Request", message: "User: \(peerID.displayName) is requesting to join the network.", preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "Allow", style: .default) {[weak self] action in
+        let ac = UIAlertController(title: NSLocalizedString("ConnectionRequestMVC", comment: "title for ac confirming connection request"), message: "\(NSLocalizedString("UserMVC", comment: "User"))\(peerID.displayName) \(NSLocalizedString("ActionFromUserMVC", comment: "ask for confirmation"))", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: NSLocalizedString("AllowMVC", comment: "Allow access"), style: .default) {[weak self] action in
                 invitationHandler(true, self?.mcSession)
                 })
-            ac.addAction(UIAlertAction(title: "Deny", style: .cancel) {[weak self] action in
+        ac.addAction(UIAlertAction(title: NSLocalizedString("DenyMVC", comment: "Deny access"), style: .cancel) {[weak self] action in
                 invitationHandler(false, self?.mcSession)
                 })
         ac.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor.backgroundColorSet()
-
         ac.view.tintColor = UIColor.friendLabelColorSet()
             present(ac, animated: true)
     }
-    
-    //Connection button
-    //кнопка срабатывает только при заполнении имени либо сделать словарь по умолчанию + добавить кнопку отключения от сети.
     
     @objc func actionForConnectButton(gest: UILongPressGestureRecognizer) {
         if gest.state == .began {
@@ -465,17 +403,16 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
             shadowChangeByEnded(verticalDarkShadow: verticalDarkShadowForConnectButton, horizontalDarkShadow: horizontalDarkShadowForConnectButton, verticalLightShadow: verticalLightShadowForConnectButton, horizontalLightShadow: horizontalLightShadowForConnectButton)
             if userName != nil {
                 mcSessionConfig()
-                let ac = UIAlertController(title: "Connect View", message: nil, preferredStyle: .alert)
-                ac.addAction(UIAlertAction(title: "Start Hosting", style: .default, handler: startHosting))
-                ac.addAction(UIAlertAction(title: "Join Session", style: .default, handler: joinSession))
-                ac.addAction(UIAlertAction(title: "Stop Session", style: .default, handler: stopNetwork))
-                ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+                let ac = UIAlertController(title: NSLocalizedString("ConnectViewMVC", comment: "Network options"), message: nil, preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: NSLocalizedString("StartSessionMVC", comment: "Start network session"), style: .default, handler: startHosting))
+                ac.addAction(UIAlertAction(title: NSLocalizedString("JoinSessionMVC", comment: "Join current network session"), style: .default, handler: joinSession))
+                ac.addAction(UIAlertAction(title: NSLocalizedString("StopSessionMVC", comment: "Stop current session and go to offline mode"), style: .default, handler: stopNetwork))
+                ac.addAction(UIAlertAction(title: NSLocalizedString("CancelMVC", comment: "Cancel"), style: .cancel))
                 ac.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor.backgroundColorSet()
-
                 ac.view.tintColor = UIColor.friendLabelColorSet()
                 present(ac, animated: true)
             } else {
-                let ac = UIAlertController(title: "Warning", message: "Please enter your name to enter online mode", preferredStyle: .alert)
+                let ac = UIAlertController(title: NSLocalizedString("WarningMVC", comment: "Warning"), message: NSLocalizedString("WarningMessageAboutNameMVC", comment: "Message"), preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "Ok", style: .cancel))
                 ac.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor.backgroundColorSet()
                 ac.view.tintColor = UIColor.friendLabelColorSet()
@@ -490,7 +427,6 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
         friendShakeType = nil
         friendHandType =  nil
         friendName = nil
-        
     }
     
     func mcSessionConfig() {
@@ -515,29 +451,20 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
     }
     
     func sendData() {
-        //?
         guard let mcSession = mcSession else { return }
         if mcSession.connectedPeers.count > 0 {
-            //?
-        //    if let dataToSend = stringVar.data(using: .utf8){
-             //   print(dataToSend)
-          //  let stringVar = [userName, greeting, handType, shakeType]
             let dictToSend = ["name": userName, "greeting": greeting, "handType": handType, "shakeType": shakeType]
-            print(dictToSend.description)
-            print(dictToSend)
             do {
                 let dataToSend = try NSKeyedArchiver.archivedData(withRootObject: dictToSend, requiringSecureCoding: false)
                 
                 try mcSession.send(dataToSend, toPeers: mcSession.connectedPeers, with: .reliable)
             } catch {
-                let ac = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+                let ac = UIAlertController(title: NSLocalizedString("ErrorMVC", comment: "Error message"), message: error.localizedDescription, preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "Ok", style: .cancel))
                 ac.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor.backgroundColorSet()
-
                 ac.view.tintColor = UIColor.friendLabelColorSet()
                 present(ac, animated: true)
             }
-           // }
         }
     }
     
@@ -547,32 +474,23 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
             shadowChangeByBegan(verticalDarkShadow: verticalDarkShadowForInfoButton, horizontalDarkShadow: horizontalDarkShadowForInfoButton, verticalLightShadow: verticalLightShadowForInfoButton, horizontalLightShadow: horizontalLightShadowForInfoButton)
         } else if gest.state == .ended {
             shadowChangeByEnded(verticalDarkShadow: verticalDarkShadowForInfoButton, horizontalDarkShadow: horizontalDarkShadowForInfoButton, verticalLightShadow: verticalLightShadowForInfoButton, horizontalLightShadow: horizontalLightShadowForInfoButton)
-            
             if let vc = storyboard?.instantiateViewController(withIdentifier: "Info") as? InfoViewController {
                 present(vc, animated: true)
             }
         }
     }
     
-    
     //HandTypeCVC
-    
     @objc func actionForHandTypeButton(gest: UILongPressGestureRecognizer) {
         if gest.state == .began {
             shadowChangeByBegan(verticalDarkShadow: verticalDarkShadowForHandTypeButton, horizontalDarkShadow: horizontalDarkShadowForHandTypeButton, verticalLightShadow: verticalLightShadowForHandTypeButton, horizontalLightShadow: horizontalLightShadowForHandTypeButton)
         } else if gest.state == .ended {
             shadowChangeByEnded(verticalDarkShadow: verticalDarkShadowForHandTypeButton, horizontalDarkShadow: horizontalDarkShadowForHandTypeButton, verticalLightShadow: verticalLightShadowForHandTypeButton, horizontalLightShadow: horizontalLightShadowForHandTypeButton)
-           
             performSegue(withIdentifier: "handTypeSegue", sender: self)
         }
     }
     
-    //скорректировать момент, что в случае наличия соединения меняется только правая рука плюс не менять тип рукопожатия
-    
-   
     func handTypeTransferWithProtocol(data: String) {
-     //   guard let mcSession = mcSession else { return }
-        // if mcSession.connectedPeers.count > 0
         handType = data
         autoShakeTypeChooser(fromHandTypeCollectionView: true)
         handTypeShowView.image = UIImage(named: "\(handType)")
@@ -594,15 +512,12 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
     }
     
     //HandShakeCVC
-    
     @objc func actionForShakeTypeButton(gest: UILongPressGestureRecognizer) {
         if gest.state == .began {
             shadowChangeByBegan(verticalDarkShadow: verticalDarkShadowForShakeTypeButton, horizontalDarkShadow: horizontalDarkShadowForShakeTypeButton, verticalLightShadow: verticalLightShadowForShakeTypeButton, horizontalLightShadow: horizontalLightShadowForShakeTypeButton)
         } else if gest.state == .ended {
             shadowChangeByEnded(verticalDarkShadow: verticalDarkShadowForShakeTypeButton, horizontalDarkShadow: horizontalDarkShadowForShakeTypeButton, verticalLightShadow: verticalLightShadowForShakeTypeButton, horizontalLightShadow: horizontalLightShadowForShakeTypeButton)
-            
             performSegue(withIdentifier: "shakeTypeSegue", sender: self)
-            //sending type of hand ?
         }
     }
     
@@ -618,30 +533,18 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
     @objc func actionForActionButton(gest: UILongPressGestureRecognizer) {
         if gest.state == .began {
             shadowChangeByBegan(verticalDarkShadow: verticalDarkShadowForActionButton, horizontalDarkShadow: horizontalDarkShadowForActionButton, verticalLightShadow: verticalLightShadowForActionButton, horizontalLightShadow: horizontalLightShadowForActionButton)
-            
         } else if gest.state == .ended {
             shadowChangeByEnded(verticalDarkShadow: verticalDarkShadowForActionButton, horizontalDarkShadow: horizontalDarkShadowForActionButton, verticalLightShadow: verticalLightShadowForActionButton, horizontalLightShadow: horizontalLightShadowForActionButton)
-            
             if online {
                 guard let mcSession = mcSession else { return }
-                    if mcSession.connectedPeers.count > 0 {
-                        leftOrRightHandSettings(hand: friendHandType ?? HandTypes.humanHand.rawValue, shake: shakeType, leftHand: true)
+                if mcSession.connectedPeers.count > 0 {
+                    leftOrRightHandSettings(hand: friendHandType ?? HandTypes.humanHand.rawValue, shake: shakeType, leftHand: true)
                     leftOrRightHandSettings(hand: handType, shake: shakeType, leftHand: false)
-                    }
                 }
-            
-            
+            }
             sendData()
             handShake(shakeType: shakeType)
         }
-    }
-    
-    //ActionCVC
-    //? not used still animation settings
-    @IBAction func actionTapped(_ sender: Any) {
-       // handShake()
-        print(handType)
-        print(shakeType)
     }
     
     //Animation
@@ -697,8 +600,6 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
             self.horizontalDarkShadowForGreetingsTextField.isHidden = true
             self.verticalDarkShadowForGreetingsTextField.isHidden = true
             
-            
-
         } completion: { [weak handImage, weak secondHandImage] completed in
             guard completed, let leftHand = handImage, let rightHand = secondHandImage else { return }
             
@@ -720,6 +621,7 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
                 
             } completion: { [weak handImage, weak secondHandImage]completed in
                 guard completed, let leftHand = handImage, let rightHand = secondHandImage else { return }
+                
                 //animation for different type of shakes
                 switch shakeType {
                 //Hand Shake 1
@@ -951,28 +853,21 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
     }
     
     func autoShakeTypeChooser(fromHandTypeCollectionView: Bool) {
-        
         switch handType {
         case HandTypes.humanHand.rawValue where shakeType == HandShakeTypes.handShake1.rawValue:
-            //@
             handImage.image = UIImage(named: LeftHandImages.leftHumanHand.rawValue)
-            //@
             secondHandImage.image = UIImage(named: RightHandImages.rightHumanHand.rawValue)
             if fromHandTypeCollectionView {
                 shakeTypeShowView.image = UIImage(named: HandShakeTypeImages.humanHandShake1.rawValue)
             }
         case HandTypes.humanHand.rawValue where shakeType == HandShakeTypes.handShake2.rawValue:
-            //@
             handImage.image = UIImage(named: LeftHandImages.leftHumanFistV1.rawValue)
-            //@
             secondHandImage.image = UIImage(named: RightHandImages.rightHumanFistV1.rawValue)
             if fromHandTypeCollectionView {
                 shakeTypeShowView.image = UIImage(named: HandShakeTypeImages.humanHandShake2.rawValue)
             }
         case HandTypes.humanHand.rawValue where shakeType == HandShakeTypes.handShake3.rawValue:
-            //@
             handImage.image = UIImage(named: LeftHandImages.leftHumanFistV2.rawValue)
-            //@
             secondHandImage.image = UIImage(named: RightHandImages.rightHumanFistV2.rawValue)
             if fromHandTypeCollectionView {
                 shakeTypeShowView.image = UIImage(named: HandShakeTypeImages.humanHandShake3.rawValue)
@@ -989,7 +884,6 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
             if fromHandTypeCollectionView {
                 shakeTypeShowView.image = UIImage(named: HandShakeTypeImages.womanHandShake2.rawValue)
             }
-            //v2
         case HandTypes.womanHand.rawValue where shakeType == HandShakeTypes.handShake3.rawValue:
             handImage.image = UIImage(named: LeftHandImages.leftWomanFistV2.rawValue)
             secondHandImage.image = UIImage(named: RightHandImages.rightWomanFistV2.rawValue)
@@ -1026,7 +920,6 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
             if fromHandTypeCollectionView {
                 shakeTypeShowView.image = UIImage(named: HandShakeTypeImages.robotHandShake2.rawValue)
             }
-            //v2
         case HandTypes.robotHand.rawValue where shakeType == HandShakeTypes.handShake3.rawValue:
             handImage.image = UIImage(named: LeftHandImages.leftRobotFistV2.rawValue)
             secondHandImage.image = UIImage(named: RightHandImages.rightRobotFistV2.rawValue)
@@ -1045,7 +938,6 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
             if fromHandTypeCollectionView {
                 shakeTypeShowView.image = UIImage(named: HandShakeTypeImages.alienHandShake2.rawValue)
             }
-            //v2
         case HandTypes.alienHand.rawValue where shakeType == HandShakeTypes.handShake3.rawValue:
             handImage.image = UIImage(named: LeftHandImages.leftAlienFistV2.rawValue)
             secondHandImage.image = UIImage(named: RightHandImages.rightAlienFistV2.rawValue)
@@ -1064,7 +956,6 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
             if fromHandTypeCollectionView {
                 shakeTypeShowView.image = UIImage(named: HandShakeTypeImages.scullHandShake2.rawValue)
             }
-            //v2
         case HandTypes.scullHand.rawValue where shakeType == HandShakeTypes.handShake3.rawValue:
             handImage.image = UIImage(named: LeftHandImages.leftScullFistV2.rawValue)
             secondHandImage.image = UIImage(named: RightHandImages.rightScullFistV2.rawValue)
@@ -1074,9 +965,6 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
         default:
             print("unknown")
         }
-        
-        
     }
-    
 }
 

@@ -15,9 +15,10 @@ extension UIColor {
     static let mainBackgroundLightColor = UIColor.init(red: 0.639, green: 0.867, blue: 0.796, alpha: 1)
     static let showViewLightColor = UIColor.init(red: 0.086, green: 0.647, blue: 0.588, alpha: 1)
     static let buttonLightColor = UIColor.init(red: 0.251, green: 0.616, blue: 0.608, alpha: 1)
-    static let textFieldLightColor = UIColor.init(red: 1.000, green: 0.800, blue: 0.161, alpha: 1)
     
+    static let textFieldLightColor = UIColor.init(red: 1.000, green: 0.800, blue: 0.161, alpha: 1)
     static let textfieldTextLightColor = UIColor.init(red: 0.231, green: 0.325, blue: 0.376, alpha: 1)
+    
     static let friendNameLabelTextLightColor = UIColor.init(red: 1.000, green: 0.086, blue: 0.365, alpha: 1)
     static let userNameLabelTextLightColor = UIColor.init(red: 0.012, green: 0.314, blue: 0.435, alpha: 1)
     
@@ -28,15 +29,14 @@ extension UIColor {
     //with shadow
     static let infoTextLightColor2 = UIColor.init(red: 0.086, green: 0.529, blue: 0.655, alpha: 1)
     
-    static let shadowLightColor = UIColor.init(red: 0.000, green: 0.345, blue: 0.478, alpha: 1)
-   
     //dark
     static let mainBackgroundDarkColor = UIColor.init(red: 0.133, green: 0.157, blue: 0.192, alpha: 1)
     static let showViewDarkColor = UIColor.init(red: 0.271, green: 0.365, blue: 0.478, alpha: 1)
     static let buttonDarkColor = UIColor.init(red: 0.000, green: 0.345, blue: 0.478, alpha: 1)
-    static let textFieldDarkColor = UIColor.init(red: 0.769, green: 0.929, blue: 0.871, alpha: 1)
     
+    static let textFieldDarkColor = UIColor.init(red: 0.769, green: 0.929, blue: 0.871, alpha: 1)
     static let textfieldTetxDarkColor = UIColor.init(red: 0.247, green: 0.478, blue: 0.612, alpha: 1)
+    
     static let userNameLabelTextDarkColor = UIColor.init(red: 0.933, green: 0.933, blue: 0.933, alpha: 1)
     static let friendNameLabelTextDarkColor = UIColor.init(red: 0.996, green: 0.804, blue: 0.102, alpha: 1)
     static let messageDarkColor = UIColor.init(red: 0.000, green: 0.345, blue: 0.478, alpha: 1)
@@ -46,14 +46,11 @@ extension UIColor {
     //info ? shadow
     static let infoTextDarkColor2 = UIColor.init(red: 0.918, green: 0.592, blue: 0.678, alpha: 1)
     
-    
     static let tintColorForAlertController = UIColor.init(red: 0.227, green: 0.565, blue: 0.498, alpha: 1)
-    static let tintColorForAlertController1 = UIColor.init(red: 0.118, green: 0.310, blue: 0.271, alpha: 1)
     
     static func backgroundColorSet() -> UIColor {
         if #available(iOS 13, *) {
             return UIColor.init { (trait) -> UIColor in
-                // the color can be from your own color config struct as well.
                 return trait.userInterfaceStyle == .dark ? UIColor.mainBackgroundDarkColor : UIColor.mainBackgroundLightColor
             }
         }
@@ -63,7 +60,6 @@ extension UIColor {
     static func showViewColorSet() -> UIColor {
         if #available(iOS 13, *) {
             return UIColor.init { (trait) -> UIColor in
-                // the color can be from your own color config struct as well.
                 return trait.userInterfaceStyle == .dark ? UIColor.showViewDarkColor : UIColor.showViewLightColor
             }
         }
@@ -73,7 +69,6 @@ extension UIColor {
     static func buttonColorSet() -> UIColor {
         if #available(iOS 13, *) {
             return UIColor.init { (trait) -> UIColor in
-                // the color can be from your own color config struct as well.
                 return trait.userInterfaceStyle == .dark ? UIColor.buttonDarkColor : UIColor.buttonLightColor
             }
         }
@@ -83,7 +78,6 @@ extension UIColor {
     static func textFieldColorSet() -> UIColor {
         if #available(iOS 13, *) {
             return UIColor.init { (trait) -> UIColor in
-                // the color can be from your own color config struct as well.
                 return trait.userInterfaceStyle == .dark ? UIColor.textFieldDarkColor : UIColor.textFieldLightColor
             }
         }
@@ -93,7 +87,6 @@ extension UIColor {
     static func textFieldTextColorSet() -> UIColor {
         if #available(iOS 13, *) {
             return UIColor.init { (trait) -> UIColor in
-                // the color can be from your own color config struct as well.
                 return trait.userInterfaceStyle == .dark ? UIColor.textfieldTetxDarkColor : UIColor.textfieldTextLightColor
             }
         }
@@ -103,17 +96,15 @@ extension UIColor {
     static func shadowColorSet() -> UIColor {
         if #available(iOS 13, *) {
             return UIColor.init { (trait) -> UIColor in
-                // the color can be from your own color config struct as well.
-                return trait.userInterfaceStyle == .dark ? UIColor.black : UIColor.white
+                return trait.userInterfaceStyle == .dark ? UIColor.black : UIColor.textFieldDarkColor
             }
         }
-        else { return UIColor.white }
+        else { return UIColor.textFieldDarkColor }
     }
     
     static func messageColorSet() -> UIColor {
         if #available(iOS 13, *) {
             return UIColor.init { (trait) -> UIColor in
-                // the color can be from your own color config struct as well.
                 return trait.userInterfaceStyle == .dark ? UIColor.messageDarkColor : UIColor.messageLightColor
             }
         }
@@ -123,7 +114,6 @@ extension UIColor {
     static func infoColor1Set() -> UIColor {
         if #available(iOS 13, *) {
             return UIColor.init { (trait) -> UIColor in
-                // the color can be from your own color config struct as well.
                 return trait.userInterfaceStyle == .dark ? UIColor.infoTextDarkColor1 : UIColor.infoTextLightColor1
             }
         }
@@ -133,7 +123,6 @@ extension UIColor {
     static func infoColor2Set() -> UIColor {
         if #available(iOS 13, *) {
             return UIColor.init { (trait) -> UIColor in
-                // the color can be from your own color config struct as well.
                 return trait.userInterfaceStyle == .dark ? UIColor.infoTextDarkColor2 : UIColor.infoTextLightColor2
             }
         }
@@ -143,7 +132,6 @@ extension UIColor {
     static func friendLabelColorSet() -> UIColor {
         if #available(iOS 13, *) {
             return UIColor.init { (trait) -> UIColor in
-                // the color can be from your own color config struct as well.
                 return trait.userInterfaceStyle == .dark ? UIColor.friendNameLabelTextDarkColor : UIColor.friendNameLabelTextLightColor
             }
         }
@@ -153,7 +141,6 @@ extension UIColor {
     static func userLabelColorSet() -> UIColor {
         if #available(iOS 13, *) {
             return UIColor.init { (trait) -> UIColor in
-                // the color can be from your own color config struct as well.
                 return trait.userInterfaceStyle == .dark ? UIColor.userNameLabelTextDarkColor : UIColor.userNameLabelTextLightColor
             }
         }

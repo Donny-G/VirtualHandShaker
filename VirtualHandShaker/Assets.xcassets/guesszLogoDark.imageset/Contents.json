@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "scale" : "1x",
+      "idiom" : "universal",
+      "filename" : "guesszLogoDark~universal@1x.png"
+    },
+    {
+      "scale" : "2x",
+      "filename" : "guesszLogoDark~universal@2x.png",
+      "idiom" : "universal"
+    },
+    {
+      "filename" : "guesszLogoDark~universal@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  }
+}

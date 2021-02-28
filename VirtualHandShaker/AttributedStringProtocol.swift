@@ -16,9 +16,6 @@ extension AttributedString where Self: UIViewController {
     
     func addAttributesToNameLabel(string: String, color: UIColor)-> NSAttributedString {
         let font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight(rawValue: 5))
-       // let shadow = NSShadow()
-      //  shadow.shadowColor = UIColor.shadowColorSet()
-       // shadow.shadowOffset = CGSize(width: 2, height: 2)
         let attributes: [NSAttributedString.Key: Any] = [.font: font, .foregroundColor: color]
         return NSAttributedString(string: string, attributes: attributes)
     }
@@ -43,4 +40,16 @@ extension AttributedString where Self: UIViewController {
         let attributes: [NSAttributedString.Key: Any] = [.font: font, .foregroundColor: color, .paragraphStyle: paragraphStyle, .shadow: shadow]
         return NSAttributedString(string: string, attributes: attributes)
     }
+    
+    func addAttributesToDescriptionLarge(string: String, color: UIColor)-> NSAttributedString {
+        let font = UIFont.systemFont(ofSize: 35, weight: UIFont.Weight(rawValue: 5))
+        let shadow = NSShadow()
+        shadow.shadowColor = UIColor.shadowColorSet()
+        shadow.shadowOffset = CGSize(width: 2, height: 2)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        let attributes: [NSAttributedString.Key: Any] = [.font: font, .foregroundColor: color, .paragraphStyle: paragraphStyle, .shadow: shadow]
+        return NSAttributedString(string: string, attributes: attributes)
+    }
+    
 }
