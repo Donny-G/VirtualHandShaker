@@ -145,11 +145,10 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
         greetingsTextField.textColor = UIColor.textFieldTextColorSet()
         nameTextField.font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight(5))
         nameTextField.textColor = UIColor.textFieldTextColorSet()
-        
-        nameTextField.placeholder = NSLocalizedString("NamePlaceHolderMVC", comment: "text for nameTextField placeholder")
+        nameTextField.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("NamePlaceHolderMVC", comment: "text for nameTextField placeholder"), attributes: [NSAttributedString.Key.foregroundColor: UIColor.textFieldPlaceholderColorSet().withAlphaComponent(0.6)])
         nameTextField.delegate = self
         
-        greetingsTextField.placeholder = NSLocalizedString("GreetingsPlaceHolderMVC", comment: "text for greetingsTextfield placeholder")
+        greetingsTextField.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("GreetingsPlaceHolderMVC", comment: "text for greetingsTextfield placeholder"), attributes: [NSAttributedString.Key.foregroundColor: UIColor.textFieldPlaceholderColorSet().withAlphaComponent(0.6)])
         greetingsTextField.delegate = self
         
         customConnectButton.image = UIImage(named: "connect5")

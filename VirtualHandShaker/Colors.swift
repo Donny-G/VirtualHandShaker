@@ -18,6 +18,7 @@ extension UIColor {
     
     static let textFieldLightColor = UIColor.init(red: 1.000, green: 0.800, blue: 0.161, alpha: 1)
     static let textfieldTextLightColor = UIColor.init(red: 0.231, green: 0.325, blue: 0.376, alpha: 1)
+    static let textfieldPlaceholderLightColor = UIColor.init(red: 0.231, green: 0.325, blue: 0.376, alpha: 1)
     
     static let friendNameLabelTextLightColor = UIColor.init(red: 1.000, green: 0.086, blue: 0.365, alpha: 1)
     static let userNameLabelTextLightColor = UIColor.init(red: 0.012, green: 0.314, blue: 0.435, alpha: 1)
@@ -36,6 +37,7 @@ extension UIColor {
     
     static let textFieldDarkColor = UIColor.init(red: 0.769, green: 0.929, blue: 0.871, alpha: 1)
     static let textfieldTetxDarkColor = UIColor.init(red: 0.247, green: 0.478, blue: 0.612, alpha: 1)
+    static let textfieldPlaceholderDarkColor = UIColor.init(red: 0.247, green: 0.478, blue: 0.612, alpha: 1)
     
     static let userNameLabelTextDarkColor = UIColor.init(red: 0.933, green: 0.933, blue: 0.933, alpha: 1)
     static let friendNameLabelTextDarkColor = UIColor.init(red: 0.996, green: 0.804, blue: 0.102, alpha: 1)
@@ -85,6 +87,15 @@ extension UIColor {
     }
     
     static func textFieldTextColorSet() -> UIColor {
+        if #available(iOS 13, *) {
+            return UIColor.init { (trait) -> UIColor in
+                return trait.userInterfaceStyle == .dark ? UIColor.textfieldTetxDarkColor : UIColor.textfieldTextLightColor
+            }
+        }
+        else { return UIColor.textfieldTextLightColor }
+    }
+    
+    static func textFieldPlaceholderColorSet() -> UIColor {
         if #available(iOS 13, *) {
             return UIColor.init { (trait) -> UIColor in
                 return trait.userInterfaceStyle == .dark ? UIColor.textfieldTetxDarkColor : UIColor.textfieldTextLightColor
