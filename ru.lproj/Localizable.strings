@@ -11,10 +11,10 @@
 "FriendMVC" = "Друг";
 "ConnectionRequestMVC" = "Входящий запрос на соединение";
 "UserMVC" = "Пользователь: ";
-"ActionFromUserMVC" = "просит разрешение на подключение к сети HiStance";
+"ActionFromUserMVC" = "просит разрешение на подключение к сети HelloStance";
 "AllowMVC" = "Разрешить";
 "DenyMVC" = "Отклонить";
-"ConnectViewMVC" = "HiStance сетевые параметры";
+"ConnectViewMVC" = "HelloStance сетевые параметры";
 "StartSessionMVC" = "Запустить сетевой сеанс";
 "JoinSessionMVC" = "Присоединиться к сетевому сеансу";
 "StopSessionMVC" = "Остановить текущий сетевой сеанс";
@@ -22,7 +22,7 @@
 "WarningMVC" = "Внимание";
 "WarningMessageAboutNameMVC" = "Пожалуйста, укажите имя для включения сетевого режима";
 "ErrorMVC" = "Ошибка, что-то пошло не так";
-"ConnectButtonDescriptionIVC" = "Нажмите эту кнопку для доступа к сетевым параметрам HiStance для включения сетевого режима";
+"ConnectButtonDescriptionIVC" = "Нажмите эту кнопку для доступа к сетевым параметрам HelloStance для включения сетевого режима";
 "NetworkOptionsIVC" = "Запустите сетевой сеанс на одном устройстве. Присоединитесь к этому сетевому сеансу на другом устройстве, выбрав его имя в списке.";
 "HandTypeDescriptionIVC" = "Нажмите эту кнопку для выбора вида руки";
 "ShakeTypeDEscriptionIVC" = "Нажмите эту кнопку для выбора вида рукопожатия.";

@@ -14,7 +14,7 @@
 "ActionFromUserMVC" = "is requesting to join the app network.";
 "AllowMVC" = "Allow";
 "DenyMVC" = "Deny";
-"ConnectViewMVC" = "HiStance network options";
+"ConnectViewMVC" = "HelloStance network options";
 "StartSessionMVC" = "Start Session";
 "JoinSessionMVC" = "Join Session";
 "StopSessionMVC" = "Stop Session";
@@ -22,7 +22,7 @@
 "WarningMVC" = "Warning";
 "WarningMessageAboutNameMVC" = "Please enter your name to access online mode";
 "ErrorMVC" = "Error, something get wrong";
-"ConnectButtonDescriptionIVC" = "Press this button to get access to HiStance network options for online mode";
+"ConnectButtonDescriptionIVC" = "Press this button to get access to HelloStance network options for online mode";
 "NetworkOptionsIVC" = "Start a session on one device. Join the session on another device, by clicking the name";
 "HandTypeDescriptionIVC" = "Press this button to change type of hand";
 "ShakeTypeDEscriptionIVC" = "Press this button to change type of handshake";

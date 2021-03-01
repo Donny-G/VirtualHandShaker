@@ -20,6 +20,13 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_social-distance._tcp</string>
+		<string>_social-distance._udp</string>
+	</array>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>connect to peers</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -53,18 +60,9 @@
 	<false/>
 	<key>UIStatusBarHidden</key>
 	<false/>
-	<key>NSLocalNetworkUsageDescription</key>
-	<string>connect to peers</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>NSBonjourServices</key>
-	<array>
-		<string>_social-distance._tcp</string>
-		<string>_social-distance._udp</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
