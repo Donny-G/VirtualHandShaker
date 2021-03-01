@@ -266,6 +266,7 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
         if let name = nameTextField.text {
             if !name.isEmpty {
             userName = name
+            userNameLabel.attributedText = addAttributesToNameLabel(string: userName ?? "User", color: UIColor.userLabelColorSet())
             defaults.set(userName, forKey: "userName")
             } else {
                 userName = nil
@@ -558,9 +559,9 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
             
             self.customInfoButton.transform = CGAffineTransform(translationX: self.infoButtonTrailingConstraint.constant + 300, y: self.infoButtonTopConstraint.constant - 300)
             
-            self.handTypeShowView.transform = CGAffineTransform(translationX: self.handTypeLeadingConstraint.constant - 500, y: 0)
+            self.handTypeShowView.transform = CGAffineTransform(translationX: self.handTypeLeadingConstraint.constant - 1500, y: 0)
             
-            self.shakeTypeShowView.transform = CGAffineTransform(translationX: self.shakeTypeTrailingConstraint.constant + 500, y: 0)
+            self.shakeTypeShowView.transform = CGAffineTransform(translationX: self.shakeTypeTrailingConstraint.constant + 1500, y: 0)
             
             self.customActionButton.transform = CGAffineTransform(translationX: self.view.frame.maxX, y: self.view.frame.maxY)
             //for correct shadow show
@@ -849,6 +850,9 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
         self.horizontalLightShadowForGreetingsTextField.isHidden = false
         self.horizontalDarkShadowForGreetingsTextField.isHidden = false
         self.verticalDarkShadowForGreetingsTextField.isHidden = false
+        //solution for bug with online mode
+        self.view.setNeedsLayout()
+        self.view.layoutIfNeeded()
     }
     
     func autoShakeTypeChooser(fromHandTypeCollectionView: Bool) {
