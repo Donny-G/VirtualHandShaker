@@ -221,7 +221,7 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
     //solution for problem with shadows and autolayout
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        //Update you're layer based on the new frame
+        //Update layer based on the new frame
         addShadowForActiveView(yourView: nameTextField, verticalLightShadow: verticalLightShadowForNameTextField, horizontalLightShadow: horizontalLightShadowForNameTextField, horizontalDarkShadow: horizontalDarkShadowForNameTextField, verticalDarkShadow: verticalDarkShadowForNameTextField, color: UIColor.textFieldColorSet())
         
         addShadowForActiveView(yourView: greetingsLabel, verticalLightShadow: verticalLightShadowForGreetingsTextLabel, horizontalLightShadow: horizontalLightShadowForGreetingsTextLabel, horizontalDarkShadow: horizontalDarkShadowForGreetingsTextLabel, verticalDarkShadow: verticalDarkShadowForGreetingsTextLabel, color: UIColor.textFieldColorSet())
@@ -291,7 +291,7 @@ class ViewController: UIViewController, MCSessionDelegate, MCBrowserViewControll
         return true
     }
     
-    //unused funcs
+    //unused
     func browserViewControllerDidFinish(_ browserViewController: MCBrowserViewController) {
         dismiss(animated: true)
     }
